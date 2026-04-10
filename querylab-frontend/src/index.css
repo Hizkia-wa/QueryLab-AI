@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+@layer base {
+  html, body, #root {
+    @apply w-full m-0 p-0 overflow-x-hidden bg-[#f8fafc] text-slate-900 font-sans;
+  }
+}
+
+@layer components {
+  /* Layout Helpers */
+  .container-full { @apply w-full px-6 lg:px-12; }
+  .container-center { @apply max-w-7xl mx-auto; }
+
+  /* Navbar Styles */
+  .nav-base { @apply fixed w-full z-50 transition-all duration-300 flex justify-between items-center; }
+  .nav-scrolled { @apply bg-white/90 backdrop-blur-md shadow-md py-3; }
+  .nav-top { @apply bg-transparent py-5; }
+
+  /* Button Styles */
+  .btn-primary { @apply px-8 py-4 bg-indigo-600 text-white rounded-2xl font-bold shadow-lg shadow-indigo-200 hover:bg-indigo-700 hover:scale-105 transition-all flex items-center gap-2; }
+  .btn-secondary { @apply px-8 py-4 bg-white text-slate-700 border border-slate-200 rounded-2xl font-bold hover:bg-slate-50 transition-all shadow-sm; }
+  .btn-outline { @apply px-4 py-2 border border-slate-200 rounded-xl hover:bg-slate-50 transition-all; }
+  .btn-gradient { @apply px-4 py-2 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:scale-105 transition-all shadow-md shadow-indigo-100; }
+
+  /* Footer Styles */
+  .footer-gradient { @apply bg-gradient-to-br from-indigo-700 via-indigo-600 to-purple-700 text-white mt-24; }
+  .footer-link { @apply text-sm opacity-80 hover:opacity-100 transition-opacity cursor-pointer; }
+
+  /* Terminal Mockup */
+  .terminal-window { @apply relative z-10 bg-white rounded-[2.5rem] shadow-2xl border border-slate-200 overflow-hidden transform lg:rotate-2 hover:rotate-0 transition-all duration-700; }
+  .terminal-header { @apply bg-slate-50 border-b border-slate-100 px-8 py-5 flex items-center justify-between; }
+  .terminal-body { @apply p-8 space-y-6; }
+  .code-block { @apply bg-slate-900 rounded-2xl p-6 font-mono text-sm leading-relaxed shadow-xl text-indigo-300; }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(5deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float 8s ease-in-out infinite;
+  animation-delay: 2s;
+}
+
+/* Teks mengalir untuk kesan 'Live Data' */
+@keyframes scrollText {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-scroll {
+  display: flex;
+  width: max-content;
+  animation: scrollText 30s linear infinite;
+}
