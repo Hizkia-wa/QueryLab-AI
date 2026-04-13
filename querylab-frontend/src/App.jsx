@@ -1,17 +1,17 @@
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import Homepage from "./pages/Homepage";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import HomePage from "./pages/HomePage";
+import PraktikumPage from "./pages/PraktikumPage";
 
 function App() {
   return (
-    // 'w-full' memastikan elemen ini selebar layar browser
-    <div className="w-full min-h-screen flex flex-col">
-      <Navbar />
-      <main className="flex-grow w-full">
-        <Homepage />
-      </main>
-      <Footer />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/praktikum" element={<PraktikumPage />} />
+      </Routes>
+    </Router>
   );
 }
 

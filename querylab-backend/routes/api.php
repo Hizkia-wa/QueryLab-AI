@@ -1,8 +1,26 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
+Route::post('/run-query', function (Request $request) {
+    try {
+        $query = $request->input('query');
+
+        $result = DB::select(DB::raw($query));
+
+        return response()->json([
+            'success' => true,
+            'data' => $result
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'error' => $e->getMessage()
+        ]);
+    }
+});
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -23,3 +41,4 @@ Route::get('/test', function () {
         'message' => 'QueryLab Backend is running 🚀'
     ]);
 });
+
