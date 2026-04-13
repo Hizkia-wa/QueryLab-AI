@@ -51,10 +51,10 @@ export default function Homepage() {
 
             <motion.div variants={itemVariants} className="flex flex-wrap gap-5">
               <Link 
-                to="/praktikum"
+                to="/modul"
                 className="px-8 py-4 bg-indigo-600 text-white rounded-2xl font-bold shadow-xl shadow-indigo-200 hover:bg-indigo-700 hover:-translate-y-1 transition-all flex items-center gap-2"
               >
-                Mulai Praktikum <ChevronRight size={20} />
+                Pilih Modul <ChevronRight size={20} />
               </Link>
               <div className="flex items-center gap-3 px-2">
                 <div className="flex -space-x-3">
