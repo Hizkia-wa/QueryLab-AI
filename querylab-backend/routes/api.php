@@ -76,9 +76,6 @@ Route::get('/test', function () {
 });
 
 
-| Sementara tidak menggunakan middleware auth agar kamu mudah ngetesnya.
-| Nanti kalau sudah siap, bungkus dengan Route::middleware('auth:sanctum').
-*/
 
 Route::prefix('admin')->group(function () {
     
