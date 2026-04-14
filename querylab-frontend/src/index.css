@@ -59,3 +59,7 @@
   width: max-content;
   animation: scrollText 30s linear infinite;
 }
+
+.body {
+  padding-top: 80px;
+}

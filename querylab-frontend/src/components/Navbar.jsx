@@ -28,6 +28,7 @@ export default function Navbar() {
             <a href="#materi" className="hover:text-indigo-600 transition-colors">Materi</a>
             <a href="#quiz" className="hover:text-indigo-600 transition-colors">Quiz</a>
             <a href="#premium" className="hover:text-indigo-600 transition-colors">Premium</a>
+            <a href="/challenge" className="hover:text-indigo-600">Challenge</a>
           </div>
 
           <div className="flex items-center space-x-3 border-l pl-8 border-slate-200">
