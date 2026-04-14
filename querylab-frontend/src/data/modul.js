@@ -1,83 +1,75 @@
 const modulData = [
   {
     id: 1,
-    title: "SELECT Dasar",
-    description: "Mengambil data dari tabel menggunakan SELECT.",
+    title: "Pengantar SQL",
+    description: "Memahami konsep dasar database relasional dan peran SQL.",
     level: "Beginner",
     estimasi: "5 menit",
-    icon: "📄"
+    icon: "📘"
   },
   {
     id: 2,
-    title: "Filtering & WHERE",
-    description: "Memfilter data menggunakan WHERE dan operator logika.",
+    title: "Data Definition Language (DDL)",
+    description: "Belajar membuat, mengubah, dan menghapus struktur database (CREATE, ALTER, DROP).",
     level: "Beginner",
-    estimasi: "7 menit",
-    icon: "🔍"
+    estimasi: "10 menit",
+    icon: "🏗️"
   },
   {
     id: 3,
-    title: "Sorting & LIMIT",
-    description: "Mengurutkan data dan membatasi hasil query.",
+    title: "Data Manipulation Language (DML)",
+    description: "Mengelola isi data dalam tabel (INSERT, UPDATE, DELETE).",
     level: "Beginner",
-    estimasi: "6 menit",
-    icon: "📊"
+    estimasi: "8 menit",
+    icon: "📝"
   },
   {
     id: 4,
-    title: "Aggregate Function",
-    description: "Menggunakan COUNT, SUM, AVG, MIN, MAX.",
-    level: "Intermediate",
-    estimasi: "8 menit",
-    icon: "📈"
+    title: "Konsep Dasar SELECT (DQL)",
+    description: "Teknik mengambil data dari satu tabel menggunakan perintah SELECT.",
+    level: "Beginner",
+    estimasi: "7 menit",
+    icon: "📄"
   },
   {
     id: 5,
-    title: "GROUP BY & HAVING",
-    description: "Mengelompokkan dan memfilter hasil agregasi.",
+    title: "Klausa Penting dalam SQL",
+    description: "Memfilter dan mengurutkan data dengan WHERE, ORDER BY, GROUP BY, dan HAVING.",
     level: "Intermediate",
-    estimasi: "10 menit",
-    icon: "🧩"
+    estimasi: "12 menit",
+    icon: "🔍"
   },
   {
     id: 6,
-    title: "INNER JOIN",
-    description: "Menggabungkan data dari dua tabel.",
+    title: "JOIN (Relasi Antar Tabel)",
+    description: "Menggabungkan data dari beberapa tabel menggunakan INNER, LEFT, dan RIGHT JOIN.",
     level: "Intermediate",
-    estimasi: "10 menit",
+    estimasi: "15 menit",
     icon: "🔗"
   },
   {
     id: 7,
-    title: "Advanced JOIN",
-    description: "LEFT JOIN, RIGHT JOIN, dan penggunaan lanjutan.",
+    title: "Fungsi Agregat",
+    description: "Melakukan perhitungan data menggunakan COUNT, SUM, AVG, MIN, dan MAX.",
     level: "Intermediate",
-    estimasi: "12 menit",
-    icon: "🔀"
+    estimasi: "8 menit",
+    icon: "📊"
   },
   {
     id: 8,
     title: "Subquery",
-    description: "Query di dalam query untuk analisis data.",
+    description: "Teknik menggunakan query di dalam query untuk logika pengambilan data kompleks.",
     level: "Advanced",
     estimasi: "12 menit",
     icon: "🧠"
   },
   {
     id: 9,
-    title: "Index & Optimasi",
-    description: "Mempercepat query menggunakan indexing.",
+    title: "Constraint",
+    description: "Memahami aturan data seperti Primary Key, Foreign Key, Unique, dan Not Null.",
     level: "Advanced",
     estimasi: "10 menit",
-    icon: "⚡"
-  },
-  {
-    id: 10,
-    title: "Studi Kasus Industri",
-    description: "Simulasi query dunia kerja nyata.",
-    level: "Advanced",
-    estimasi: "15 menit",
-    icon: "🏢"
+    icon: "🛡️"
   }
 ];
 
