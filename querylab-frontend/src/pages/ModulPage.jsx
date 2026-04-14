@@ -20,7 +20,7 @@ export default function ModulPage() {
                 <br />
                 <button
                   className="btn btn-dark"
-                  onClick={() => navigate(`/modul/${modul.id}`)}
+                  onClick={() => navigate(`/modul/${modul.modulId}`)} // Ganti .id jadi .modulId
                 >
                   Masuk Modul
                 </button>
