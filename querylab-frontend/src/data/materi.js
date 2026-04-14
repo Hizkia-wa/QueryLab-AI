@@ -1,153 +1,84 @@
-// src/data/materi.js
-
-const materiData = [
-
+const modulData = [
   {
-    modulId: 1,
+    id: 1,
     title: "SELECT Dasar",
-    deskripsi:
-      "Perintah SELECT digunakan untuk mengambil data dari tabel dalam database.",
-    penjelasan:
-      "SELECT memungkinkan kita memilih seluruh kolom atau kolom tertentu dari sebuah tabel.",
-    contoh: `
-SELECT * FROM produk;
-
-SELECT nama_produk, harga FROM produk;
-`
+    description: "Mengambil data dari tabel menggunakan perintah SELECT.",
+    level: "Beginner",
+    estimasi: "5 menit",
+    icon: "📄"
   },
-
   {
-    modulId: 2,
+    id: 2,
     title: "Filtering & WHERE",
-    deskripsi:
-      "Klausa WHERE digunakan untuk memfilter data berdasarkan kondisi tertentu.",
-    penjelasan:
-      "WHERE dapat digunakan dengan operator seperti =, >, <, AND, OR.",
-    contoh: `
-SELECT * FROM produk
-WHERE stok < 20;
-
-SELECT * FROM produk
-WHERE kategori = 'Energi';
-`
+    description: "Memfilter data berdasarkan kondisi tertentu menggunakan WHERE.",
+    level: "Beginner",
+    estimasi: "7 menit",
+    icon: "🔍"
   },
-
   {
-    modulId: 3,
+    id: 3,
     title: "ORDER BY & LIMIT",
-    deskripsi:
-      "Digunakan untuk mengurutkan dan membatasi jumlah data yang ditampilkan.",
-    penjelasan:
-      "ORDER BY mengurutkan data, LIMIT membatasi jumlah baris hasil.",
-    contoh: `
-SELECT * FROM produk
-ORDER BY harga DESC
-LIMIT 5;
-`
+    description: "Mengurutkan data dan membatasi jumlah baris hasil query.",
+    level: "Beginner",
+    estimasi: "6 menit",
+    icon: "📊"
   },
-
   {
-    modulId: 4,
+    id: 4,
     title: "Aggregate Function",
-    deskripsi:
-      "Fungsi agregasi digunakan untuk menghitung data.",
-    penjelasan:
-      "Beberapa fungsi agregasi: COUNT, SUM, AVG, MIN, MAX.",
-    contoh: `
-SELECT COUNT(*) FROM produk;
-
-SELECT AVG(harga) FROM produk;
-`
+    description: "Operasi perhitungan data seperti COUNT, SUM, AVG, MIN, dan MAX.",
+    level: "Intermediate",
+    estimasi: "8 menit",
+    icon: "📈"
   },
-
   {
-    modulId: 5,
+    id: 5,
     title: "GROUP BY & HAVING",
-    deskripsi:
-      "Digunakan untuk mengelompokkan data berdasarkan kolom tertentu.",
-    penjelasan:
-      "GROUP BY mengelompokkan, HAVING memfilter hasil agregasi.",
-    contoh: `
-SELECT kategori, COUNT(*)
-FROM produk
-GROUP BY kategori;
-`
+    description: "Mengelompokkan data dan memfilter hasil dari agregasi.",
+    level: "Intermediate",
+    estimasi: "10 menit",
+    icon: "🧩"
   },
-
   {
-    modulId: 6,
+    id: 6,
     title: "INNER JOIN",
-    deskripsi:
-      "INNER JOIN menggabungkan dua tabel berdasarkan relasi kolom.",
-    penjelasan:
-      "Hanya data yang cocok di kedua tabel yang akan ditampilkan.",
-    contoh: `
-SELECT pelanggan.nama, pesanan.total
-FROM pelanggan
-INNER JOIN pesanan
-ON pelanggan.id = pesanan.pelanggan_id;
-`
+    description: "Menggabungkan data yang cocok dari dua tabel berbeda.",
+    level: "Intermediate",
+    estimasi: "10 menit",
+    icon: "🔗"
   },
-
   {
-    modulId: 7,
+    id: 7,
     title: "LEFT & RIGHT JOIN",
-    deskripsi:
-      "JOIN lanjutan untuk menampilkan data yang tidak memiliki pasangan.",
-    penjelasan:
-      "LEFT JOIN menampilkan semua data tabel kiri meskipun tidak ada pasangan.",
-    contoh: `
-SELECT pelanggan.nama, pesanan.total
-FROM pelanggan
-LEFT JOIN pesanan
-ON pelanggan.id = pesanan.pelanggan_id;
-`
+    description: "Teknik join lanjutan untuk menampilkan semua data dari satu sisi tabel.",
+    level: "Intermediate",
+    estimasi: "12 menit",
+    icon: "🔀"
   },
-
   {
-    modulId: 8,
+    id: 8,
     title: "Subquery",
-    deskripsi:
-      "Subquery adalah query di dalam query.",
-    penjelasan:
-      "Digunakan untuk membandingkan hasil dari query lain.",
-    contoh: `
-SELECT * FROM produk
-WHERE harga > (
-  SELECT AVG(harga) FROM produk
-);
-`
+    description: "Menggunakan query di dalam query untuk perbandingan data kompleks.",
+    level: "Advanced",
+    estimasi: "12 menit",
+    icon: "🧠"
   },
-
   {
-    modulId: 9,
+    id: 9,
     title: "Index & Optimasi",
-    deskripsi:
-      "Index mempercepat proses pencarian data dalam tabel.",
-    penjelasan:
-      "Index sangat berguna untuk kolom yang sering digunakan dalam WHERE.",
-    contoh: `
-CREATE INDEX idx_email
-ON users(email);
-`
+    description: "Meningkatkan performa pencarian data menggunakan indexing.",
+    level: "Advanced",
+    estimasi: "10 menit",
+    icon: "⚡"
   },
-
   {
-    modulId: 10,
+    id: 10,
     title: "Studi Kasus Industri",
-    deskripsi:
-      "Menggabungkan berbagai teknik SQL dalam satu studi kasus nyata.",
-    penjelasan:
-      "Biasanya melibatkan JOIN, GROUP BY, dan fungsi agregasi.",
-    contoh: `
-SELECT pelanggan.nama, SUM(pesanan.total)
-FROM pelanggan
-INNER JOIN pesanan
-ON pelanggan.id = pesanan.pelanggan_id
-GROUP BY pelanggan.nama;
-`
+    description: "Penyelesaian masalah nyata dengan gabungan semua konsep SQL.",
+    level: "Advanced",
+    estimasi: "15 menit",
+    icon: "🏢"
   }
-
 ];
 
-export default materiData;
+export default modulData;

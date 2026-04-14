@@ -11,13 +11,16 @@ import PraktikumPage from "./pages/PraktikumPage";
 function App() {
   return (
     <Router>
-      <div className="d-flex flex-column min-vh-100">
+      {/* Gunakan class Tailwind: flex flex-col min-h-screen */}
+      <div className="flex flex-col min-h-screen bg-[#f8fafc]">
 
-        {/* Navbar global */}
+        {/* Navbar tetap di sini */}
         <Navbar />
 
-        {/* Konten berubah sesuai route */}
-        <div className="flex-grow-1">
+        {/* Diberi pt-24 (Padding Top) supaya konten turun 
+            dan tidak ketimpa Navbar yang tingginya sekitar 80px-90px.
+        */}
+        <main className="flex-grow pt-24 lg:pt-28">
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/modul" element={<ModulPage />} />
@@ -25,9 +28,9 @@ function App() {
             <Route path="/modul/:id" element={<PraktikumPage />} />
             <Route path="/materi/:id" element={<MateriPage />} />
           </Routes>
-        </div>
+        </main>
 
-        {/* Footer global */}
+        {/* Footer akan selalu di bawah karena ada flex-grow di atas */}
         <Footer />
 
       </div>

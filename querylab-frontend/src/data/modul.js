@@ -1,65 +1,83 @@
-// src/data/modul.js
-
 const modulData = [
   {
     id: 1,
     title: "SELECT Dasar",
-    description: "Belajar SELECT, WHERE, dan filter sederhana.",
-    level: "Beginner"
+    description: "Mengambil data dari tabel menggunakan SELECT.",
+    level: "Beginner",
+    estimasi: "5 menit",
+    icon: "📄"
   },
   {
     id: 2,
-    title: "Filtering & Kondisi",
-    description: "Belajar operator logika (AND, OR, NOT) dan filter lanjutan.",
-    level: "Beginner"
+    title: "Filtering & WHERE",
+    description: "Memfilter data menggunakan WHERE dan operator logika.",
+    level: "Beginner",
+    estimasi: "7 menit",
+    icon: "🔍"
   },
   {
     id: 3,
     title: "Sorting & LIMIT",
-    description: "Mengurutkan data dengan ORDER BY dan membatasi hasil dengan LIMIT.",
-    level: "Beginner"
+    description: "Mengurutkan data dan membatasi hasil query.",
+    level: "Beginner",
+    estimasi: "6 menit",
+    icon: "📊"
   },
   {
     id: 4,
     title: "Aggregate Function",
-    description: "Menggunakan COUNT, SUM, AVG, MIN, dan MAX.",
-    level: "Intermediate"
+    description: "Menggunakan COUNT, SUM, AVG, MIN, MAX.",
+    level: "Intermediate",
+    estimasi: "8 menit",
+    icon: "📈"
   },
   {
     id: 5,
     title: "GROUP BY & HAVING",
-    description: "Mengelompokkan data dan memfilter hasil agregasi.",
-    level: "Intermediate"
+    description: "Mengelompokkan dan memfilter hasil agregasi.",
+    level: "Intermediate",
+    estimasi: "10 menit",
+    icon: "🧩"
   },
   {
     id: 6,
-    title: "JOIN Dasar",
-    description: "Menggabungkan tabel dengan INNER JOIN.",
-    level: "Intermediate"
+    title: "INNER JOIN",
+    description: "Menggabungkan data dari dua tabel.",
+    level: "Intermediate",
+    estimasi: "10 menit",
+    icon: "🔗"
   },
   {
     id: 7,
     title: "Advanced JOIN",
-    description: "Memahami LEFT JOIN, RIGHT JOIN, dan FULL JOIN.",
-    level: "Intermediate"
+    description: "LEFT JOIN, RIGHT JOIN, dan penggunaan lanjutan.",
+    level: "Intermediate",
+    estimasi: "12 menit",
+    icon: "🔀"
   },
   {
     id: 8,
     title: "Subquery",
-    description: "Menggunakan query di dalam query untuk analisis data.",
-    level: "Advanced"
+    description: "Query di dalam query untuk analisis data.",
+    level: "Advanced",
+    estimasi: "12 menit",
+    icon: "🧠"
   },
   {
     id: 9,
-    title: "Index & Optimasi Query",
-    description: "Memahami indexing dan cara mempercepat query.",
-    level: "Advanced"
+    title: "Index & Optimasi",
+    description: "Mempercepat query menggunakan indexing.",
+    level: "Advanced",
+    estimasi: "10 menit",
+    icon: "⚡"
   },
   {
     id: 10,
     title: "Studi Kasus Industri",
-    description: "Menyelesaikan studi kasus database seperti e-commerce dan logistik.",
-    level: "Advanced"
+    description: "Simulasi query dunia kerja nyata.",
+    level: "Advanced",
+    estimasi: "15 menit",
+    icon: "🏢"
   }
 ];
 

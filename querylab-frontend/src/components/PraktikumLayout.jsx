@@ -1,175 +1,219 @@
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-export default function PraktikumLayout({ soalData }) {
+// 🔥 DATA 20 SOAL
+const baseSoal = {
+  materi: "Latihan SQL dasar",
+  hint: "Gunakan SELECT dan WHERE",
+  tabelSkema: [
+    { nama_produk: "Solar Panel", kategori: "Energi", harga: 5000000, stok: 10 },
+    { nama_produk: "Baterai", kategori: "Energi", harga: 2000000, stok: 50 },
+    { nama_produk: "Mesin", kategori: "Manufaktur", harga: 8000000, stok: 5 },
+  ]
+};
+
+const soalData = Array.from({ length: 20 }, (_, i) => ({
+  ...baseSoal,
+  id: i + 1,
+  judul: `Soal ${i + 1}`,
+  instruksi: i % 2 === 0
+    ? "Tampilkan produk dengan stok < 20"
+    : "Tampilkan nama_produk dan harga kategori Energi",
+
+  expectedQuery: i % 2 === 0
+    ? "select * from produk where stok < 20"
+    : "select nama_produk, harga from produk where kategori = 'energi'",
+
+  getExpectedResult: (data) =>
+    i % 2 === 0
+      ? data.filter(item => item.stok < 20)
+      : data
+          .filter(item => item.kategori === "Energi")
+          .map(({ nama_produk, harga }) => ({ nama_produk, harga }))
+}));
+
+export default function PraktikumLayout() {
   const [selectedSoal, setSelectedSoal] = useState(soalData[0]);
   const [query, setQuery] = useState("");
   const [result, setResult] = useState(null);
+  const [status, setStatus] = useState("");
+
+  const normalize = (text) => text.toLowerCase().trim();
 
   const handleRun = () => {
-    if (selectedSoal.id === 1) {
-      setResult(selectedSoal.tabelSkema.filter(item => item.stok < 20));
-    } else if (selectedSoal.id === 2) {
-      setResult(
-        selectedSoal.tabelSkema
-          .filter(item => item.kategori === "Energi")
-          .map(({ nama_produk, harga }) => ({ nama_produk, harga }))
-      );
+    if (!query) {
+      setStatus("error");
+      setResult("Query tidak boleh kosong!");
+      return;
     }
+
+    if (normalize(query) !== normalize(selectedSoal.expectedQuery)) {
+      setStatus("salah");
+      setResult("❌ Query salah! Coba lagi.");
+      return;
+    }
+
+    const hasil = selectedSoal.getExpectedResult(selectedSoal.tabelSkema);
+    setStatus("benar");
+    setResult(hasil);
   };
 
   return (
-    <div style={{ backgroundColor: "#F3F4F6", minHeight: "100vh", fontFamily: "'Segoe UI', Roboto, sans-serif" }}>
-
+    <div style={{ backgroundColor: "#F3F4F6", minHeight: "100vh" }}>
+      
       {/* NAVBAR */}
-      <nav className="navbar navbar-expand-lg shadow-sm px-4" style={{ backgroundColor: "#1e293b" }}>
-        <div className="container-fluid">
-          <span className="navbar-brand fw-bold text-white">
-            <span style={{ color: "#38bdf8" }}>SQL</span> Challenge
-            <small className="fw-light opacity-50 ms-2">| Manufaktur & Energi</small>
-          </span>
-        </div>
+      <nav className="navbar shadow-sm px-4" style={{ backgroundColor: "#1e293b" }}>
+        <span className="navbar-brand fw-bold text-white">
+          <span style={{ color: "#38bdf8" }}>SQL</span> Challenge
+        </span>
       </nav>
 
       <div className="container-fluid py-4 px-4">
         <div className="row g-4">
 
-          {/* KOLOM KIRI */}
+          {/* LEFT */}
           <div className="col-lg-5">
 
-            {/* Navigasi Soal */}
+            {/* GRID SOAL */}
             <div className="card border-0 shadow-sm rounded-4 mb-4">
-              <div className="card-body p-3 d-flex gap-2">
-                {soalData.map((s, i) => (
+              <div
+                className="card-body d-grid"
+                style={{ gridTemplateColumns: "repeat(5, 1fr)", gap: "8px" }}
+              >
+                {soalData.map((s) => (
                   <button
                     key={s.id}
                     onClick={() => {
                       setSelectedSoal(s);
-                      setResult(null);
                       setQuery("");
+                      setResult(null);
+                      setStatus("");
                     }}
-                    className={`btn flex-fill rounded-3 py-2 fw-bold ${
-                      selectedSoal.id === s.id ? "btn-primary shadow" : "btn-light text-muted"
+                    className={`btn fw-bold ${
+                      selectedSoal.id === s.id
+                        ? "btn-primary"
+                        : "btn-light text-muted"
                     }`}
                   >
-                    Soal {i + 1}
+                    {s.id}
                   </button>
                 ))}
               </div>
             </div>
 
-            {/* Tabel Referensi */}
-            <div className="card border-0 shadow-sm rounded-4 mb-4 overflow-hidden">
-              <div className="card-header bg-white border-0 pt-4 px-4">
-                <h6 className="fw-bold text-uppercase text-muted small mb-0">
-                  Tabel Referensi:
-                  <span className="text-primary text-lowercase"> Produk</span>
-                </h6>
-              </div>
-              <div className="card-body px-4 pb-4">
-                <div className="table-responsive rounded-3 border">
-                  <table className="table table-sm table-hover mb-0">
-                    <thead className="bg-light">
-                      <tr>
-                        {Object.keys(selectedSoal.tabelSkema[0]).map(key => (
-                          <th key={key} className="p-2">{key}</th>
+            {/* TABEL */}
+            <div className="card border-0 shadow-sm rounded-4 mb-4">
+              <div className="card-body">
+                <h6 className="fw-bold mb-3">Tabel Produk</h6>
+                <table className="table table-sm">
+                  <thead>
+                    <tr>
+                      {Object.keys(selectedSoal.tabelSkema[0]).map(k => (
+                        <th key={k}>{k}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {selectedSoal.tabelSkema.map((row, i) => (
+                      <tr key={i}>
+                        {Object.values(row).map((v, j) => (
+                          <td key={j}>{v}</td>
                         ))}
                       </tr>
-                    </thead>
-                    <tbody>
-                      {selectedSoal.tabelSkema.map((row, i) => (
-                        <tr key={i}>
-                          {Object.values(row).map((val, j) => (
-                            <td key={j} className="p-2 text-secondary">{val}</td>
-                          ))}
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             </div>
 
-            {/* Deskripsi */}
+            {/* DESKRIPSI */}
             <div className="card border-0 shadow-sm rounded-4">
-              <div className="card-body p-4">
-                <h4 className="fw-bold mb-3">{selectedSoal.judul}</h4>
-                <p className="text-muted mb-4">{selectedSoal.materi}</p>
+              <div className="card-body">
+                <h5 className="fw-bold">{selectedSoal.judul}</h5>
+                <p className="text-muted">{selectedSoal.materi}</p>
 
-                <div style={{ backgroundColor: "#eff6ff", borderLeft: "4px solid #3b82f6" }} className="p-3 rounded-e-3 mb-3">
-                  <h6 className="fw-bold text-primary">Tugas Anda:</h6>
-                  <p className="mb-0 fw-medium">{selectedSoal.instruksi}</p>
+                <div className="alert alert-primary">
+                  <b>Tugas:</b> {selectedSoal.instruksi}
                 </div>
 
-                <div className="text-muted small">
-                  💡 <em>{selectedSoal.hint}</em>
-                </div>
+                <small className="text-muted">💡 {selectedSoal.hint}</small>
               </div>
             </div>
           </div>
 
-          {/* KOLOM KANAN */}
+          {/* RIGHT */}
           <div className="col-lg-7">
-            <div className="card border-0 shadow-lg rounded-4 overflow-hidden mb-4">
-              <div className="card-header px-4 py-3" style={{ backgroundColor: "#0f172a" }}>
-                <span className="text-white-50 small fw-bold">EDITOR QUERY</span>
+
+            {/* EDITOR */}
+            <div className="card shadow rounded-4 mb-4">
+              <div className="card-header bg-dark text-white">
+                SQL Editor
               </div>
 
               <textarea
-                className="form-control border-0 p-4 font-monospace"
-                style={{
-                  backgroundColor: "#1e293b",
-                  color: "#94a3b8",
-                  height: "300px",
-                  resize: "none"
-                }}
+                className="form-control border-0"
+                style={{ height: "250px", fontFamily: "monospace" }}
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="SELECT * FROM produk WHERE ..."
+                placeholder="Tulis query di sini..."
               />
 
-              <div className="card-footer bg-white p-3 d-flex justify-content-end gap-3">
-                <button className="btn btn-light border px-4 fw-bold" onClick={() => setQuery("")}>
+              <div className="card-footer text-end">
+                <button
+                  className="btn btn-secondary me-2"
+                  onClick={() => setQuery("")}
+                >
                   Clear
                 </button>
-                <button className="btn btn-dark px-5 fw-bold" onClick={handleRun}>
+                <button
+                  className="btn btn-dark"
+                  onClick={handleRun}
+                >
                   Run Query
                 </button>
               </div>
             </div>
 
-            {/* RESULT */}
-            <div className="card border-0 shadow-sm rounded-4 overflow-hidden">
-              <div className="card-header bg-white px-4 py-3">
-                <h6 className="mb-0 fw-bold">Output Console</h6>
+            {/* OUTPUT */}
+            <div className="card shadow rounded-4">
+              <div className="card-header">
+                Output
               </div>
 
-              <div className="card-body p-0" style={{ minHeight: "150px" }}>
-                {!result ? (
-                  <div className="p-5 text-center text-muted">
-                    Hasil query akan muncul di sini.
+              <div className="card-body">
+                {!result && (
+                  <div className="text-muted text-center">
+                    Belum ada output
                   </div>
-                ) : (
-                  <div className="table-responsive">
-                    <table className="table table-hover mb-0">
-                      <thead className="table-light">
-                        <tr>
-                          {Object.keys(result[0]).map(k => (
-                            <th key={k} className="px-4 py-3 small text-uppercase text-muted">{k}</th>
+                )}
+
+                {typeof result === "string" && (
+                  <div className={`alert ${
+                    status === "salah" ? "alert-danger" : "alert-warning"
+                  }`}>
+                    {result}
+                  </div>
+                )}
+
+                {status === "benar" && Array.isArray(result) && (
+                  <table className="table">
+                    <thead>
+                      <tr>
+                        {Object.keys(result[0]).map(k => (
+                          <th key={k}>{k}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {result.map((row, i) => (
+                        <tr key={i}>
+                          {Object.values(row).map((v, j) => (
+                            <td key={j}>{v}</td>
                           ))}
                         </tr>
-                      </thead>
-                      <tbody>
-                        {result.map((row, i) => (
-                          <tr key={i}>
-                            {Object.values(row).map((v, j) => (
-                              <td key={j} className="px-4 py-3">{v}</td>
-                            ))}
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
+                      ))}
+                    </tbody>
+                  </table>
                 )}
               </div>
             </div>

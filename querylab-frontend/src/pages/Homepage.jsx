@@ -31,7 +31,7 @@ export default function Homepage() {
       <main className="w-full">
         
         {/* --- Hero Section --- */}
-        <section className="container-center pt-32 lg:pt-44 px-6 grid lg:grid-cols-2 gap-16 items-center">
+        <section className="container-center pt-40 lg:pt-52 px-6 grid lg:grid-cols-2 gap-16 items-center">
           <motion.div initial="hidden" animate="visible" variants={containerVariants}>
             <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-600 text-xs font-bold mb-8 uppercase tracking-widest">
               <Zap size={14} className="fill-current" />
