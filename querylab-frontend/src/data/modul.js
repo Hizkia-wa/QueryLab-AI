@@ -1,6 +1,6 @@
 const modulData = [
   {
-    id: 1,
+    modulId: 1,
     title: "Pengantar SQL",
     description: "Memahami konsep dasar database relasional dan peran SQL.",
     level: "Beginner",
@@ -8,7 +8,7 @@ const modulData = [
     icon: "📘"
   },
   {
-    id: 2,
+    modulId: 2,
     title: "Data Definition Language (DDL)",
     description: "Belajar membuat, mengubah, dan menghapus struktur database (CREATE, ALTER, DROP).",
     level: "Beginner",
@@ -16,7 +16,7 @@ const modulData = [
     icon: "🏗️"
   },
   {
-    id: 3,
+    modulId: 3,
     title: "Data Manipulation Language (DML)",
     description: "Mengelola isi data dalam tabel (INSERT, UPDATE, DELETE).",
     level: "Beginner",
@@ -24,7 +24,7 @@ const modulData = [
     icon: "📝"
   },
   {
-    id: 4,
+    modulId: 4,
     title: "Konsep Dasar SELECT (DQL)",
     description: "Teknik mengambil data dari satu tabel menggunakan perintah SELECT.",
     level: "Beginner",
@@ -32,7 +32,7 @@ const modulData = [
     icon: "📄"
   },
   {
-    id: 5,
+    modulId: 5,
     title: "Klausa Penting dalam SQL",
     description: "Memfilter dan mengurutkan data dengan WHERE, ORDER BY, GROUP BY, dan HAVING.",
     level: "Intermediate",
@@ -40,7 +40,7 @@ const modulData = [
     icon: "🔍"
   },
   {
-    id: 6,
+    modulId: 6,
     title: "JOIN (Relasi Antar Tabel)",
     description: "Menggabungkan data dari beberapa tabel menggunakan INNER, LEFT, dan RIGHT JOIN.",
     level: "Intermediate",
@@ -48,7 +48,7 @@ const modulData = [
     icon: "🔗"
   },
   {
-    id: 7,
+    modulId: 7,
     title: "Fungsi Agregat",
     description: "Melakukan perhitungan data menggunakan COUNT, SUM, AVG, MIN, dan MAX.",
     level: "Intermediate",
@@ -56,7 +56,7 @@ const modulData = [
     icon: "📊"
   },
   {
-    id: 8,
+    modulId: 8,
     title: "Subquery",
     description: "Teknik menggunakan query di dalam query untuk logika pengambilan data kompleks.",
     level: "Advanced",
@@ -64,7 +64,7 @@ const modulData = [
     icon: "🧠"
   },
   {
-    id: 9,
+    modulId: 9,
     title: "Constraint",
     description: "Memahami aturan data seperti Primary Key, Foreign Key, Unique, dan Not Null.",
     level: "Advanced",
