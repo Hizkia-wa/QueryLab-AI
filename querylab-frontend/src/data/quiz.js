@@ -389,7 +389,7 @@ export const quizData = [
    {
     id: 31,
     modulId: 8,
-    materiId: 1,
+    materiId: 7,
     question: "Apa yang dimaksud dengan subquery dalam SQL?",
     options: [
       "Query yang berdiri sendiri",
@@ -402,7 +402,7 @@ export const quizData = [
   {
     id: 32,
     modulId: 8,
-    materiId: 1,
+    materiId: 7,
     question: "Kapan subquery biasanya digunakan?",
     options: [
       "Untuk menghapus data",
@@ -415,7 +415,7 @@ export const quizData = [
   {
     id: 33,
     modulId: 8,
-    materiId: 1,
+    materiId: 7,
     question: "Subquery akan dieksekusi kapan?",
     options: [
       "Setelah query utama",
@@ -428,7 +428,7 @@ export const quizData = [
   {
     id: 34,
     modulId: 8,
-    materiId: 1,
+    materiId: 7,
     question: "Di mana subquery dituliskan?",
     options: [
       "Di luar query",
@@ -441,7 +441,7 @@ export const quizData = [
   {
     id: 35,
     modulId: 8,
-    materiId: 1,
+    materiId: 7,
     question: "Query mana yang menggunakan subquery dengan benar?",
     options: [
       "SELECT * FROM produk WHERE harga > AVG(harga)",
@@ -454,7 +454,7 @@ export const quizData = [
   {
     id: 36,
     modulId: 8,
-    materiId: 2,
+    materiId: 8,
     question: "Apa yang dimaksud dengan single-row subquery?",
     options: [
       "Subquery dengan banyak hasil",
@@ -467,7 +467,7 @@ export const quizData = [
   {
     id: 37,
     modulId: 8,
-    materiId: 2,
+    materiId: 8,
     question: "Operator apa yang cocok untuk single-row subquery?",
     options: [
       "IN",
@@ -480,7 +480,7 @@ export const quizData = [
   {
     id: 38,
     modulId: 8,
-    materiId: 2,
+    materiId: 8,
     question: "Multiple-row subquery menghasilkan?",
     options: [
       "Satu nilai",
@@ -493,7 +493,7 @@ export const quizData = [
   {
     id: 39,
     modulId: 8,
-    materiId: 2,
+    materiId: 8,
     question: "Operator apa yang digunakan untuk multiple-row subquery?",
     options: [
       "=",
@@ -506,7 +506,7 @@ export const quizData = [
   {
     id: 40,
     modulId: 8,
-    materiId: 2,
+    materiId: 8,
     question: "Query mana yang termasuk multiple-row subquery?",
     options: [
       "SELECT * FROM karyawan WHERE gaji = (SELECT MAX(gaji) FROM karyawan)",
@@ -776,5 +776,17 @@ export const quizData = [
     ],
     answer: "SELECT * FROM pesanan JOIN pelanggan ON pesanan.pelanggan_id = pelanggan.id"
   },
-  
+  {
+    id: 71,
+    modulId: 9,
+    materiId: 3,
+    question: "Constraint biasanya dibuat saat?",
+    options: [
+      "SELECT",
+      "CREATE TABLE",
+      "DELETE",
+      "DROP"
+    ],
+    answer: "CREATE TABLE"
+  }
 ];
