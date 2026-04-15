@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { Menu, X, Sparkles, Cpu, BookOpen, Code2, Trophy } from "lucide-react";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -13,57 +15,99 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => setIsOpen(false), [location]);
+
   return (
     <nav className={`nav-base ${scrolled ? "nav-scrolled" : "nav-top"}`}>
       <div className="container-center w-full px-6 flex justify-between items-center">
         
-        {/* Logo - Berikan sedikit margin agar tidak terlalu mepet atas */}
-        <h1 className="text-3xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent cursor-pointer py-1">
-          QueryLab
-        </h1>
-
-        {/* Desktop Navigation & Buttons */}
-        <div className="hidden md:flex items-center space-x-10">
-          <div className="flex space-x-8 font-semibold text-slate-700">
-            <a href="#materi" className="hover:text-indigo-600 transition-colors">Materi</a>
-            <a href="#quiz" className="hover:text-indigo-600 transition-colors">Quiz</a>
-            <a href="#premium" className="hover:text-indigo-600 transition-colors">Premium</a>
-            <a href="/challenge" className="hover:text-indigo-600">Challenge</a>
+        {/* LOGO - QueryLab */}
+        <Link to="/" className="flex items-center gap-2 group">
+          <div className="bg-indigo-600 p-2 rounded-xl group-hover:rotate-12 transition-all duration-300 shadow-lg shadow-indigo-200">
+            <Sparkles className="text-white" size={22} />
           </div>
-
-          <div className="flex items-center space-x-3 border-l pl-8 border-slate-200">
-            <button className="px-5 py-2 text-slate-600 font-bold hover:text-indigo-600 transition-all">
-              Login
-            </button>
-            <button className="btn-gradient">
-              Daftar
-            </button>
+          <div className="flex flex-col">
+            <h1 className="text-2xl font-black tracking-tighter leading-none text-slate-900">
+              Query<span className="text-indigo-600">Lab</span>
+            </h1>
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.3em]">Intelligence</span>
           </div>
+        </Link>
+
+        {/* MAIN NAVIGATION */}
+        <div className="hidden md:flex items-center bg-slate-100/50 p-1.5 rounded-2xl border border-slate-200/50 backdrop-blur-sm">
+          <NavLink to="/materi" active={location.pathname === "/materi"}>
+            <BookOpen size={16} /> Materi
+          </NavLink>
+          <NavLink to="/modul" active={location.pathname === "/modul"}>
+            <Code2 size={16} /> Praktikum
+          </NavLink>
+          <NavLink to="/challenge" active={location.pathname === "/challenge"}>
+            <Trophy size={16} /> Challenge
+          </NavLink>
+          
+          {/* AI SECTION - Highlighted */}
+          <Link 
+            to="/ai-tutor" 
+            className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-black transition-all ${
+              location.pathname === "/ai-tutor"
+                ? "bg-indigo-600 text-white shadow-lg shadow-indigo-200"
+                : "text-indigo-600 hover:bg-indigo-50"
+            }`}
+          >
+            <Cpu size={16} className={location.pathname === "/ai-tutor" ? "animate-pulse" : ""} />
+            AI Tutor
+          </Link>
         </div>
 
-        {/* Mobile Toggle */}
-        <div className="md:hidden flex items-center">
-          <button onClick={() => setIsOpen(!isOpen)} className="text-slate-700 p-2">
-            {isOpen ? <X size={28} /> : <Menu size={28} />}
+        {/* MOBILE TOGGLE */}
+        <div className="md:hidden">
+          <button onClick={() => setIsOpen(!isOpen)} className="p-2 text-slate-700 bg-slate-100 rounded-xl">
+            {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      <div className={`md:hidden absolute top-full left-0 w-full bg-white border-b border-slate-100 transition-all duration-300 shadow-xl ${
+      {/* MOBILE MENU */}
+      <div className={`md:hidden absolute top-full left-0 w-full bg-white border-b border-slate-100 shadow-2xl transition-all duration-300 ${
         isOpen ? "opacity-100 visible" : "opacity-0 invisible -translate-y-2"
       }`}>
-        <div className="flex flex-col p-6 space-y-4">
-          <a href="#materi" className="font-bold text-slate-700">Materi</a>
-          <a href="#quiz" className="font-bold text-slate-700">Quiz</a>
-          <a href="#premium" className="font-bold text-slate-700">Premium</a>
-          <hr />
-          <div className="flex flex-col gap-3">
-            <button className="btn-outline w-full justify-center">Login</button>
-            <button className="btn-gradient w-full justify-center">Daftar</button>
-          </div>
+        <div className="p-6 flex flex-col gap-3">
+          <MobileNavLink to="/materi" label="Materi" icon={<BookOpen size={20}/>} />
+          <MobileNavLink to="/praktikum" label="Praktikum" icon={<Code2 size={20}/>} />
+          <MobileNavLink to="/challenge" label="Challenge" icon={<Trophy size={20}/>} />
+          <Link to="/ai-tutor" className="flex items-center justify-between p-4 bg-indigo-600 text-white rounded-2xl font-black">
+            <div className="flex items-center gap-3">
+              <Cpu size={20} /> AI Tutor
+            </div>
+            <Sparkles size={18} />
+          </Link>
         </div>
       </div>
     </nav>
+  );
+}
+
+// Helper Components
+function NavLink({ to, children, active }) {
+  return (
+    <Link 
+      to={to} 
+      className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all ${
+        active 
+          ? "bg-white text-indigo-600 shadow-sm" 
+          : "text-slate-500 hover:text-slate-900 hover:bg-white/50"
+      }`}
+    >
+      {children}
+    </Link>
+  );
+}
+
+function MobileNavLink({ to, label, icon }) {
+  return (
+    <Link to={to} className="flex items-center gap-3 p-4 text-slate-700 font-bold hover:bg-slate-50 rounded-2xl transition-all">
+      {icon} {label}
+    </Link>
   );
 }

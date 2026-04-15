@@ -63,3 +63,20 @@
 .body {
   padding-top: 80px;
 }
+
+.hover-scale {
+  transition: all 0.2s ease-in-out;
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
+.hover-scale:active {
+  transform: scale(0.95);
+}
+
+.fw-black {
+  font-weight: 900;
+}
