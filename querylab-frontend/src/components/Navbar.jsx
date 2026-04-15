@@ -50,7 +50,7 @@ export default function Navbar() {
           <Link 
             to="/ai-tutor" 
             className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-black transition-all ${
-              location.pathname === "/ai-tutor"
+              location.pathname === "/ai-mentor"
                 ? "bg-indigo-600 text-white shadow-lg shadow-indigo-200"
                 : "text-indigo-600 hover:bg-indigo-50"
             }`}
