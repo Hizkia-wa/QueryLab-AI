@@ -110,6 +110,492 @@ const materiData = [
     sintaks: "SELECT 'Teks Statis' AS label, nama_kolom FROM nama_tabel;",
     contoh: "SELECT nama_mhs, 'Aktif' AS status_akademik FROM mahasiswa;",
     catatan: "Literal string harus diapit oleh tanda kutip tunggal ('...')."
+  },
+  {
+    id: 1,
+    modulId: 7,
+    title: "Konsep Fungsi Agregat",
+    deskripsi: "Memahami dasar fungsi agregat dalam SQL.",
+
+    penjelasan: `
+Fungsi agregat adalah fitur penting dalam SQL yang digunakan untuk melakukan perhitungan terhadap sekumpulan data dalam sebuah kolom. Berbeda dengan query biasa yang menampilkan banyak baris data, fungsi agregat akan merangkum data tersebut menjadi satu nilai hasil.
+Dalam dunia nyata, kita jarang membutuhkan semua data mentah. Sebagai contoh, dalam sistem penjualan, kita lebih sering membutuhkan informasi seperti total penjualan, jumlah transaksi, atau rata-rata harga produk. Fungsi agregat membantu kita mendapatkan informasi tersebut dengan cepat.
+Fungsi agregat bekerja dengan cara mengambil seluruh nilai dalam satu kolom, kemudian melakukan operasi tertentu seperti menghitung, menjumlahkan, atau mencari nilai maksimum.
+Jika digunakan tanpa GROUP BY, fungsi agregat akan menghasilkan satu baris hasil. Namun jika digunakan dengan GROUP BY, hasilnya bisa menjadi beberapa baris sesuai kelompok data.
+  `,
+    sintaks: `
+SELECT fungsi_agregat(kolom)
+FROM tabel;
+  `,
+    contoh: `
+SELECT COUNT(*) FROM produk;
+SELECT SUM(harga) FROM produk;
+SELECT AVG(harga) FROM produk;
+  `,
+    catatan: `
+Fungsi agregat sangat sering digunakan dalam laporan, dashboard, dan analisis data bisnis.
+  `
+  },
+  {
+    id: 2,
+    modulId: 7,
+    title: "COUNT, SUM, AVG, MAX, MIN",
+    deskripsi: "Mengenal jenis-jenis fungsi agregat utama.",
+    penjelasan: `
+SQL menyediakan beberapa fungsi agregat utama yang sering digunakan dalam pengolahan data.
+COUNT digunakan untuk menghitung jumlah baris data.
+SUM digunakan untuk menjumlahkan nilai numerik.
+AVG digunakan untuk menghitung rata-rata.
+MAX digunakan untuk mencari nilai terbesar.
+MIN digunakan untuk mencari nilai terkecil.
+Setiap fungsi memiliki kegunaan masing-masing dan biasanya digunakan sesuai kebutuhan analisis data.
+  `,
+    sintaks: `
+COUNT(*)
+SUM(kolom)
+AVG(kolom)
+MAX(kolom)
+MIN(kolom)
+  `,
+    contoh: `
+SELECT COUNT(*) FROM karyawan;
+SELECT SUM(gaji) FROM karyawan;
+SELECT AVG(gaji) FROM karyawan;
+SELECT MAX(gaji) FROM karyawan;
+SELECT MIN(gaji) FROM karyawan;
+  `,
+    catatan: `
+Pastikan kolom yang digunakan sesuai dengan tipe data, terutama untuk SUM dan AVG.
+  `
+  },
+  {
+    id: 3,
+    modulId: 7,
+    title: "Penggunaan GROUP BY",
+    deskripsi: "Mengelompokkan data untuk analisis lebih detail.",
+    penjelasan: `
+GROUP BY digunakan untuk mengelompokkan data berdasarkan nilai tertentu dalam satu kolom.
+Dengan GROUP BY, kita dapat melakukan perhitungan agregat untuk setiap kelompok data. Misalnya, menghitung jumlah karyawan per departemen atau rata-rata nilai per kelas.
+Tanpa GROUP BY, fungsi agregat hanya menghasilkan satu nilai untuk seluruh tabel. Dengan GROUP BY, hasilnya akan dibagi berdasarkan kategori tertentu.
+  `,
+    sintaks: `
+SELECT kolom, fungsi_agregat(kolom)
+FROM tabel
+GROUP BY kolom;
+  `,
+    contoh: `
+SELECT departemen, COUNT(*)
+FROM karyawan
+GROUP BY departemen;
+  `,
+    catatan: `
+Semua kolom yang tidak menggunakan fungsi agregat wajib ditulis di GROUP BY.
+  `
+  },
+  {
+    id: 4,
+    modulId: 7,
+    title: "Filtering dengan HAVING",
+    deskripsi: "Menyaring hasil agregasi.",
+    penjelasan: `
+HAVING digunakan untuk memfilter hasil dari fungsi agregat setelah proses GROUP BY dilakukan.
+Berbeda dengan WHERE yang bekerja sebelum data dikelompokkan, HAVING bekerja setelah proses pengelompokan selesai.
+Dengan HAVING, kita bisa memfilter berdasarkan hasil agregasi, misalnya hanya menampilkan kelompok dengan jumlah data tertentu.
+  `,
+    sintaks: `
+SELECT kolom, COUNT(*)
+FROM tabel
+GROUP BY kolom
+HAVING COUNT(*) > nilai;
+  `,
+    contoh: `
+SELECT departemen, COUNT(*)
+FROM karyawan
+GROUP BY departemen
+HAVING COUNT(*) > 2;
+  `,
+    catatan: `
+HAVING hanya digunakan untuk kondisi yang melibatkan fungsi agregat.
+  `
+  },
+  {
+    id: 5,
+    modulId: 7,
+    title: "Perbedaan WHERE dan HAVING",
+    deskripsi: "Memahami perbedaan dua jenis filtering.",
+    penjelasan: `
+WHERE dan HAVING memiliki fungsi yang sama yaitu untuk memfilter data, tetapi digunakan pada tahap yang berbeda.
+WHERE digunakan untuk memfilter data sebelum proses GROUP BY dilakukan. Sedangkan HAVING digunakan setelah proses GROUP BY.
+Artinya, WHERE bekerja pada data mentah, sedangkan HAVING bekerja pada hasil agregasi.
+  `,
+    sintaks: `
+WHERE kondisi
+HAVING kondisi_agregat
+  `,
+    contoh: `
+SELECT * FROM karyawan WHERE gaji > 5000000;
+SELECT departemen, COUNT(*)
+FROM karyawan
+GROUP BY departemen
+HAVING COUNT(*) > 2;
+  `,
+    catatan: `
+Gunakan WHERE untuk filter awal, dan HAVING untuk filter hasil agregasi.
+  `
+  },
+  {
+    id: 6,
+    modulId: 7,
+    title: "Menangani Nilai NULL",
+    deskripsi: "Cara fungsi agregat memperlakukan NULL.",
+    penjelasan: `
+NULL adalah nilai yang menunjukkan tidak adanya data atau nilai yang belum diketahui.
+Dalam fungsi agregat, NULL biasanya diabaikan. Misalnya, AVG hanya akan menghitung nilai yang tidak NULL.
+COUNT(kolom) hanya menghitung nilai yang tidak NULL, sedangkan COUNT(*) menghitung semua baris termasuk yang memiliki NULL.
+  `,
+    sintaks: `
+SELECT COUNT(kolom)
+FROM tabel;
+  `,
+    contoh: `
+SELECT COUNT(gaji) FROM karyawan;
+SELECT COUNT(*) FROM karyawan;
+  `,
+    catatan: `
+Pemahaman tentang NULL sangat penting agar tidak terjadi kesalahan dalam analisis data.
+  `
+  },
+  {
+    id: 1,
+    modulId: 8,
+    title: "Konsep Query dalam Query",
+    deskripsi: "Memahami dasar subquery dalam SQL.",
+    penjelasan: `
+Subquery adalah query yang ditulis di dalam query lain. Artinya, kita menjalankan sebuah query terlebih dahulu, lalu hasilnya digunakan oleh query utama.
+Konsep ini sering disebut sebagai "query dalam query". Subquery biasanya digunakan ketika kita membutuhkan hasil sementara untuk melakukan perbandingan atau filtering data.
+Sebagai contoh, kita ingin menampilkan produk yang harganya di atas rata-rata. Kita tidak bisa langsung tahu nilai rata-rata tanpa menghitungnya terlebih dahulu. Di sinilah subquery digunakan.
+Subquery akan dieksekusi terlebih dahulu oleh database, kemudian hasilnya digunakan oleh query utama untuk menghasilkan output akhir.
+    `,
+    sintaks: `
+SELECT kolom
+FROM tabel
+WHERE kolom_operator (SELECT kolom FROM tabel);
+    `,
+    contoh: `
+SELECT * FROM produk
+WHERE harga > (
+  SELECT AVG(harga) FROM produk
+);
+    `,
+    catatan: `
+Subquery selalu berada di dalam tanda kurung () dan akan dijalankan terlebih dahulu sebelum query utama.
+    `
+  },
+  {
+    id: 2,
+    modulId: 8,
+    title: "Jenis Subquery (Single & Multiple Row)",
+    deskripsi: "Mengenal jenis subquery berdasarkan jumlah hasil.",
+
+    penjelasan: `
+Subquery dapat dibedakan berdasarkan jumlah hasil yang dikembalikan.
+Single-row subquery adalah subquery yang menghasilkan satu nilai saja. Biasanya digunakan dengan operator seperti =, >, atau <.
+Multiple-row subquery menghasilkan lebih dari satu nilai. Untuk jenis ini, kita harus menggunakan operator khusus seperti IN, ANY, atau ALL.
+Pemilihan jenis subquery sangat penting karena akan mempengaruhi cara kita menulis kondisi dalam query utama.
+    `,
+    sintaks: `
+-- Single row
+SELECT * FROM tabel
+WHERE kolom = (SELECT kolom FROM tabel);
+-- Multiple row
+SELECT * FROM tabel
+WHERE kolom IN (SELECT kolom FROM tabel);
+    `,
+    contoh: `
+-- Single
+SELECT * FROM karyawan
+WHERE gaji = (SELECT MAX(gaji) FROM karyawan);
+-- Multiple
+SELECT * FROM karyawan
+WHERE departemen IN (
+  SELECT departemen FROM karyawan WHERE gaji > 5000000
+);
+    `,
+    catatan: `
+Gunakan operator yang sesuai dengan jumlah hasil subquery agar tidak terjadi error.
+    `
+  },
+  {
+    id: 3,
+    modulId: 8,
+    title: "Operator Subquery (IN, EXISTS, ANY, ALL)",
+    deskripsi: "Menggunakan operator dalam subquery.",
+    penjelasan: `
+Dalam subquery, terdapat beberapa operator penting yang digunakan untuk membandingkan hasil query.
+IN digunakan untuk mengecek apakah suatu nilai ada dalam hasil subquery.
+EXISTS digunakan untuk mengecek apakah subquery menghasilkan data (true/false).
+ANY digunakan untuk membandingkan dengan salah satu nilai dalam hasil subquery.
+ALL digunakan untuk membandingkan dengan semua nilai dalam hasil subquery.
+Pemahaman operator ini sangat penting untuk membuat query yang fleksibel dan kuat.
+    `,
+    sintaks: `
+kolom IN (subquery)
+EXISTS (subquery)
+kolom > ANY (subquery)
+kolom > ALL (subquery)
+    `,
+    contoh: `
+SELECT * FROM produk
+WHERE kategori IN (
+  SELECT kategori FROM produk WHERE harga > 1000000
+);
+SELECT * FROM karyawan
+WHERE gaji > ALL (
+  SELECT gaji FROM karyawan WHERE departemen = 'HR'
+);
+    `,
+    catatan: `
+Operator IN paling sering digunakan, sedangkan EXISTS biasanya digunakan untuk performa yang lebih baik pada data besar.
+    `
+  },
+  {
+    id: 4,
+    modulId: 8,
+    title: "Posisi Subquery (WHERE, SELECT, FROM)",
+    deskripsi: "Menempatkan subquery dalam query utama.",
+    penjelasan: `
+Subquery dapat ditempatkan di beberapa bagian dalam query SQL.
+Di WHERE, subquery digunakan untuk filtering data.
+Di SELECT, subquery digunakan untuk menampilkan hasil tambahan dalam kolom.
+Di FROM, subquery digunakan sebagai tabel sementara (derived table).
+Setiap posisi memiliki fungsi dan kegunaan yang berbeda tergantung kebutuhan query.
+    `,
+    sintaks: `
+-- WHERE
+SELECT * FROM tabel
+WHERE kolom = (subquery);
+-- SELECT
+SELECT kolom, (subquery) FROM tabel;
+-- FROM
+SELECT * FROM (subquery) AS alias;
+    `,
+    contoh: `
+-- WHERE
+SELECT * FROM produk
+WHERE harga > (SELECT AVG(harga) FROM produk);
+-- SELECT
+SELECT nama,
+  (SELECT AVG(gaji) FROM karyawan) AS rata_gaji
+FROM karyawan;
+-- FROM
+SELECT * FROM (
+  SELECT nama, gaji FROM karyawan
+) AS data_karyawan;
+    `,
+    catatan: `
+Gunakan alias saat subquery berada di FROM agar query tidak error.
+    `
+  },
+  {
+    id: 5,
+    modulId: 8,
+    title: "Correlated Subquery",
+    deskripsi: "Subquery yang bergantung pada query utama.",
+    penjelasan: `
+Correlated subquery adalah jenis subquery yang bergantung pada query utama.
+Berbeda dengan subquery biasa yang dieksekusi satu kali, correlated subquery akan dijalankan berulang kali untuk setiap baris dalam query utama.
+Jenis ini biasanya digunakan untuk perbandingan yang lebih kompleks, seperti membandingkan data dalam kelompok tertentu.
+    `,
+    sintaks: `
+SELECT kolom
+FROM tabel1 t1
+WHERE kolom > (
+  SELECT AVG(kolom)
+  FROM tabel2 t2
+  WHERE t1.kolom = t2.kolom
+);
+    `,
+    contoh: `
+SELECT * FROM karyawan k1
+WHERE gaji > (
+  SELECT AVG(gaji)
+  FROM karyawan k2
+  WHERE k1.departemen = k2.departemen
+);
+    `,
+    catatan: `
+Correlated subquery bisa lebih lambat karena dijalankan berulang untuk setiap baris.
+    `
+  },
+  {
+    id: 6,
+    modulId: 8,
+    title: "Perbandingan Subquery vs JOIN",
+    deskripsi: "Memahami kapan menggunakan subquery atau JOIN.",
+    penjelasan: `
+Subquery dan JOIN sama-sama digunakan untuk menggabungkan atau memproses data dari beberapa tabel, tetapi memiliki pendekatan yang berbeda.
+Subquery lebih mudah dipahami karena seperti langkah bertahap, sedangkan JOIN lebih efisien untuk performa terutama pada data besar.
+JOIN biasanya digunakan ketika kita ingin menggabungkan tabel, sedangkan subquery digunakan untuk filtering atau perhitungan tambahan.
+Pemilihan antara subquery dan JOIN tergantung pada kebutuhan dan kompleksitas query.
+    `,
+    sintaks: `
+-- Subquery
+SELECT * FROM tabel
+WHERE kolom = (subquery);
+-- JOIN
+SELECT * FROM tabel1
+JOIN tabel2 ON kondisi;
+    `,
+    contoh: `
+-- Subquery
+SELECT * FROM pesanan
+WHERE pelanggan_id IN (
+  SELECT id FROM pelanggan
+);
+-- JOIN
+SELECT * FROM pesanan
+JOIN pelanggan ON pesanan.pelanggan_id = pelanggan.id;
+    `,
+    catatan: `
+JOIN biasanya lebih cepat, tetapi subquery lebih mudah dipahami untuk pemula.
+    `
+  },
+    {
+    id: 1,
+    modulId: 9,
+    title: "Pengertian dan Fungsi Constraint",
+    deskripsi: "Memahami peran constraint dalam menjaga integritas data.",
+    penjelasan: `
+Constraint adalah aturan yang diterapkan pada kolom dalam tabel database untuk memastikan data yang disimpan tetap valid, konsisten, dan sesuai dengan kebutuhan sistem.
+Dalam database, constraint berfungsi sebagai penjaga kualitas data. Tanpa constraint, data yang tidak valid seperti nilai kosong, duplikat, atau tidak sesuai format bisa masuk ke dalam database dan menyebabkan kesalahan dalam aplikasi.
+Sebagai contoh, dalam sistem pengguna, kita tidak ingin ada email yang sama (duplikat), atau nama yang kosong. Constraint membantu mencegah hal tersebut.
+Dengan menggunakan constraint, kita dapat memastikan bahwa data yang tersimpan selalu memenuhi aturan yang telah ditentukan sejak awal.
+    `,
+    sintaks: `
+CREATE TABLE nama_tabel (
+  kolom tipe_data constraint
+);
+    `,
+    contoh: `
+CREATE TABLE users (
+  id INT PRIMARY KEY,
+  nama VARCHAR(50) NOT NULL
+);
+    `,
+    catatan: `
+Constraint sangat penting untuk menjaga integritas data dan mencegah kesalahan sejak awal.
+    `
+  },
+  {
+    id: 2,
+    modulId: 9,
+    title: "Jenis-Jenis Constraint",
+    deskripsi: "Mengenal berbagai jenis constraint dalam SQL.",
+    penjelasan: `
+SQL menyediakan berbagai jenis constraint yang dapat digunakan sesuai kebutuhan.
+NOT NULL digunakan untuk memastikan kolom tidak boleh kosong.
+UNIQUE digunakan untuk memastikan nilai dalam kolom tidak boleh duplikat.
+PRIMARY KEY adalah kombinasi NOT NULL dan UNIQUE yang digunakan sebagai identitas utama data.
+FOREIGN KEY digunakan untuk menghubungkan tabel satu dengan tabel lain.
+CHECK digunakan untuk membatasi nilai tertentu.
+DEFAULT digunakan untuk memberikan nilai otomatis jika tidak diisi.
+Setiap constraint memiliki fungsi spesifik dalam menjaga validitas data.
+    `,
+    sintaks: `
+kolom VARCHAR(50) NOT NULL
+kolom INT UNIQUE
+PRIMARY KEY (id)
+FOREIGN KEY (user_id) REFERENCES users(id)
+    `,
+    contoh: `
+CREATE TABLE produk (
+  id INT PRIMARY KEY,
+  nama VARCHAR(50) NOT NULL,
+  harga INT CHECK (harga > 0)
+);
+    `,
+    catatan: `
+Gunakan kombinasi constraint untuk menghasilkan sistem yang lebih aman.
+    `
+  },
+  {
+    id: 3,
+    modulId: 9,
+    title: "Cara Membuat dan Mengubah Constraint",
+    deskripsi: "Menambahkan dan mengubah constraint pada tabel.",
+    penjelasan: `
+Constraint biasanya dibuat saat pembuatan tabel menggunakan CREATE TABLE
+Namun, constraint juga dapat ditambahkan atau diubah setelah tabel dibuat menggunakan ALTER TABLE.
+Ini berguna ketika kita ingin memperbaiki struktur database tanpa harus menghapus tabel yang sudah ada.
+    `,
+    sintaks: `
+-- Membuat tabel
+CREATE TABLE tabel (
+  kolom INT PRIMARY KEY
+);
+-- Menambah constraint
+ALTER TABLE tabel
+ADD CONSTRAINT nama_constraint UNIQUE (kolom);
+    `,
+    contoh: `
+ALTER TABLE users
+ADD CONSTRAINT unique_email UNIQUE (email);
+    `,
+    catatan: `
+Gunakan ALTER TABLE dengan hati-hati karena dapat mempengaruhi data yang sudah ada.
+    `
+  },
+  {
+    id: 4,
+    modulId: 9,
+    title: "Relasi Antar Tabel",
+    deskripsi: "Menghubungkan tabel menggunakan foreign key.",
+    penjelasan: `
+Relasi antar tabel digunakan untuk menghubungkan data dalam beberapa tabel yang berbeda.
+Relasi ini biasanya dibuat menggunakan FOREIGN KEY, yang mengacu pada PRIMARY KEY di tabel lain.
+Dengan relasi, kita dapat menghindari duplikasi data dan menjaga konsistensi antar tabel.
+Sebagai contoh, tabel pesanan akan memiliki relasi ke tabel pelanggan melalui kolom pelanggan_id.
+    `,
+    sintaks: `
+FOREIGN KEY (kolom)
+REFERENCES tabel_lain(kolom);
+    `,
+    contoh: `
+CREATE TABLE pesanan (
+  id INT PRIMARY KEY,
+  pelanggan_id INT,
+  FOREIGN KEY (pelanggan_id) REFERENCES pelanggan(id)
+);
+    `,
+    catatan: `
+Relasi membantu menjaga konsistensi data antar tabel.
+    `
+  },
+  {
+    id: 5,
+    modulId: 9,
+    title: "Validasi Data di Database",
+    deskripsi: "Menggunakan constraint untuk memvalidasi data.",
+    penjelasan: `
+Constraint juga berfungsi sebagai alat validasi data langsung di database.
+Dengan constraint, kita dapat memastikan bahwa hanya data yang valid yang dapat disimpan.
+Misalnya, kita bisa menggunakan CHECK untuk memastikan nilai tertentu berada dalam rentang tertentu, atau menggunakan NOT NULL untuk memastikan data wajib diisi.
+Validasi di database sangat penting karena tidak bergantung pada aplikasi, sehingga data tetap aman meskipun ada kesalahan dari sisi program.
+    `,
+    sintaks: `
+CHECK (kondisi)
+DEFAULT nilai
+NOT NULL
+    `,
+    contoh: `
+CREATE TABLE nilai (
+  id INT PRIMARY KEY,
+  skor INT CHECK (skor BETWEEN 0 AND 100)
+);
+    `,
+    catatan: `
+Validasi di database adalah lapisan keamanan tambahan yang sangat penting.
+    `
   }
 ];
 
