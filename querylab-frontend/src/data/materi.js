@@ -461,142 +461,330 @@ JOIN biasanya lebih cepat, tetapi subquery lebih mudah dipahami untuk pemula.
     `
   },
     {
-    id: 1,
+    id: 61,
     modulId: 9,
-    title: "Pengertian dan Fungsi Constraint",
-    deskripsi: "Memahami peran constraint dalam menjaga integritas data.",
-    penjelasan: `
-Constraint adalah aturan yang diterapkan pada kolom dalam tabel database untuk memastikan data yang disimpan tetap valid, konsisten, dan sesuai dengan kebutuhan sistem.
-Dalam database, constraint berfungsi sebagai penjaga kualitas data. Tanpa constraint, data yang tidak valid seperti nilai kosong, duplikat, atau tidak sesuai format bisa masuk ke dalam database dan menyebabkan kesalahan dalam aplikasi.
-Sebagai contoh, dalam sistem pengguna, kita tidak ingin ada email yang sama (duplikat), atau nama yang kosong. Constraint membantu mencegah hal tersebut.
-Dengan menggunakan constraint, kita dapat memastikan bahwa data yang tersimpan selalu memenuhi aturan yang telah ditentukan sejak awal.
-    `,
-    sintaks: `
-CREATE TABLE nama_tabel (
-  kolom tipe_data constraint
-);
-    `,
-    contoh: `
-CREATE TABLE users (
-  id INT PRIMARY KEY,
-  nama VARCHAR(50) NOT NULL
-);
-    `,
-    catatan: `
-Constraint sangat penting untuk menjaga integritas data dan mencegah kesalahan sejak awal.
-    `
+    materiId: 1,
+    question: "Apa yang dimaksud dengan constraint dalam database?",
+    options: [
+      "Perintah untuk menghapus data",
+      "Aturan untuk menjaga validitas data",
+      "Perintah untuk membuat tabel",
+      "Perintah untuk mengurutkan data"
+    ],
+    answer: "Aturan untuk menjaga validitas data"
   },
   {
-    id: 2,
+    id: 62,
     modulId: 9,
-    title: "Jenis-Jenis Constraint",
-    deskripsi: "Mengenal berbagai jenis constraint dalam SQL.",
-    penjelasan: `
-SQL menyediakan berbagai jenis constraint yang dapat digunakan sesuai kebutuhan.
-NOT NULL digunakan untuk memastikan kolom tidak boleh kosong.
-UNIQUE digunakan untuk memastikan nilai dalam kolom tidak boleh duplikat.
-PRIMARY KEY adalah kombinasi NOT NULL dan UNIQUE yang digunakan sebagai identitas utama data.
-FOREIGN KEY digunakan untuk menghubungkan tabel satu dengan tabel lain.
-CHECK digunakan untuk membatasi nilai tertentu.
-DEFAULT digunakan untuk memberikan nilai otomatis jika tidak diisi.
-Setiap constraint memiliki fungsi spesifik dalam menjaga validitas data.
-    `,
-    sintaks: `
-kolom VARCHAR(50) NOT NULL
-kolom INT UNIQUE
-PRIMARY KEY (id)
-FOREIGN KEY (user_id) REFERENCES users(id)
-    `,
-    contoh: `
-CREATE TABLE produk (
-  id INT PRIMARY KEY,
-  nama VARCHAR(50) NOT NULL,
-  harga INT CHECK (harga > 0)
-);
-    `,
-    catatan: `
-Gunakan kombinasi constraint untuk menghasilkan sistem yang lebih aman.
-    `
+    materiId: 1,
+    question: "Apa fungsi utama constraint?",
+    options: [
+      "Menambah data",
+      "Menjaga kualitas dan konsistensi data",
+      "Menghapus tabel",
+      "Mengurutkan data"
+    ],
+    answer: "Menjaga kualitas dan konsistensi data"
   },
   {
-    id: 3,
+    id: 63,
     modulId: 9,
-    title: "Cara Membuat dan Mengubah Constraint",
-    deskripsi: "Menambahkan dan mengubah constraint pada tabel.",
-    penjelasan: `
-Constraint biasanya dibuat saat pembuatan tabel menggunakan CREATE TABLE
-Namun, constraint juga dapat ditambahkan atau diubah setelah tabel dibuat menggunakan ALTER TABLE.
-Ini berguna ketika kita ingin memperbaiki struktur database tanpa harus menghapus tabel yang sudah ada.
-    `,
-    sintaks: `
--- Membuat tabel
-CREATE TABLE tabel (
-  kolom INT PRIMARY KEY
-);
--- Menambah constraint
-ALTER TABLE tabel
-ADD CONSTRAINT nama_constraint UNIQUE (kolom);
-    `,
-    contoh: `
-ALTER TABLE users
-ADD CONSTRAINT unique_email UNIQUE (email);
-    `,
-    catatan: `
-Gunakan ALTER TABLE dengan hati-hati karena dapat mempengaruhi data yang sudah ada.
-    `
+    materiId: 1,
+    question: "Apa yang terjadi jika tidak menggunakan constraint?",
+    options: [
+      "Data lebih cepat",
+      "Data bisa tidak valid",
+      "Data otomatis rapi",
+      "Tidak ada perubahan"
+    ],
+    answer: "Data bisa tidak valid"
   },
   {
-    id: 4,
+    id: 64,
     modulId: 9,
-    title: "Relasi Antar Tabel",
-    deskripsi: "Menghubungkan tabel menggunakan foreign key.",
-    penjelasan: `
-Relasi antar tabel digunakan untuk menghubungkan data dalam beberapa tabel yang berbeda.
-Relasi ini biasanya dibuat menggunakan FOREIGN KEY, yang mengacu pada PRIMARY KEY di tabel lain.
-Dengan relasi, kita dapat menghindari duplikasi data dan menjaga konsistensi antar tabel.
-Sebagai contoh, tabel pesanan akan memiliki relasi ke tabel pelanggan melalui kolom pelanggan_id.
-    `,
-    sintaks: `
-FOREIGN KEY (kolom)
-REFERENCES tabel_lain(kolom);
-    `,
-    contoh: `
-CREATE TABLE pesanan (
-  id INT PRIMARY KEY,
-  pelanggan_id INT,
-  FOREIGN KEY (pelanggan_id) REFERENCES pelanggan(id)
-);
-    `,
-    catatan: `
-Relasi membantu menjaga konsistensi data antar tabel.
-    `
+    materiId: 1,
+    question: "Constraint biasanya diterapkan pada?",
+    options: [
+      "Database",
+      "Tabel",
+      "Kolom",
+      "Server"
+    ],
+    answer: "Kolom"
   },
   {
-    id: 5,
+    id: 65,
     modulId: 9,
-    title: "Validasi Data di Database",
-    deskripsi: "Menggunakan constraint untuk memvalidasi data.",
-    penjelasan: `
-Constraint juga berfungsi sebagai alat validasi data langsung di database.
-Dengan constraint, kita dapat memastikan bahwa hanya data yang valid yang dapat disimpan.
-Misalnya, kita bisa menggunakan CHECK untuk memastikan nilai tertentu berada dalam rentang tertentu, atau menggunakan NOT NULL untuk memastikan data wajib diisi.
-Validasi di database sangat penting karena tidak bergantung pada aplikasi, sehingga data tetap aman meskipun ada kesalahan dari sisi program.
-    `,
-    sintaks: `
-CHECK (kondisi)
-DEFAULT nilai
-NOT NULL
-    `,
-    contoh: `
-CREATE TABLE nilai (
-  id INT PRIMARY KEY,
-  skor INT CHECK (skor BETWEEN 0 AND 100)
-);
-    `,
-    catatan: `
-Validasi di database adalah lapisan keamanan tambahan yang sangat penting.
-    `
-  }
+    materiId: 1,
+    question: "Contoh constraint yang mencegah nilai kosong adalah?",
+    options: [
+      "UNIQUE",
+      "PRIMARY KEY",
+      "NOT NULL",
+      "FOREIGN KEY"
+    ],
+    answer: "NOT NULL"
+  },
+   {
+    id: 66,
+    modulId: 9,
+    materiId: 2,
+    question: "Constraint UNIQUE digunakan untuk?",
+    options: [
+      "Menghapus data",
+      "Mencegah nilai duplikat",
+      "Mengurutkan data",
+      "Menambah data"
+    ],
+    answer: "Mencegah nilai duplikat"
+  },
+  {
+    id: 67,
+    modulId: 9,
+    materiId: 2,
+    question: "PRIMARY KEY adalah gabungan dari?",
+    options: [
+      "NULL dan UNIQUE",
+      "NOT NULL dan UNIQUE",
+      "FOREIGN KEY dan CHECK",
+      "DEFAULT dan NULL"
+    ],
+    answer: "NOT NULL dan UNIQUE"
+  },
+  {
+    id: 68,
+    modulId: 9,
+    materiId: 2,
+    question: "FOREIGN KEY digunakan untuk?",
+    options: [
+      "Menghapus data",
+      "Menghubungkan tabel",
+      "Mengurutkan data",
+      "Menambah kolom"
+    ],
+    answer: "Menghubungkan tabel"
+  },
+  {
+    id: 69,
+    modulId: 9,
+    materiId: 2,
+    question: "CHECK digunakan untuk?",
+    options: [
+      "Memastikan nilai sesuai kondisi tertentu",
+      "Menghapus data",
+      "Menggabungkan tabel",
+      "Mengurutkan data"
+    ],
+    answer: "Memastikan nilai sesuai kondisi tertentu"
+  },
+  {
+    id: 70,
+    modulId: 9,
+    materiId: 2,
+    question: "DEFAULT digunakan untuk?",
+    options: [
+      "Menghapus nilai",
+      "Memberi nilai otomatis",
+      "Mengurutkan data",
+      "Menggabungkan tabel"
+    ],
+    answer: "Memberi nilai otomatis"
+  },
+  {
+    id: 71,
+    modulId: 9,
+    materiId: 3,
+    question: "Constraint biasanya dibuat saat?",
+    options: [
+      "SELECT",
+      "CREATE TABLE",
+      "DELETE",
+      "DROP"
+    ],
+    answer: "CREATE TABLE"
+  },
+  {
+    id: 72,
+    modulId: 9,
+    materiId: 3,
+    question: "Perintah untuk menambah constraint setelah tabel dibuat adalah?",
+    options: [
+      "UPDATE",
+      "INSERT",
+      "ALTER TABLE",
+      "DELETE"
+    ],
+    answer: "ALTER TABLE"
+  },
+  {
+    id: 73,
+    modulId: 9,
+    materiId: 3,
+    question: "ALTER TABLE digunakan untuk?",
+    options: [
+      "Menghapus database",
+      "Mengubah struktur tabel",
+      "Mengurutkan data",
+      "Menghapus data"
+    ],
+    answer: "Mengubah struktur tabel"
+  },
+  {
+    id: 74,
+    modulId: 9,
+    materiId: 3,
+    question: "Menambahkan UNIQUE constraint menggunakan?",
+    options: [
+      "ADD COLUMN",
+      "ADD CONSTRAINT",
+      "DELETE",
+      "INSERT"
+    ],
+    answer: "ADD CONSTRAINT"
+  },
+  {
+    id: 75,
+    modulId: 9,
+    materiId: 3,
+    question: "Menggunakan ALTER TABLE harus?",
+    options: [
+      "Sembarangan",
+      "Hati-hati karena mempengaruhi data",
+      "Tidak perlu dipikirkan",
+      "Selalu aman"
+    ],
+    answer: "Hati-hati karena mempengaruhi data"
+  },
+  {
+    id: 76,
+    modulId: 9,
+    materiId: 4,
+    question: "Relasi antar tabel digunakan untuk?",
+    options: [
+      "Menghapus data",
+      "Menghubungkan data antar tabel",
+      "Mengurutkan data",
+      "Menambah kolom"
+    ],
+    answer: "Menghubungkan data antar tabel"
+  },
+  {
+    id: 77,
+    modulId: 9,
+    materiId: 4,
+    question: "Constraint yang digunakan untuk relasi adalah?",
+    options: [
+      "PRIMARY KEY",
+      "FOREIGN KEY",
+      "UNIQUE",
+      "CHECK"
+    ],
+    answer: "FOREIGN KEY"
+  },
+  {
+    id: 78,
+    modulId: 9,
+    materiId: 4,
+    question: "FOREIGN KEY mengacu pada?",
+    options: [
+      "Kolom biasa",
+      "PRIMARY KEY di tabel lain",
+      "CHECK",
+      "DEFAULT"
+    ],
+    answer: "PRIMARY KEY di tabel lain"
+  },
+  {
+    id: 79,
+    modulId: 9,
+    materiId: 4,
+    question: "Tujuan relasi adalah?",
+    options: [
+      "Menghapus data",
+      "Menghindari duplikasi data",
+      "Mengurutkan data",
+      "Menambah tabel"
+    ],
+    answer: "Menghindari duplikasi data"
+  },
+  {
+    id: 80,
+    modulId: 9,
+    materiId: 4,
+    question: "Contoh relasi adalah?",
+    options: [
+      "Produk dan harga",
+      "Pesanan dan pelanggan",
+      "Nama dan umur",
+      "Kolom dan tabel"
+    ],
+    answer: "Pesanan dan pelanggan"
+  },
+  {
+    id: 81,
+    modulId: 9,
+    materiId: 5,
+    question: "Constraint digunakan untuk validasi data agar?",
+    options: [
+      "Data lebih banyak",
+      "Data tetap valid",
+      "Data terhapus",
+      "Data lebih lambat"
+    ],
+    answer: "Data tetap valid"
+  },
+  {
+    id: 82,
+    modulId: 9,
+    materiId: 5,
+    question: "CHECK digunakan untuk?",
+    options: [
+      "Menghapus data",
+      "Membatasi nilai tertentu",
+      "Mengurutkan data",
+      "Menggabungkan tabel"
+    ],
+    answer: "Membatasi nilai tertentu"
+  },
+  {
+    id: 83,
+    modulId: 9,
+    materiId: 5,
+    question: "NOT NULL digunakan untuk?",
+    options: [
+      "Menghapus data",
+      "Memastikan kolom tidak kosong",
+      "Mengurutkan data",
+      "Menambah kolom"
+    ],
+    answer: "Memastikan kolom tidak kosong"
+  },
+  {
+    id: 84,
+    modulId: 9,
+    materiId: 5,
+    question: "Validasi di database penting karena?",
+    options: [
+      "Lebih cepat",
+      "Tidak bergantung pada aplikasi",
+      "Lebih lambat",
+      "Tidak berguna"
+    ],
+    answer: "Tidak bergantung pada aplikasi"
+  },
+  {
+    id: 85,
+    modulId: 9,
+    materiId: 5,
+    question: "Constraint membantu mencegah?",
+    options: [
+      "Query berjalan",
+      "Data tidak valid",
+      "Data tampil",
+      "Database dibuat"
+    ],
+    answer: "Data tidak valid"
+  } 
 ];
 
 export default materiData;
