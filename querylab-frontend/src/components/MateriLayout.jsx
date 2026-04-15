@@ -36,9 +36,8 @@ export default function MateriLayout({ materiData }) {
                 <button
                   key={m.id}
                   onClick={() => setSelectedMateri(m)}
-                  className={`list-group-item list-group-item-action border-0 p-3 ${
-                    selectedMateri.id === m.id ? "bg-primary text-white" : "bg-white"
-                  }`}
+                  className={`list-group-item list-group-item-action border-0 p-3 ${selectedMateri.id === m.id ? "bg-primary text-white" : "bg-white"
+                    }`}
                 >
                   <div className="d-flex align-items-center gap-2">
                     <span className="small opacity-50">{index + 1}.</span>
@@ -56,13 +55,62 @@ export default function MateriLayout({ materiData }) {
                 <BookOpen size={20} />
                 <span className="fw-bold small text-uppercase">Pembelajaran Dasar</span>
               </div>
-              
+
               <h1 className="fw-black text-dark mb-4">{selectedMateri.title}</h1>
-              
+
               <div className="materi-content text-secondary leading-relaxed mb-5" style={{ fontSize: "1.1rem" }}>
                 {selectedMateri.content}
               </div>
+              <div className="materi-content mb-5" style={{ fontSize: "1.05rem", lineHeight: "1.8" }}>
 
+                {selectedMateri.penjelasan && (
+                  <div className="mb-4 p-4 rounded-4 bg-light border">
+                    <h5 className="fw-bold mb-2">📘 Penjelasan</h5>
+                    <p className="mb-0 text-secondary">{selectedMateri.penjelasan}</p>
+                  </div>
+                )}
+
+                {selectedMateri.sintaks && (
+                  <div className="mb-4 p-4 rounded-4 bg-dark text-white position-relative">
+                    <h6 className="text-info small mb-3">SQL SYNTAX</h6>
+                    <pre className="mb-0">
+                      <code>{selectedMateri.sintaks}</code>
+                    </pre>
+
+                    {/* COPY BUTTON */}
+                    <button
+                      onClick={() => navigator.clipboard.writeText(selectedMateri.sintaks)}
+                      className="btn btn-sm btn-light position-absolute top-0 end-0 m-3"
+                    >
+                      Copy
+                    </button>
+                  </div>
+                )}
+
+                {selectedMateri.contoh && (
+                  <div className="mb-4 p-4 rounded-4 bg-dark text-white position-relative">
+                    <h6 className="text-success small mb-3">SQL EXAMPLE</h6>
+                    <pre className="mb-0">
+                      <code>{selectedMateri.contoh}</code>
+                    </pre>
+
+                    <button
+                      onClick={() => navigator.clipboard.writeText(selectedMateri.contoh)}
+                      className="btn btn-sm btn-light position-absolute top-0 end-0 m-3"
+                    >
+                      Copy
+                    </button>
+                  </div>
+                )}
+
+                {selectedMateri.catatan && (
+                  <div className="mb-4 p-4 rounded-4 bg-warning bg-opacity-10 border-start border-4 border-warning">
+                    <h6 className="fw-bold">📝 Catatan Penting</h6>
+                    <p className="mb-0">{selectedMateri.catatan}</p>
+                  </div>
+                )}
+
+              </div>
               {selectedMateri.example && (
                 <div className="bg-dark rounded-4 p-4 mb-5 shadow-lg">
                   <div className="d-flex justify-content-between align-items-center mb-3">
@@ -73,7 +121,29 @@ export default function MateriLayout({ materiData }) {
                   </pre>
                 </div>
               )}
+              <div className="d-flex justify-content-between mt-4">
+                <button
+                  className="btn btn-outline-secondary rounded-pill"
+                  disabled={materiData.findIndex(m => m.id === selectedMateri.id) === 0}
+                  onClick={() => {
+                    const index = materiData.findIndex(m => m.id === selectedMateri.id);
+                    if (index > 0) setSelectedMateri(materiData[index - 1]);
+                  }}
+                >
+                  ⬅ Sebelumnya
+                </button>
 
+                <button
+                  className="btn btn-primary rounded-pill"
+                  disabled={materiData.findIndex(m => m.id === selectedMateri.id) === materiData.length - 1}
+                  onClick={() => {
+                    const index = materiData.findIndex(m => m.id === selectedMateri.id);
+                    if (index < materiData.length - 1) setSelectedMateri(materiData[index + 1]);
+                  }}
+                >
+                  Selanjutnya ➡
+                </button>
+              </div>
               {/* ACTION FOOTER */}
               <div className="border-top pt-4 d-flex justify-content-between align-items-center">
                 <p className="text-muted small mb-0">Sudah paham? Mari uji kemampuanmu.</p>
