@@ -2161,6 +2161,911 @@ const soalData = [
       ]
     },
     hint: "Gunakan ORDER BY trip.rating DESC."
+  },
+  {
+    id: 1,
+    modulId: 7,
+    judul: "Menghitung Jumlah Data",
+    materi: "COUNT digunakan untuk menghitung jumlah baris dalam tabel.",
+    instruksi: "Hitung jumlah seluruh data pada tabel 'karyawan'.",
+    expectedQuery: "SELECT COUNT(*) FROM karyawan",
+    tabelSkema: [
+      { id: 1, nama: "Andi", departemen: "IT", gaji: 5000000 },
+      { id: 2, nama: "Budi", departemen: "HR", gaji: 6000000 },
+      { id: 3, nama: "Sari", departemen: "IT", gaji: 7000000 },
+      { id: 4, nama: "Rina", departemen: "Finance", gaji: 4000000 },
+      { id: 5, nama: "Doni", departemen: "IT", gaji: 8000000 }
+    ],
+    hint: "Gunakan COUNT(*)"
+  },
+  {
+    id: 2,
+    modulId: 7,
+    judul: "Rata-rata Gaji",
+    materi: "AVG digunakan untuk menghitung rata-rata nilai.",
+    instruksi: "Hitung rata-rata gaji karyawan.",
+    expectedQuery: "SELECT AVG(gaji) FROM karyawan",
+    tabelSkema: [
+      { id: 1, nama: "Andi", departemen: "IT", gaji: 5000000 },
+      { id: 2, nama: "Budi", departemen: "HR", gaji: 6000000 },
+      { id: 3, nama: "Sari", departemen: "IT", gaji: 7000000 },
+      { id: 4, nama: "Rina", departemen: "Finance", gaji: 4000000 },
+      { id: 5, nama: "Doni", departemen: "IT", gaji: 8000000 }
+    ],
+    hint: "Gunakan AVG(gaji)"
+  },
+  {
+    id: 3,
+    modulId: 7,
+    judul: "Gaji Tertinggi",
+    materi: "MAX digunakan untuk mencari nilai terbesar.",
+    instruksi: "Tampilkan gaji tertinggi dari tabel 'karyawan'.",
+    expectedQuery: "SELECT MAX(gaji) FROM karyawan",
+    tabelSkema: [
+      { id: 1, nama: "Andi", departemen: "IT", gaji: 5000000 },
+      { id: 2, nama: "Budi", departemen: "HR", gaji: 6000000 },
+      { id: 3, nama: "Sari", departemen: "IT", gaji: 7000000 },
+      { id: 4, nama: "Rina", departemen: "Finance", gaji: 4000000 },
+      { id: 5, nama: "Doni", departemen: "IT", gaji: 8000000 }
+    ],
+    hint: "Gunakan MAX(gaji)"
+  },
+  {
+    id: 4,
+    modulId: 7,
+    judul: "Total Gaji",
+    materi: "SUM digunakan untuk menjumlahkan nilai.",
+    instruksi: "Hitung total semua gaji karyawan.",
+    expectedQuery: "SELECT SUM(gaji) FROM karyawan",
+    tabelSkema: [
+      { id: 1, nama: "Andi", departemen: "IT", gaji: 5000000 },
+      { id: 2, nama: "Budi", departemen: "HR", gaji: 6000000 },
+      { id: 3, nama: "Sari", departemen: "IT", gaji: 7000000 },
+      { id: 4, nama: "Rina", departemen: "Finance", gaji: 4000000 },
+      { id: 5, nama: "Doni", departemen: "IT", gaji: 8000000 }
+    ],
+    hint: "Gunakan SUM(gaji)"
+  },
+  {
+    id: 5,
+    modulId: 7,
+    judul: "Jumlah per Departemen",
+    materi: "COUNT bisa digabung dengan GROUP BY.",
+    instruksi: "Hitung jumlah karyawan per departemen.",
+    expectedQuery: "SELECT departemen, COUNT(*) FROM karyawan GROUP BY departemen",
+    tabelSkema: [
+      { id: 1, nama: "Andi", departemen: "IT", gaji: 5000000 },
+      { id: 2, nama: "Budi", departemen: "HR", gaji: 6000000 },
+      { id: 3, nama: "Sari", departemen: "IT", gaji: 7000000 },
+      { id: 4, nama: "Rina", departemen: "Finance", gaji: 4000000 },
+      { id: 5, nama: "Doni", departemen: "IT", gaji: 8000000 }
+    ],
+    hint: "Gunakan GROUP BY"
+  },
+  {
+    id: 6,
+    modulId: 7,
+    judul: "Total Penjualan",
+    instruksi: "Hitung total penjualan dari tabel 'transaksi'.",
+    expectedQuery: "SELECT SUM(total) FROM transaksi",
+    tabelSkema: [
+      { id: 1, pelanggan: "A", produk: "Laptop", total: 5000000 },
+      { id: 2, pelanggan: "B", produk: "Mouse", total: 200000 },
+      { id: 3, pelanggan: "C", produk: "Keyboard", total: 300000 },
+      { id: 4, pelanggan: "D", produk: "Monitor", total: 1500000 },
+      { id: 5, pelanggan: "E", produk: "Laptop", total: 7000000 }
+    ],
+    hint: "Gunakan SUM"
+  },
+  {
+    id: 7,
+    modulId: 7,
+    judul: "Rata-rata Penjualan",
+    instruksi: "Hitung rata-rata total transaksi.",
+    expectedQuery: "SELECT AVG(total) FROM transaksi",
+    tabelSkema: [
+      { id: 1, pelanggan: "A", produk: "Laptop", total: 5000000 },
+      { id: 2, pelanggan: "B", produk: "Mouse", total: 200000 },
+      { id: 3, pelanggan: "C", produk: "Keyboard", total: 300000 },
+      { id: 4, pelanggan: "D", produk: "Monitor", total: 1500000 },
+      { id: 5, pelanggan: "E", produk: "Laptop", total: 7000000 }
+    ],
+    hint: "Gunakan AVG"
+  },
+  {
+    id: 8,
+    modulId: 7,
+    judul: "Transaksi Tertinggi",
+    instruksi: "Tampilkan nilai transaksi terbesar.",
+    expectedQuery: "SELECT MAX(total) FROM transaksi",
+    tabelSkema: [
+      { id: 1, pelanggan: "A", produk: "Laptop", total: 5000000 },
+      { id: 2, pelanggan: "B", produk: "Mouse", total: 200000 },
+      { id: 3, pelanggan: "C", produk: "Keyboard", total: 300000 },
+      { id: 4, pelanggan: "D", produk: "Monitor", total: 1500000 },
+      { id: 5, pelanggan: "E", produk: "Laptop", total: 7000000 }
+    ],
+    hint: "Gunakan MAX"
+  },
+  {
+    id: 9,
+    modulId: 7,
+    judul: "Jumlah Produk Terjual",
+    instruksi: "Hitung jumlah transaksi.",
+    expectedQuery: "SELECT COUNT(*) FROM transaksi",
+    tabelSkema: [
+      { id: 1, pelanggan: "A", produk: "Laptop", total: 5000000 },
+      { id: 2, pelanggan: "B", produk: "Mouse", total: 200000 },
+      { id: 3, pelanggan: "C", produk: "Keyboard", total: 300000 },
+      { id: 4, pelanggan: "D", produk: "Monitor", total: 1500000 },
+      { id: 5, pelanggan: "E", produk: "Laptop", total: 7000000 }
+    ],
+    hint: "Gunakan COUNT"
+  },
+  {
+    id: 10,
+    modulId: 7,
+    judul: "Total per Produk",
+    instruksi: "Hitung total penjualan per produk.",
+    expectedQuery: "SELECT produk, SUM(total) FROM transaksi GROUP BY produk",
+    tabelSkema: [
+      { id: 1, pelanggan: "A", produk: "Laptop", total: 5000000 },
+      { id: 2, pelanggan: "B", produk: "Mouse", total: 200000 },
+      { id: 3, pelanggan: "C", produk: "Keyboard", total: 300000 },
+      { id: 4, pelanggan: "D", produk: "Monitor", total: 1500000 },
+      { id: 5, pelanggan: "E", produk: "Laptop", total: 7000000 }
+    ],
+    hint: "Gunakan GROUP BY produk"
+  },
+  {
+    id: 11,
+    modulId: 7,
+    judul: "Nilai Rata-rata Siswa",
+    instruksi: "Hitung rata-rata nilai siswa.",
+    expectedQuery: "SELECT AVG(nilai) FROM siswa",
+    tabelSkema: [
+      { id: 1, nama: "A", kelas: "1A", nilai: 80 },
+      { id: 2, nama: "B", kelas: "1A", nilai: 70 },
+      { id: 3, nama: "C", kelas: "1B", nilai: 90 },
+      { id: 4, nama: "D", kelas: "1B", nilai: 60 },
+      { id: 5, nama: "E", kelas: "1A", nilai: 85 }
+    ],
+    hint: "Gunakan AVG"
+  },
+  {
+    id: 12,
+    modulId: 7,
+    judul: "Nilai Tertinggi per Kelas",
+    instruksi: "Tampilkan nilai tertinggi per kelas.",
+    expectedQuery: "SELECT kelas, MAX(nilai) FROM siswa GROUP BY kelas",
+    tabelSkema: [
+      { id: 1, nama: "A", kelas: "1A", nilai: 80 },
+      { id: 2, nama: "B", kelas: "1A", nilai: 70 },
+      { id: 3, nama: "C", kelas: "1B", nilai: 90 },
+      { id: 4, nama: "D", kelas: "1B", nilai: 60 },
+      { id: 5, nama: "E", kelas: "1A", nilai: 85 }
+    ],
+    hint: "Gunakan GROUP BY"
+  },
+  {
+    id: 13,
+    modulId: 7,
+    judul: "Jumlah Siswa per Kelas",
+    instruksi: "Hitung jumlah siswa per kelas.",
+    expectedQuery: "SELECT kelas, COUNT(*) FROM siswa GROUP BY kelas",
+    tabelSkema: [
+      { id: 1, nama: "A", kelas: "1A", nilai: 80 },
+      { id: 2, nama: "B", kelas: "1A", nilai: 70 },
+      { id: 3, nama: "C", kelas: "1B", nilai: 90 },
+      { id: 4, nama: "D", kelas: "1B", nilai: 60 },
+      { id: 5, nama: "E", kelas: "1A", nilai: 85 }
+    ],
+    hint: "Gunakan COUNT + GROUP BY"
+  },
+  {
+    id: 14,
+    modulId: 7,
+    judul: "Nilai Terendah",
+    instruksi: "Tampilkan nilai terendah siswa.",
+    expectedQuery: "SELECT MIN(nilai) FROM siswa",
+    tabelSkema: [
+      { id: 1, nama: "A", kelas: "1A", nilai: 80 },
+      { id: 2, nama: "B", kelas: "1A", nilai: 70 },
+      { id: 3, nama: "C", kelas: "1B", nilai: 90 },
+      { id: 4, nama: "D", kelas: "1B", nilai: 60 },
+      { id: 5, nama: "E", kelas: "1A", nilai: 85 }
+    ],
+    hint: "Gunakan MIN"
+  },
+  {
+    id: 15,
+    modulId: 7,
+    judul: "Total Nilai",
+    instruksi: "Hitung total nilai semua siswa.",
+    expectedQuery: "SELECT SUM(nilai) FROM siswa",
+    tabelSkema: [
+      { id: 1, nama: "A", kelas: "1A", nilai: 80 },
+      { id: 2, nama: "B", kelas: "1A", nilai: 70 },
+      { id: 3, nama: "C", kelas: "1B", nilai: 90 },
+      { id: 4, nama: "D", kelas: "1B", nilai: 60 },
+      { id: 5, nama: "E", kelas: "1A", nilai: 85 }
+    ],
+    hint: "Gunakan SUM"
+  },
+  {
+    id: 16,
+    modulId: 7,
+    judul: "Rata-rata Nilai per Kelas",
+    instruksi: "Hitung rata-rata nilai siswa per kelas.",
+    expectedQuery: "SELECT kelas, AVG(nilai) FROM siswa GROUP BY kelas",
+    tabelSkema: [
+      { id: 1, nama: "A", kelas: "1A", nilai: 80 },
+      { id: 2, nama: "B", kelas: "1A", nilai: 70 },
+      { id: 3, nama: "C", kelas: "1B", nilai: 90 },
+      { id: 4, nama: "D", kelas: "1B", nilai: 60 },
+      { id: 5, nama: "E", kelas: "1A", nilai: 85 }
+    ],
+    hint: "Gunakan AVG + GROUP BY"
+  },
+  {
+    id: 17,
+    modulId: 7,
+    judul: "Jumlah Siswa dengan Nilai Tinggi",
+    instruksi: "Hitung jumlah siswa yang memiliki nilai di atas 75.",
+    expectedQuery: "SELECT COUNT(*) FROM siswa WHERE nilai > 75",
+    tabelSkema: [
+      { id: 1, nama: "A", kelas: "1A", nilai: 80 },
+      { id: 2, nama: "B", kelas: "1A", nilai: 70 },
+      { id: 3, nama: "C", kelas: "1B", nilai: 90 },
+      { id: 4, nama: "D", kelas: "1B", nilai: 60 },
+      { id: 5, nama: "E", kelas: "1A", nilai: 85 }
+    ],
+    hint: "Gunakan WHERE + COUNT"
+  },
+  {
+    id: 18,
+    modulId: 7,
+    judul: "Kelas dengan Jumlah Siswa Lebih dari 2",
+    instruksi: "Tampilkan kelas yang memiliki jumlah siswa lebih dari 2.",
+    expectedQuery: "SELECT kelas, COUNT(*) FROM siswa GROUP BY kelas HAVING COUNT(*) > 2",
+    tabelSkema: [
+      { id: 1, nama: "A", kelas: "1A", nilai: 80 },
+      { id: 2, nama: "B", kelas: "1A", nilai: 70 },
+      { id: 3, nama: "C", kelas: "1B", nilai: 90 },
+      { id: 4, nama: "D", kelas: "1B", nilai: 60 },
+      { id: 5, nama: "E", kelas: "1A", nilai: 85 }
+    ],
+    hint: "Gunakan HAVING"
+  },
+  {
+    id: 19,
+    modulId: 7,
+    judul: "Total Nilai per Kelas",
+    instruksi: "Hitung total nilai untuk setiap kelas.",
+    expectedQuery: "SELECT kelas, SUM(nilai) FROM siswa GROUP BY kelas",
+    tabelSkema: [
+      { id: 1, nama: "A", kelas: "1A", nilai: 80 },
+      { id: 2, nama: "B", kelas: "1A", nilai: 70 },
+      { id: 3, nama: "C", kelas: "1B", nilai: 90 },
+      { id: 4, nama: "D", kelas: "1B", nilai: 60 },
+      { id: 5, nama: "E", kelas: "1A", nilai: 85 }
+    ],
+    hint: "Gunakan SUM + GROUP BY"
+  },
+  {
+    id: 20,
+    modulId: 7,
+    judul: "Kelas dengan Rata-rata Nilai Tinggi",
+    instruksi: "Tampilkan kelas yang memiliki rata-rata nilai di atas 75.",
+    expectedQuery: "SELECT kelas, AVG(nilai) FROM siswa GROUP BY kelas HAVING AVG(nilai) > 75",
+    tabelSkema: [
+      { id: 1, nama: "A", kelas: "1A", nilai: 80 },
+      { id: 2, nama: "B", kelas: "1A", nilai: 70 },
+      { id: 3, nama: "C", kelas: "1B", nilai: 90 },
+      { id: 4, nama: "D", kelas: "1B", nilai: 60 },
+      { id: 5, nama: "E", kelas: "1A", nilai: 85 }
+    ],
+    hint: "Gunakan HAVING + AVG"
+  },
+  {
+    id: 1,
+    modulId: 8,
+    judul: "Produk di Atas Rata-rata",
+    instruksi: "Tampilkan produk dengan harga di atas rata-rata.",
+    expectedQuery: "SELECT * FROM produk WHERE harga > (SELECT AVG(harga) FROM produk)",
+    tabelSkema: [
+      { id: 1, nama: "Laptop", kategori: "Elektronik", harga: 5000000 },
+      { id: 2, nama: "Mouse", kategori: "Elektronik", harga: 200000 },
+      { id: 3, nama: "Keyboard", kategori: "Elektronik", harga: 300000 },
+      { id: 4, nama: "Monitor", kategori: "Elektronik", harga: 1500000 },
+      { id: 5, nama: "Printer", kategori: "Elektronik", harga: 2500000 }
+    ],
+    hint: "Gunakan AVG dalam subquery"
+  },
+  {
+    id: 2,
+    modulId: 8,
+    judul: "Harga Tertinggi",
+    instruksi: "Tampilkan produk dengan harga tertinggi.",
+    expectedQuery: "SELECT * FROM produk WHERE harga = (SELECT MAX(harga) FROM produk)",
+    tabelSkema: [
+      { id: 1, nama: "Laptop", kategori: "Elektronik", harga: 5000000 },
+      { id: 2, nama: "Mouse", kategori: "Elektronik", harga: 200000 },
+      { id: 3, nama: "Keyboard", kategori: "Elektronik", harga: 300000 },
+      { id: 4, nama: "Monitor", kategori: "Elektronik", harga: 1500000 },
+      { id: 5, nama: "Printer", kategori: "Elektronik", harga: 2500000 }
+    ],
+    hint: "Gunakan MAX dalam subquery"
+  },
+  {
+    id: 3,
+    modulId: 8,
+    judul: "Produk Lebih Mahal dari Laptop",
+    instruksi: "Tampilkan produk yang lebih mahal dari Laptop.",
+    expectedQuery: "SELECT * FROM produk WHERE harga > (SELECT harga FROM produk WHERE nama = 'Laptop')",
+    tabelSkema: [
+      { id: 1, nama: "Laptop", kategori: "Elektronik", harga: 5000000 },
+      { id: 2, nama: "Mouse", kategori: "Elektronik", harga: 200000 },
+      { id: 3, nama: "Keyboard", kategori: "Elektronik", harga: 300000 },
+      { id: 4, nama: "Monitor", kategori: "Elektronik", harga: 1500000 },
+      { id: 5, nama: "Printer", kategori: "Elektronik", harga: 2500000 }
+    ],
+    hint: "Ambil harga Laptop di subquery"
+  },
+  {
+    id: 4,
+    modulId: 8,
+    judul: "Produk di Bawah Rata-rata",
+    instruksi: "Tampilkan produk dengan harga di bawah rata-rata.",
+    expectedQuery: "SELECT * FROM produk WHERE harga < (SELECT AVG(harga) FROM produk)",
+    tabelSkema: [
+      { id: 1, nama: "Laptop", kategori: "Elektronik", harga: 5000000 },
+      { id: 2, nama: "Mouse", kategori: "Elektronik", harga: 200000 },
+      { id: 3, nama: "Keyboard", kategori: "Elektronik", harga: 300000 },
+      { id: 4, nama: "Monitor", kategori: "Elektronik", harga: 1500000 },
+      { id: 5, nama: "Printer", kategori: "Elektronik", harga: 2500000 }
+    ],
+    hint: "Gunakan AVG"
+  },
+  {
+    id: 5,
+    modulId: 8,
+    judul: "Produk Bukan Harga Tertinggi",
+    instruksi: "Tampilkan semua produk kecuali yang harga tertinggi.",
+    expectedQuery: "SELECT * FROM produk WHERE harga <> (SELECT MAX(harga) FROM produk)",
+    tabelSkema: [
+      { id: 1, nama: "Laptop", kategori: "Elektronik", harga: 5000000 },
+      { id: 2, nama: "Mouse", kategori: "Elektronik", harga: 200000 },
+      { id: 3, nama: "Keyboard", kategori: "Elektronik", harga: 300000 },
+      { id: 4, nama: "Monitor", kategori: "Elektronik", harga: 1500000 },
+      { id: 5, nama: "Printer", kategori: "Elektronik", harga: 2500000 }
+    ],
+    hint: "Gunakan <>"
+  },
+  {
+    id: 6,
+    modulId: 8,
+    judul: "Gaji di Atas Rata-rata",
+    instruksi: "Tampilkan karyawan dengan gaji di atas rata-rata.",
+    expectedQuery: "SELECT * FROM karyawan WHERE gaji > (SELECT AVG(gaji) FROM karyawan)",
+    tabelSkema: [
+      { id: 1, nama: "Andi", departemen: "IT", gaji: 5000000 },
+      { id: 2, nama: "Budi", departemen: "HR", gaji: 6000000 },
+      { id: 3, nama: "Sari", departemen: "IT", gaji: 7000000 },
+      { id: 4, nama: "Rina", departemen: "Finance", gaji: 4000000 },
+      { id: 5, nama: "Doni", departemen: "IT", gaji: 8000000 }
+    ],
+    hint: "Gunakan AVG"
+  },
+  {
+    id: 7,
+    modulId: 8,
+    judul: "Gaji Tertinggi",
+    instruksi: "Tampilkan karyawan dengan gaji tertinggi.",
+    expectedQuery: "SELECT * FROM karyawan WHERE gaji = (SELECT MAX(gaji) FROM karyawan)",
+    tabelSkema: [
+      { id: 1, nama: "Andi", departemen: "IT", gaji: 5000000 },
+      { id: 2, nama: "Budi", departemen: "HR", gaji: 6000000 },
+      { id: 3, nama: "Sari", departemen: "IT", gaji: 7000000 },
+      { id: 4, nama: "Rina", departemen: "Finance", gaji: 4000000 },
+      { id: 5, nama: "Doni", departemen: "IT", gaji: 8000000 }
+    ],
+    hint: "Gunakan MAX"
+  },
+  {
+    id: 8,
+    modulId: 8,
+    judul: "Gaji di Bawah Rata-rata",
+    instruksi: "Tampilkan karyawan dengan gaji di bawah rata-rata.",
+    expectedQuery: "SELECT * FROM karyawan WHERE gaji < (SELECT AVG(gaji) FROM karyawan)",
+    tabelSkema: [
+      { id: 1, nama: "Andi", departemen: "IT", gaji: 5000000 },
+      { id: 2, nama: "Budi", departemen: "HR", gaji: 6000000 },
+      { id: 3, nama: "Sari", departemen: "IT", gaji: 7000000 },
+      { id: 4, nama: "Rina", departemen: "Finance", gaji: 4000000 },
+      { id: 5, nama: "Doni", departemen: "IT", gaji: 8000000 }
+    ],
+    hint: "Gunakan AVG"
+  },
+  {
+    id: 9,
+    modulId: 8,
+    judul: "Gaji Sama dengan Andi",
+    instruksi: "Tampilkan karyawan dengan gaji sama dengan Andi.",
+    expectedQuery: "SELECT * FROM karyawan WHERE gaji = (SELECT gaji FROM karyawan WHERE nama = 'Andi')",
+    tabelSkema: [
+      { id: 1, nama: "Andi", departemen: "IT", gaji: 5000000 },
+      { id: 2, nama: "Budi", departemen: "HR", gaji: 6000000 },
+      { id: 3, nama: "Sari", departemen: "IT", gaji: 5000000 },
+      { id: 4, nama: "Rina", departemen: "Finance", gaji: 4000000 },
+      { id: 5, nama: "Doni", departemen: "IT", gaji: 8000000 }
+    ],
+    hint: "Ambil gaji Andi"
+  },
+  {
+    id: 10,
+    modulId: 8,
+    judul: "Gaji di Atas Minimum",
+    instruksi: "Tampilkan karyawan dengan gaji di atas minimum.",
+    expectedQuery: "SELECT * FROM karyawan WHERE gaji > (SELECT MIN(gaji) FROM karyawan)",
+    tabelSkema: [
+      { id: 1, nama: "Andi", departemen: "IT", gaji: 5000000 },
+      { id: 2, nama: "Budi", departemen: "HR", gaji: 6000000 },
+      { id: 3, nama: "Sari", departemen: "IT", gaji: 7000000 },
+      { id: 4, nama: "Rina", departemen: "Finance", gaji: 4000000 },
+      { id: 5, nama: "Doni", departemen: "IT", gaji: 8000000 }
+    ],
+    hint: "Gunakan MIN"
+  },
+  {
+    id: 11,
+    modulId: 8,
+    judul: "Nilai di Atas Rata-rata",
+    instruksi: "Tampilkan siswa dengan nilai di atas rata-rata.",
+    expectedQuery: "SELECT * FROM siswa WHERE nilai > (SELECT AVG(nilai) FROM siswa)",
+    tabelSkema: [
+      { id: 1, nama: "A", kelas: "1A", nilai: 80 },
+      { id: 2, nama: "B", kelas: "1A", nilai: 70 },
+      { id: 3, nama: "C", kelas: "1B", nilai: 90 },
+      { id: 4, nama: "D", kelas: "1B", nilai: 60 },
+      { id: 5, nama: "E", kelas: "1A", nilai: 85 }
+    ],
+    hint: "Gunakan AVG"
+  },
+  {
+    id: 12,
+    modulId: 8,
+    judul: "Nilai Tertinggi",
+    instruksi: "Tampilkan siswa dengan nilai tertinggi.",
+    expectedQuery: "SELECT * FROM siswa WHERE nilai = (SELECT MAX(nilai) FROM siswa)",
+    tabelSkema: [
+      { id: 1, nama: "A", kelas: "1A", nilai: 80 },
+      { id: 2, nama: "B", kelas: "1A", nilai: 70 },
+      { id: 3, nama: "C", kelas: "1B", nilai: 90 },
+      { id: 4, nama: "D", kelas: "1B", nilai: 60 },
+      { id: 5, nama: "E", kelas: "1A", nilai: 85 }
+    ],
+    hint: "Gunakan MAX"
+  },
+  {
+    id: 13,
+    modulId: 8,
+    judul: "Nilai di Bawah Maksimum",
+    instruksi: "Tampilkan siswa dengan nilai di bawah nilai tertinggi.",
+    expectedQuery: "SELECT * FROM siswa WHERE nilai < (SELECT MAX(nilai) FROM siswa)",
+    tabelSkema: [
+      { id: 1, nama: "A", kelas: "1A", nilai: 80 },
+      { id: 2, nama: "B", kelas: "1A", nilai: 70 },
+      { id: 3, nama: "C", kelas: "1B", nilai: 90 },
+      { id: 4, nama: "D", kelas: "1B", nilai: 60 },
+      { id: 5, nama: "E", kelas: "1A", nilai: 85 }
+    ],
+    hint: "Gunakan MAX"
+  },
+  {
+    id: 14,
+    modulId: 8,
+    judul: "Nilai Sama dengan Siswa A",
+    instruksi: "Tampilkan siswa dengan nilai sama dengan siswa A.",
+    expectedQuery: "SELECT * FROM siswa WHERE nilai = (SELECT nilai FROM siswa WHERE nama = 'A')",
+    tabelSkema: [
+      { id: 1, nama: "A", kelas: "1A", nilai: 80 },
+      { id: 2, nama: "B", kelas: "1A", nilai: 70 },
+      { id: 3, nama: "C", kelas: "1B", nilai: 80 },
+      { id: 4, nama: "D", kelas: "1B", nilai: 60 },
+      { id: 5, nama: "E", kelas: "1A", nilai: 85 }
+    ],
+    hint: "Ambil nilai A"
+  },
+  {
+    id: 15,
+    modulId: 8,
+    judul: "Nilai di Atas Minimum",
+    instruksi: "Tampilkan siswa dengan nilai di atas nilai minimum.",
+    expectedQuery: "SELECT * FROM siswa WHERE nilai > (SELECT MIN(nilai) FROM siswa)",
+    tabelSkema: [
+      { id: 1, nama: "A", kelas: "1A", nilai: 80 },
+      { id: 2, nama: "B", kelas: "1A", nilai: 70 },
+      { id: 3, nama: "C", kelas: "1B", nilai: 90 },
+      { id: 4, nama: "D", kelas: "1B", nilai: 60 },
+      { id: 5, nama: "E", kelas: "1A", nilai: 85 }
+    ],
+    hint: "Gunakan MIN"
+  },
+  {
+    id: 16,
+    modulId: 8,
+    judul: "Produk Lebih Mahal dari Rata-rata Kategori",
+    instruksi: "Tampilkan produk yang harganya lebih tinggi dari rata-rata kategori 'Elektronik'.",
+    expectedQuery: "SELECT * FROM produk WHERE harga > (SELECT AVG(harga) FROM produk WHERE kategori = 'Elektronik')",
+    tabelSkema: [
+      { id: 1, nama: "Laptop", kategori: "Elektronik", harga: 5000000 },
+      { id: 2, nama: "Mouse", kategori: "Elektronik", harga: 200000 },
+      { id: 3, nama: "Buku", kategori: "Non-Elektronik", harga: 100000 },
+      { id: 4, nama: "Monitor", kategori: "Elektronik", harga: 1500000 },
+      { id: 5, nama: "Printer", kategori: "Elektronik", harga: 2500000 }
+    ],
+    hint: "Gunakan AVG dengan WHERE kategori"
+  },
+  {
+    id: 17,
+    modulId: 8,
+    judul: "Karyawan di Atas Rata-rata Departemen IT",
+    instruksi: "Tampilkan karyawan yang gajinya lebih tinggi dari rata-rata departemen IT.",
+    expectedQuery: "SELECT * FROM karyawan WHERE gaji > (SELECT AVG(gaji) FROM karyawan WHERE departemen = 'IT')",
+    tabelSkema: [
+      { id: 1, nama: "Andi", departemen: "IT", gaji: 5000000 },
+      { id: 2, nama: "Budi", departemen: "HR", gaji: 6000000 },
+      { id: 3, nama: "Sari", departemen: "IT", gaji: 7000000 },
+      { id: 4, nama: "Rina", departemen: "Finance", gaji: 4000000 },
+      { id: 5, nama: "Doni", departemen: "IT", gaji: 8000000 }
+    ],
+    hint: "Gunakan subquery dengan filter departemen"
+  },
+  {
+    id: 18,
+    modulId: 8,
+    judul: "Siswa dengan Nilai Kedua Tertinggi",
+    instruksi: "Tampilkan siswa dengan nilai tertinggi kedua.",
+    expectedQuery: "SELECT * FROM siswa WHERE nilai = (SELECT MAX(nilai) FROM siswa WHERE nilai < (SELECT MAX(nilai) FROM siswa))",
+    tabelSkema: [
+      { id: 1, nama: "A", kelas: "1A", nilai: 80 },
+      { id: 2, nama: "B", kelas: "1A", nilai: 70 },
+      { id: 3, nama: "C", kelas: "1B", nilai: 90 },
+      { id: 4, nama: "D", kelas: "1B", nilai: 60 },
+      { id: 5, nama: "E", kelas: "1A", nilai: 85 }
+    ],
+    hint: "Gunakan MAX dua kali (nested subquery)"
+  },
+  {
+    id: 19,
+    modulId: 8,
+    judul: "Produk Lebih Murah dari Semua Produk Elektronik",
+    instruksi: "Tampilkan produk yang lebih murah dari semua produk kategori Elektronik.",
+    expectedQuery: "SELECT * FROM produk WHERE harga < ALL (SELECT harga FROM produk WHERE kategori = 'Elektronik')",
+    tabelSkema: [
+      { id: 1, nama: "Laptop", kategori: "Elektronik", harga: 5000000 },
+      { id: 2, nama: "Mouse", kategori: "Elektronik", harga: 200000 },
+      { id: 3, nama: "Buku", kategori: "Non-Elektronik", harga: 100000 },
+      { id: 4, nama: "Monitor", kategori: "Elektronik", harga: 1500000 },
+      { id: 5, nama: "Printer", kategori: "Elektronik", harga: 2500000 }
+    ],
+    hint: "Gunakan ALL"
+  },
+  {
+    id: 20,
+    modulId: 8,
+    judul: "Karyawan Bukan Gaji Terendah",
+    instruksi: "Tampilkan semua karyawan kecuali yang memiliki gaji terendah.",
+    expectedQuery: "SELECT * FROM karyawan WHERE gaji <> (SELECT MIN(gaji) FROM karyawan)",
+    tabelSkema: [
+      { id: 1, nama: "Andi", departemen: "IT", gaji: 5000000 },
+      { id: 2, nama: "Budi", departemen: "HR", gaji: 6000000 },
+      { id: 3, nama: "Sari", departemen: "IT", gaji: 7000000 },
+      { id: 4, nama: "Rina", departemen: "Finance", gaji: 4000000 },
+      { id: 5, nama: "Doni", departemen: "IT", gaji: 8000000 }
+    ],
+    hint: "Gunakan MIN + operator <>"
+  },
+  {
+    id: 1,
+    modulId: 9,
+    judul: "Primary Key pada ID",
+    instruksi: "Buat tabel 'users' dengan kolom id sebagai PRIMARY KEY.",
+    expectedQuery: "CREATE TABLE users (id INT PRIMARY KEY, nama VARCHAR(50), email VARCHAR(50), umur INT);",
+    tabelSkema: [
+      { id: 1, nama: "Andi", email: "andi@mail.com", umur: 20 },
+      { id: 2, nama: "Budi", email: "budi@mail.com", umur: 25 },
+      { id: 3, nama: "Sari", email: "sari@mail.com", umur: 22 },
+      { id: 4, nama: "Rina", email: "rina@mail.com", umur: 30 },
+      { id: 5, nama: "Doni", email: "doni@mail.com", umur: 28 }
+    ],
+    hint: "Gunakan PRIMARY KEY"
+  },
+  {
+    id: 2,
+    modulId: 9,
+    judul: "NOT NULL pada Nama",
+    instruksi: "Buat tabel 'pelanggan' dengan kolom nama tidak boleh NULL.",
+    expectedQuery: "CREATE TABLE pelanggan (id INT, nama VARCHAR(50) NOT NULL, kota VARCHAR(50), umur INT);",
+    tabelSkema: [
+      { id: 1, nama: "A", kota: "Medan", umur: 20 },
+      { id: 2, nama: "B", kota: "Jakarta", umur: 25 },
+      { id: 3, nama: "C", kota: "Bandung", umur: 22 },
+      { id: 4, nama: "D", kota: "Surabaya", umur: 30 },
+      { id: 5, nama: "E", kota: "Bali", umur: 28 }
+    ],
+    hint: "Gunakan NOT NULL"
+  },
+  {
+    id: 3,
+    modulId: 9,
+    judul: "UNIQUE Email",
+    instruksi: "Buat tabel 'users' dengan email harus unik.",
+    expectedQuery: "CREATE TABLE users (id INT, nama VARCHAR(50), email VARCHAR(50) UNIQUE, umur INT);",
+    tabelSkema: [
+      { id: 1, nama: "Andi", email: "andi@mail.com", umur: 20 },
+      { id: 2, nama: "Budi", email: "budi@mail.com", umur: 25 },
+      { id: 3, nama: "Sari", email: "sari@mail.com", umur: 22 },
+      { id: 4, nama: "Rina", email: "rina@mail.com", umur: 30 },
+      { id: 5, nama: "Doni", email: "doni@mail.com", umur: 28 }
+    ],
+    hint: "Gunakan UNIQUE"
+  },
+  {
+    id: 4,
+    modulId: 9,
+    judul: "DEFAULT Nilai",
+    instruksi: "Buat tabel 'produk' dengan stok default 0.",
+    expectedQuery: "CREATE TABLE produk (id INT, nama VARCHAR(50), kategori VARCHAR(50), stok INT DEFAULT 0);",
+    tabelSkema: [
+      { id: 1, nama: "Laptop", kategori: "Elektronik", stok: 5 },
+      { id: 2, nama: "Mouse", kategori: "Elektronik", stok: 10 },
+      { id: 3, nama: "Keyboard", kategori: "Elektronik", stok: 8 },
+      { id: 4, nama: "Monitor", kategori: "Elektronik", stok: 3 },
+      { id: 5, nama: "Printer", kategori: "Elektronik", stok: 2 }
+    ],
+    hint: "Gunakan DEFAULT"
+  },
+  {
+    id: 5,
+    modulId: 9,
+    judul: "CHECK Harga",
+    instruksi: "Buat tabel 'barang' dengan harga harus lebih dari 0.",
+    expectedQuery: "CREATE TABLE barang (id INT, nama VARCHAR(50), kategori VARCHAR(50), harga INT CHECK (harga > 0));",
+    tabelSkema: [
+      { id: 1, nama: "A", kategori: "X", harga: 100 },
+      { id: 2, nama: "B", kategori: "X", harga: 200 },
+      { id: 3, nama: "C", kategori: "Y", harga: 300 },
+      { id: 4, nama: "D", kategori: "Y", harga: 400 },
+      { id: 5, nama: "E", kategori: "Z", harga: 500 }
+    ],
+    hint: "Gunakan CHECK"
+  },
+  {
+    id: 6,
+    modulId: 9,
+    judul: "Foreign Key Dasar",
+    instruksi: "Buat tabel 'pesanan' dengan foreign key ke 'users'.",
+    expectedQuery: "CREATE TABLE pesanan (id INT, user_id INT, produk VARCHAR(50), total INT, FOREIGN KEY (user_id) REFERENCES users(id));",
+    tabelSkema: [
+      { id: 1, user_id: 1, produk: "Laptop", total: 5000000 },
+      { id: 2, user_id: 2, produk: "Mouse", total: 200000 },
+      { id: 3, user_id: 3, produk: "Keyboard", total: 300000 },
+      { id: 4, user_id: 1, produk: "Monitor", total: 1500000 },
+      { id: 5, user_id: 2, produk: "Printer", total: 2500000 }
+    ],
+    hint: "Gunakan FOREIGN KEY"
+  },
+  {
+    id: 7,
+    modulId: 9,
+    judul: "Primary + NOT NULL",
+    instruksi: "Buat tabel 'kategori' dengan id PRIMARY KEY dan nama NOT NULL.",
+    expectedQuery: "CREATE TABLE kategori (id INT PRIMARY KEY, nama VARCHAR(50) NOT NULL, deskripsi VARCHAR(50), status VARCHAR(20));",
+    tabelSkema: [
+      { id: 1, nama: "A", deskripsi: "X", status: "aktif" },
+      { id: 2, nama: "B", deskripsi: "Y", status: "aktif" },
+      { id: 3, nama: "C", deskripsi: "Z", status: "nonaktif" },
+      { id: 4, nama: "D", deskripsi: "X", status: "aktif" },
+      { id: 5, nama: "E", deskripsi: "Y", status: "aktif" }
+    ],
+    hint: "Gabungkan constraint"
+  },
+  {
+    id: 8,
+    modulId: 9,
+    judul: "UNIQUE Username",
+    instruksi: "Buat tabel 'akun' dengan username unik.",
+    expectedQuery: "CREATE TABLE akun (id INT, username VARCHAR(50) UNIQUE, password VARCHAR(50), role VARCHAR(20));",
+    tabelSkema: [
+      { id: 1, username: "andi", password: "123", role: "admin" },
+      { id: 2, username: "budi", password: "123", role: "user" },
+      { id: 3, username: "sari", password: "123", role: "user" },
+      { id: 4, username: "rina", password: "123", role: "admin" },
+      { id: 5, username: "doni", password: "123", role: "user" }
+    ],
+    hint: "Gunakan UNIQUE"
+  },
+  {
+    id: 9,
+    modulId: 9,
+    judul: "CHECK Umur",
+    instruksi: "Buat tabel 'anggota' dengan umur minimal 17.",
+    expectedQuery: "CREATE TABLE anggota (id INT, nama VARCHAR(50), kota VARCHAR(50), umur INT CHECK (umur >= 17));",
+    tabelSkema: [
+      { id: 1, nama: "A", kota: "Medan", umur: 18 },
+      { id: 2, nama: "B", kota: "Jakarta", umur: 20 },
+      { id: 3, nama: "C", kota: "Bandung", umur: 25 },
+      { id: 4, nama: "D", kota: "Surabaya", umur: 30 },
+      { id: 5, nama: "E", kota: "Bali", umur: 22 }
+    ],
+    hint: "Gunakan CHECK"
+  },
+  {
+    id: 10,
+    modulId: 9,
+    judul: "DEFAULT Status",
+    instruksi: "Buat tabel 'pesanan' dengan status default 'pending'.",
+    expectedQuery: "CREATE TABLE pesanan (id INT, produk VARCHAR(50), total INT, status VARCHAR(20) DEFAULT 'pending');",
+    tabelSkema: [
+      { id: 1, produk: "Laptop", total: 5000000, status: "pending" },
+      { id: 2, produk: "Mouse", total: 200000, status: "selesai" },
+      { id: 3, produk: "Keyboard", total: 300000, status: "pending" },
+      { id: 4, produk: "Monitor", total: 1500000, status: "proses" },
+      { id: 5, produk: "Printer", total: 2500000, status: "pending" }
+    ],
+    hint: "Gunakan DEFAULT"
+  },
+  {
+    id: 11,
+    modulId: 9,
+    judul: "CHECK Range",
+    instruksi: "Buat tabel 'nilai' dengan skor antara 0-100.",
+    expectedQuery: "CREATE TABLE nilai (id INT, nama VARCHAR(50), kelas VARCHAR(10), skor INT CHECK (skor BETWEEN 0 AND 100));",
+    tabelSkema: [
+      { id: 1, nama: "A", kelas: "1A", skor: 80 },
+      { id: 2, nama: "B", kelas: "1A", skor: 70 },
+      { id: 3, nama: "C", kelas: "1B", skor: 90 },
+      { id: 4, nama: "D", kelas: "1B", skor: 60 },
+      { id: 5, nama: "E", kelas: "1A", skor: 85 }
+    ],
+    hint: "Gunakan BETWEEN"
+  },
+  {
+    id: 12,
+    modulId: 9,
+    judul: "Composite Unique",
+    instruksi: "Buat tabel 'jadwal' dengan kombinasi hari dan jam unik.",
+    expectedQuery: "CREATE TABLE jadwal (id INT, hari VARCHAR(20), jam VARCHAR(10), ruang VARCHAR(10), UNIQUE (hari, jam));",
+    tabelSkema: [
+      { id: 1, hari: "Senin", jam: "08:00", ruang: "A" },
+      { id: 2, hari: "Senin", jam: "10:00", ruang: "B" },
+      { id: 3, hari: "Selasa", jam: "08:00", ruang: "A" },
+      { id: 4, hari: "Rabu", jam: "10:00", ruang: "C" },
+      { id: 5, hari: "Kamis", jam: "08:00", ruang: "B" }
+    ],
+    hint: "Gunakan UNIQUE (2 kolom)"
+  },
+  {
+    id: 13,
+    modulId: 9,
+    judul: "Primary + Unique",
+    instruksi: "Buat tabel 'produk' dengan id PRIMARY KEY dan nama UNIQUE.",
+    expectedQuery: "CREATE TABLE produk (id INT PRIMARY KEY, nama VARCHAR(50) UNIQUE, kategori VARCHAR(50), harga INT);",
+    tabelSkema: [
+      { id: 1, nama: "Laptop", kategori: "Elektronik", harga: 5000000 },
+      { id: 2, nama: "Mouse", kategori: "Elektronik", harga: 200000 },
+      { id: 3, nama: "Keyboard", kategori: "Elektronik", harga: 300000 },
+      { id: 4, nama: "Monitor", kategori: "Elektronik", harga: 1500000 },
+      { id: 5, nama: "Printer", kategori: "Elektronik", harga: 2500000 }
+    ],
+    hint: "Gabungkan constraint"
+  },
+  {
+    id: 14,
+    modulId: 9,
+    judul: "DEFAULT Tanggal",
+    instruksi: "Buat tabel 'log' dengan tanggal default sekarang.",
+    expectedQuery: "CREATE TABLE log (id INT, aktivitas VARCHAR(50), user VARCHAR(50), tanggal TIMESTAMP DEFAULT CURRENT_TIMESTAMP);",
+    tabelSkema: [
+      { id: 1, aktivitas: "Login", user: "A", tanggal: "2024-01-01" },
+      { id: 2, aktivitas: "Logout", user: "B", tanggal: "2024-01-02" },
+      { id: 3, aktivitas: "Login", user: "C", tanggal: "2024-01-03" },
+      { id: 4, aktivitas: "Edit", user: "D", tanggal: "2024-01-04" },
+      { id: 5, aktivitas: "Delete", user: "E", tanggal: "2024-01-05" }
+    ],
+    hint: "Gunakan CURRENT_TIMESTAMP"
+  },
+  {
+    id: 15,
+    modulId: 9,
+    judul: "CHECK Enum",
+    instruksi: "Buat tabel 'pesanan' dengan status hanya 'pending', 'proses', 'selesai'.",
+    expectedQuery: "CREATE TABLE pesanan (id INT, produk VARCHAR(50), total INT, status VARCHAR(20) CHECK (status IN ('pending','proses','selesai')));",
+    tabelSkema: [
+      { id: 1, produk: "Laptop", total: 5000000, status: "pending" },
+      { id: 2, produk: "Mouse", total: 200000, status: "selesai" },
+      { id: 3, produk: "Keyboard", total: 300000, status: "pending" },
+      { id: 4, produk: "Monitor", total: 1500000, status: "proses" },
+      { id: 5, produk: "Printer", total: 2500000, status: "pending" }
+    ],
+    hint: "Gunakan CHECK IN"
+  },
+  {
+    id: 16,
+    modulId: 9,
+    judul: "Foreign Key dengan ON DELETE CASCADE",
+    instruksi: "Buat tabel 'detail_pesanan' dengan foreign key ke tabel 'pesanan' dan gunakan ON DELETE CASCADE.",
+    expectedQuery: "CREATE TABLE detail_pesanan (id INT, pesanan_id INT, produk VARCHAR(50), qty INT, FOREIGN KEY (pesanan_id) REFERENCES pesanan(id) ON DELETE CASCADE);",
+    tabelSkema: [
+      { id: 1, pesanan_id: 1, produk: "Laptop", qty: 1 },
+      { id: 2, pesanan_id: 2, produk: "Mouse", qty: 2 },
+      { id: 3, pesanan_id: 3, produk: "Keyboard", qty: 1 },
+      { id: 4, pesanan_id: 1, produk: "Monitor", qty: 1 },
+      { id: 5, pesanan_id: 2, produk: "Printer", qty: 1 }
+    ],
+    hint: "Gunakan FOREIGN KEY + ON DELETE CASCADE"
+  },
+  {
+    id: 17,
+    modulId: 9,
+    judul: "Multiple NOT NULL",
+    instruksi: "Buat tabel 'pegawai' dengan kolom nama dan jabatan tidak boleh NULL.",
+    expectedQuery: "CREATE TABLE pegawai (id INT, nama VARCHAR(50) NOT NULL, jabatan VARCHAR(50) NOT NULL, gaji INT);",
+    tabelSkema: [
+      { id: 1, nama: "Andi", jabatan: "Manager", gaji: 8000000 },
+      { id: 2, nama: "Budi", jabatan: "Staff", gaji: 5000000 },
+      { id: 3, nama: "Sari", jabatan: "Admin", gaji: 4000000 },
+      { id: 4, nama: "Rina", jabatan: "HR", gaji: 6000000 },
+      { id: 5, nama: "Doni", jabatan: "IT", gaji: 7000000 }
+    ],
+    hint: "Gunakan NOT NULL di dua kolom"
+  },
+  {
+    id: 18,
+    modulId: 9,
+    judul: "CHECK Gaji Minimum",
+    instruksi: "Buat tabel 'karyawan' dengan gaji minimal 3000000.",
+    expectedQuery: "CREATE TABLE karyawan (id INT, nama VARCHAR(50), departemen VARCHAR(50), gaji INT CHECK (gaji >= 3000000));",
+    tabelSkema: [
+      { id: 1, nama: "Andi", departemen: "IT", gaji: 5000000 },
+      { id: 2, nama: "Budi", departemen: "HR", gaji: 4000000 },
+      { id: 3, nama: "Sari", departemen: "Finance", gaji: 6000000 },
+      { id: 4, nama: "Rina", departemen: "IT", gaji: 7000000 },
+      { id: 5, nama: "Doni", departemen: "HR", gaji: 8000000 }
+    ],
+    hint: "Gunakan CHECK (gaji >= ...)"
+  },
+  {
+    id: 19,
+    modulId: 9,
+    judul: "UNIQUE Kombinasi Kolom",
+    instruksi: "Buat tabel 'absensi' dengan kombinasi nama dan tanggal unik.",
+    expectedQuery: "CREATE TABLE absensi (id INT, nama VARCHAR(50), tanggal DATE, status VARCHAR(20), UNIQUE (nama, tanggal));",
+    tabelSkema: [
+      { id: 1, nama: "Andi", tanggal: "2024-01-01", status: "Hadir" },
+      { id: 2, nama: "Budi", tanggal: "2024-01-01", status: "Hadir" },
+      { id: 3, nama: "Sari", tanggal: "2024-01-02", status: "Izin" },
+      { id: 4, nama: "Rina", tanggal: "2024-01-02", status: "Hadir" },
+      { id: 5, nama: "Doni", tanggal: "2024-01-03", status: "Sakit" }
+    ],
+    hint: "Gunakan UNIQUE (nama, tanggal)"
+  },
+  {
+    id: 20,
+    modulId: 9,
+    judul: "Gabungan Semua Constraint",
+    instruksi: "Buat tabel 'users' dengan id PRIMARY KEY, email UNIQUE, nama NOT NULL, dan umur minimal 17.",
+    expectedQuery: "CREATE TABLE users (id INT PRIMARY KEY, nama VARCHAR(50) NOT NULL, email VARCHAR(50) UNIQUE, umur INT CHECK (umur >= 17));",
+    tabelSkema: [
+      { id: 1, nama: "Andi", email: "andi@mail.com", umur: 20 },
+      { id: 2, nama: "Budi", email: "budi@mail.com", umur: 25 },
+      { id: 3, nama: "Sari", email: "sari@mail.com", umur: 22 },
+      { id: 4, nama: "Rina", email: "rina@mail.com", umur: 30 },
+      { id: 5, nama: "Doni", email: "doni@mail.com", umur: 28 }
+    ],
+    hint: "Gabungkan PRIMARY KEY, UNIQUE, NOT NULL, CHECK"
   }
 ];
 
