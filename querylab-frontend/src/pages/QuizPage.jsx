@@ -53,9 +53,9 @@ export default function QuizPage() {
           <h2 className="fw-bold mb-1">Kuis Selesai!</h2>
           <p className="text-muted small mb-4">Modul {id}</p>
           <div className="bg-primary bg-opacity-10 py-4 rounded-4 mb-4">
-             <h1 className="display-4 fw-black text-primary">
-                {Math.round((score / filteredQuiz.length) * 100)}
-             </h1>
+            <h1 className="display-4 fw-black text-primary">
+              {Math.round((score / filteredQuiz.length) * 100)}
+            </h1>
           </div>
           <button onClick={() => navigate(-1)} className="btn btn-dark w-100 py-3 rounded-4 fw-bold mb-2">Selesai</button>
           <button onClick={() => window.location.reload()} className="btn btn-link text-muted w-100 text-decoration-none small">Ulangi Kuis</button>
@@ -67,39 +67,56 @@ export default function QuizPage() {
   return (
     <div className="min-h-screen bg-[#f8fafc] flex flex-col items-center justify-center p-4">
       <div className="w-full max-w-2xl bg-white p-6 md:p-10 rounded-[2.5rem] shadow-sm border border-gray-100">
-        
+
         {/* Progress */}
         <div className="d-flex justify-content-between align-items-center mb-5">
-            <button onClick={() => navigate(-1)} className="btn btn-light rounded-circle p-2"><ChevronLeft size={20}/></button>
-            <span className="badge bg-light text-dark rounded-pill px-3">Soal {currentStep + 1} / {filteredQuiz.length}</span>
+          <button onClick={() => navigate(-1)} className="btn btn-light rounded-circle p-2"><ChevronLeft size={20} /></button>
+          <span className="badge bg-light text-dark rounded-pill px-3">Soal {currentStep + 1} / {filteredQuiz.length}</span>
         </div>
 
         <h3 className="fw-bold text-slate-800 mb-5">{currentQuestion.question}</h3>
 
         {/* Options */}
-        <div className="d-grid gap-3 mb-5">
-          {currentQuestion.options.map((option) => {
-            const isCorrect = option === currentQuestion.answer;
-            const isSelected = option === selectedOption;
+        {currentQuestion.options.map((option) => {
+          const isCorrect = option === currentQuestion.answer;
+          const isSelected = option === selectedOption;
 
-            let btnClass = "btn btn-outline-light text-dark text-start p-4 rounded-4 border-2 fw-bold transition-all";
-            if (isAnswered) {
-              if (isCorrect) btnClass = "btn btn-success text-start p-4 rounded-4 border-2 border-success bg-opacity-10 fw-bold";
-              else if (isSelected) btnClass = "btn btn-danger text-start p-4 rounded-4 border-2 border-danger bg-opacity-10 fw-bold text-danger";
-              else btnClass = "btn btn-light text-start p-4 rounded-4 border-2 opacity-50 fw-bold";
-            }
-
-            return (
-              <button key={option} disabled={isAnswered} onClick={() => handleOptionClick(option)} className={btnClass}>
-                <div className="d-flex justify-content-between align-items-center">
-                    {option}
-                    {isAnswered && isCorrect && <CheckCircle2 size={20} className="text-success" />}
-                    {isAnswered && isSelected && !isCorrect && <XCircle size={20} className="text-danger" />}
-                </div>
-              </button>
-            );
-          })}
-        </div>
+          return (
+            <div
+              key={option}
+              onClick={() => handleOptionClick(option)}
+              style={{
+                padding: "14px",
+                borderRadius: "14px",
+                border: "1.5px solid #e5e7eb",
+                background: isAnswered
+                  ? isCorrect
+                    ? "#ecfdf5"
+                    : isSelected
+                      ? "#fef2f2"
+                      : "#f9fafb"
+                  : "#ffffff",
+                color: isAnswered
+                  ? isCorrect
+                    ? "#166534"
+                    : isSelected
+                      ? "#991b1b"
+                      : "#6b7280"
+                  : "#111827",
+                cursor: "pointer",
+                fontWeight: "500",
+                transition: "0.2s",
+                opacity: isAnswered && !isCorrect && !isSelected ? 0.5 : 1
+              }}
+            >
+              <div className="d-flex justify-content-between align-items-center">
+                {option}
+                {isAnswered && isCorrect && <CheckCircle2 size={18} color="#22c55e" />}
+                {isAnswered && isSelected && !isCorrect && <XCircle size={18} color="#ef4444" />}
+              </div>
+            </div>
+          );
+        })}
 
         {/* Penjelasan */}
         {isAnswered && (
@@ -109,12 +126,12 @@ export default function QuizPage() {
           </div>
         )}
 
-        <button 
-          disabled={!isAnswered} 
-          onClick={handleNext} 
+        <button
+          disabled={!isAnswered}
+          onClick={handleNext}
           className="btn btn-primary w-100 py-3 rounded-pill fw-bold shadow-sm"
         >
-          {currentStep === filteredQuiz.length - 1 ? "Lihat Hasil Akhir" : "Lanjut ke Soal Berikutnya"} <ArrowRight size={18}/>
+          {currentStep === filteredQuiz.length - 1 ? "Lihat Hasil Akhir" : "Lanjut ke Soal Berikutnya"} <ArrowRight size={18} />
         </button>
       </div>
     </div>
