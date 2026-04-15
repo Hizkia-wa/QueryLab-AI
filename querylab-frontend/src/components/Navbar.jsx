@@ -48,14 +48,14 @@ export default function Navbar() {
           
           {/* AI SECTION - Highlighted */}
           <Link 
-            to="/ai-tutor" 
+            to="/ai-mentor" 
             className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-black transition-all ${
-              location.pathname === "/ai-tutor"
+              location.pathname === "/ai-mentor"
                 ? "bg-indigo-600 text-white shadow-lg shadow-indigo-200"
                 : "text-indigo-600 hover:bg-indigo-50"
             }`}
           >
-            <Cpu size={16} className={location.pathname === "/ai-tutor" ? "animate-pulse" : ""} />
+            <Cpu size={16} className={location.pathname === "/ai-mentor" ? "animate-pulse" : ""} />
             AI Tutor
           </Link>
         </div>
@@ -76,7 +76,7 @@ export default function Navbar() {
           <MobileNavLink to="/materi" label="Materi" icon={<BookOpen size={20}/>} />
           <MobileNavLink to="/praktikum" label="Praktikum" icon={<Code2 size={20}/>} />
           <MobileNavLink to="/challenge" label="Challenge" icon={<Trophy size={20}/>} />
-          <Link to="/ai-tutor" className="flex items-center justify-between p-4 bg-indigo-600 text-white rounded-2xl font-black">
+          <Link to="/ai-mentor" className="flex items-center justify-between p-4 bg-indigo-600 text-white rounded-2xl font-black">
             <div className="flex items-center gap-3">
               <Cpu size={20} /> AI Tutor
             </div>

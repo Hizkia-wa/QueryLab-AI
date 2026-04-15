@@ -8,7 +8,8 @@ import MateriPage from "./pages/MateriPage";
 import PraktikumPage from "./pages/PraktikumPage";
 import ChallengePage from "./pages/ChallengePage";
 import SolutionPage from "./pages/SolutionPage";
-import QuizPage from "./pages/QuizPage"; // 
+import QuizPage from "./pages/QuizPage";
+import AiPage from "./components/QueryLabFull" // 
 
 // AI Component
 import QueryLabAI from "./components/QueryLabAI";
@@ -26,10 +27,9 @@ function App() {
             <Route path="/praktikum" element={<ModulPage />} />
             <Route path="/materi" element={<MateriListPage />} />
             <Route path="/materi/:id" element={<MateriPage />} />
-
+            <Route path="/ai-mentor" element={<AiPage />} />
             <Route path="/praktikum/:id" element={<PraktikumPage />} />
             <Route path="/quiz/:id" element={<QuizPage />} />
-
             <Route path="/challenge" element={<ChallengePage />} />
             <Route path="/solusi" element={<SolutionPage />} />
           </Routes>
