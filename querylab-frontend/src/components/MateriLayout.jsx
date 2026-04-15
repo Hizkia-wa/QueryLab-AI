@@ -18,7 +18,7 @@ export default function MateriLayout({ materiData }) {
 
   return (
     <div style={{ backgroundColor: "#F8FAFC", minHeight: "100vh" }}>
-      
+
       {/* HEADER */}
       <nav className="navbar bg-white border-bottom sticky-top py-3">
         <div className="container">
@@ -31,7 +31,7 @@ export default function MateriLayout({ materiData }) {
 
       <div className="container py-5">
         <div className="row">
-          
+
           {/* SIDEBAR */}
           <div className="col-lg-3 mb-4">
             <label className="text-muted small fw-bold text-uppercase mb-3 d-block">Daftar Isi</label>
@@ -40,9 +40,8 @@ export default function MateriLayout({ materiData }) {
                 <button
                   key={m.id}
                   onClick={() => setSelectedMateri(m)}
-                  className={`list-group-item border-0 p-3 ${
-                    selectedMateri.id === m.id ? "bg-primary text-white" : "bg-white"
-                  }`}
+                  className={`list-group-item border-0 p-3 ${selectedMateri.id === m.id ? "bg-primary text-white" : "bg-white"
+                    }`}
                 >
                   <span className="small opacity-50 me-2">{index + 1}.</span>
                   {m.title}
@@ -130,15 +129,15 @@ export default function MateriLayout({ materiData }) {
                 </button>
               </div>
 
-              {/* ACTION FOOTER (FINAL) */}
+              {/* ACTION FOOTER (FIX) */}
               <div className="border-top pt-5 mt-5 d-flex justify-content-between align-items-center">
                 <div>
                   <p className="fw-bold mb-1">Sudah paham materi ini?</p>
                   <small className="text-muted">Uji pemahaman kamu dengan quiz interaktif</small>
                 </div>
 
-                <Link 
-                  to={`/quiz/${id}`} 
+                <Link
+                  to={`/quiz/${selectedMateri.id}`}
                   className="btn btn-primary rounded-pill px-5 py-3 fw-bold d-flex align-items-center gap-2"
                 >
                   Mulai Quiz <ArrowRight size={20} />
