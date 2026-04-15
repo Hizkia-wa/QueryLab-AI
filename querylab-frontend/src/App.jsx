@@ -24,7 +24,7 @@ function App() {
         <main className="flex-grow pt-24 lg:pt-28">
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/modul" element={<ModulPage />} />
+            <Route path="/praktikum" element={<ModulPage />} />
             <Route path="/materi" element={<MateriListPage />} />
             <Route path="/materi/:id" element={<MateriPage />} />
 

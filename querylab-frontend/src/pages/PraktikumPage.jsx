@@ -5,8 +5,9 @@ import PraktikumLayout from "../components/PraktikumLayout";
 export default function PraktikumPage() {
   const { id } = useParams();
 
+  // Filter soal berdasarkan modulId
   const filteredSoal = soalData.filter(
-    (soal) => soal.modulId === parseInt(id)
+    (soal) => Number(soal.modulId) === Number(id)
   );
 
   return <PraktikumLayout soalData={filteredSoal} />;

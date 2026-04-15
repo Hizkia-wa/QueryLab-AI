@@ -18,7 +18,7 @@ export default function ModulPage() {
                 <br />
                 <button
                   className="btn btn-dark w-100 rounded-pill"
-                  onClick={() => navigate(`/modul/${modul.modulId}`)}
+                  onClick={() => navigate(`/praktikum/${modul.modulId}`)}
                 >
                   Masuk Modul
                 </button>
