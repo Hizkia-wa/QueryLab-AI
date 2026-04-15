@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom"; // Tambah useNavigate
+import { CheckCircle, Play, RotateCcw, ArrowRight, Database, Layout } from "lucide-react"; // Ikon tambahan
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function PraktikumLayout({ soalData }) {
   const { id } = useParams();
+  const navigate = useNavigate();
   const currentModulId = Number(id);
 
   const [selectedSoal, setSelectedSoal] = useState(null);
@@ -11,7 +13,6 @@ export default function PraktikumLayout({ soalData }) {
   const [result, setResult] = useState(null);
   const [status, setStatus] = useState("");
 
-  // Mengatur soal default saat modul dimuat atau berganti
   useEffect(() => {
     if (soalData && soalData.length > 0) {
       setSelectedSoal(soalData[0]);
@@ -39,15 +40,12 @@ export default function PraktikumLayout({ soalData }) {
 
     if (userQuery === correctQuery) {
       setStatus("benar");
-      
-      // PERBAIKAN: Selalu ambil dari tabelKiri sesuai struktur datamu
       const dataSource = selectedSoal.tabelSkema.tabelKiri;
 
       if (userQuery.includes("select *")) {
         setResult(dataSource);
       } else {
         try {
-          // Ekstraksi kolom dari expectedQuery (misal: nama_karyawan, jabatan)
           const columns = selectedSoal.expectedQuery
             .toLowerCase()
             .replace("select", "")
@@ -82,14 +80,14 @@ export default function PraktikumLayout({ soalData }) {
             {label}
           </span>
         </h6>
-        <div className="card border-0 shadow-sm rounded-4 overflow-hidden bg-white p-2">
+        <div className="card border-0 shadow-sm rounded-4 overflow-hidden bg-white">
           <div className="table-responsive">
             {isValid ? (
-              <table className="table table-hover mb-0" style={{ fontSize: "12px" }}>
+              <table className="table table-hover mb-0" style={{ fontSize: "13px" }}>
                 <thead className="bg-light">
                   <tr className="text-secondary">
                     {Object.keys(data[0]).map((k) => (
-                      <th key={k} className="border-0 px-3 py-2">{k}</th>
+                      <th key={k} className="border-0 px-3 py-3 text-uppercase">{k}</th>
                     ))}
                   </tr>
                 </thead>
@@ -97,14 +95,14 @@ export default function PraktikumLayout({ soalData }) {
                   {data.map((r, i) => (
                     <tr key={i}>
                       {Object.values(r).map((v, j) => (
-                        <td key={j} className="px-3 py-2">{v}</td>
+                        <td key={j} className="px-3 py-3 font-monospace">{v}</td>
                       ))}
                     </tr>
                   ))}
                 </tbody>
               </table>
             ) : (
-              <div className="p-3 text-center text-muted small">Data tidak tersedia</div>
+              <div className="p-4 text-center text-muted small">Data tidak tersedia</div>
             )}
           </div>
         </div>
@@ -119,11 +117,11 @@ export default function PraktikumLayout({ soalData }) {
       {/* NAVBAR */}
       <nav className="navbar border-bottom bg-white px-4 sticky-top shadow-sm py-3">
         <div className="container-fluid">
-          <Link to="/" className="navbar-brand fw-bold text-primary">
-            SQL<span>Lab AI</span>
+          <Link to="/" className="navbar-brand fw-bold text-primary d-flex align-items-center gap-2">
+            <Database size={24} /> SQL<span>Lab Intelligence</span>
           </Link>
           <div className="ms-auto d-flex align-items-center gap-3">
-            <span className="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill">
+            <span className="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill fw-bold">
               Modul {currentModulId}
             </span>
             <Link to="/modul" className="btn btn-outline-dark btn-sm rounded-pill px-3">Keluar</Link>
@@ -134,75 +132,136 @@ export default function PraktikumLayout({ soalData }) {
       <div className="container-fluid py-5 px-lg-5">
         <div className="row g-4">
           
-          {/* PANEL KIRI: INSTRUKSI & SKEMA */}
+          {/* PANEL KIRI */}
           <div className="col-lg-4">
-            <div className="card border-0 shadow-sm rounded-4 p-3 mb-4 bg-white">
-              <label className="fw-bold text-muted small text-uppercase mb-3">Tantangan</label>
-              <div className="d-flex flex-wrap gap-2">
-                {soalData.map((s, index) => (
-                  <button
-                    key={s.id}
-                    onClick={() => { setSelectedSoal(s); resetState(); }}
-                    className={`btn rounded-3 ${selectedSoal.id === s.id ? "btn-primary shadow" : "btn-light text-secondary"}`}
-                    style={{ width: "40px", height: "40px", fontWeight: "bold" }}
-                  >
-                    {index + 1}
-                  </button>
-                ))}
+          <div className="card border-0 shadow-sm rounded-4 p-3 mb-4 bg-white">
+            <label className="fw-bold text-muted mb-3 d-flex align-items-center gap-2" style={{ fontSize: "11px", letterSpacing: "1px" }}>
+              <Layout size={14} /> TANTANGAN
+            </label>
+            
+            {/* GRID PENOMORAN YANG LEBIH KECIL & RAPI */}
+            <div style={{ 
+              display: "grid", 
+              gridTemplateColumns: "repeat(6, 1fr)", // Dibuat 6 kolom agar lebih kompak
+              gap: "8px" 
+            }}>
+              {soalData.map((s, index) => (
+                <button
+                  key={s.id}
+                  onClick={() => { setSelectedSoal(s); resetState(); }}
+                  className={`btn p-0 d-flex align-items-center justify-content-center rounded-2 transition-all ${
+                    selectedSoal.id === s.id 
+                    ? "btn-primary shadow-sm" 
+                    : "btn-light text-secondary border border-light"
+                  }`}
+                  style={{ 
+                    aspectRatio: "1/1", 
+                    fontWeight: "700",
+                    fontSize: "12px", // Ukuran teks diperkecil
+                    width: "100%",
+                    maxWidth: "32px", // Batas maksimal lebar kotak
+                    margin: "0 auto"
+                  }}
+                >
+                  {index + 1}
+                </button>
+              ))}
+            </div>
+          </div>
+
+            <div className="card border-0 shadow-sm rounded-4 p-4 mb-4 bg-white border-start border-primary border-4">
+              <h4 className="fw-black text-dark mb-2">{selectedSoal.judul}</h4>
+              <p className="text-muted small mb-4">{selectedSoal.materi}</p>
+              <div className="bg-light p-3 rounded-4 border border-light">
+                <p className="mb-0 fw-medium small text-dark leading-relaxed">
+                  <span className="badge bg-dark me-2">MISI</span>
+                  {selectedSoal.instruksi}
+                </p>
               </div>
             </div>
 
-            <div className="card border-0 shadow-sm rounded-4 p-4 mb-4 bg-white">
-              <h4 className="fw-bold text-dark">{selectedSoal.judul}</h4>
-              <p className="text-muted small">{selectedSoal.materi}</p>
-              <div className="bg-primary bg-opacity-10 p-3 rounded-3 border-start border-primary border-4">
-                <p className="mb-0 fw-medium small">{selectedSoal.instruksi}</p>
-              </div>
-            </div>
-
-            <label className="fw-bold text-muted small text-uppercase mb-2">Database Schema</label>
+            <label className="fw-bold text-muted small text-uppercase mb-2">Skema Database</label>
             <RenderTable data={selectedSoal.tabelSkema.tabelKiri} label="Tabel Aktif" color="primary" />
           </div>
 
-          {/* PANEL KANAN: EDITOR & HASIL */}
+          {/* PANEL KANAN */}
           <div className="col-lg-8">
             <div className="card border-0 shadow-lg rounded-4 overflow-hidden mb-4 bg-dark">
-              <div className="px-4 py-2 d-flex justify-content-between align-items-center">
-                <span className="text-white-50 x-small">SQL Console</span>
-                <div className="d-flex gap-1">
-                  <div className="bg-danger rounded-circle" style={{width: '8px', height: '8px'}}></div>
-                  <div className="bg-success rounded-circle" style={{width: '8px', height: '8px'}}></div>
+              <div className="px-4 py-3 d-flex justify-content-between align-items-center border-bottom border-secondary border-opacity-25">
+                <span className="text-white-50 small font-monospace">query_editor.sql</span>
+                <div className="d-flex gap-2">
+                  <div className="bg-danger rounded-circle" style={{width: '10px', height: '10px'}}></div>
+                  <div className="bg-warning rounded-circle" style={{width: '10px', height: '10px'}}></div>
+                  <div className="bg-success rounded-circle" style={{width: '10px', height: '10px'}}></div>
                 </div>
               </div>
               <textarea
                 className="form-control border-0 bg-dark text-info p-4"
-                style={{ height: "220px", fontFamily: "'Fira Code', monospace", fontSize: "15px" }}
+                style={{ 
+                  height: "260px", 
+                  fontFamily: "'Fira Code', 'Courier New', monospace", 
+                  fontSize: "16px",
+                  lineHeight: "1.6",
+                  outline: "none",
+                  boxShadow: "none"
+                }}
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="-- Tulis SQL di sini..."
+                placeholder="-- Tulis perintah SQL di sini...&#10;-- Contoh: SELECT * FROM tabel"
               />
-              <div className="p-3 d-flex justify-content-end gap-2 bg-dark">
-                <button className="btn btn-link text-white-50 text-decoration-none" onClick={resetState}>Reset</button>
-                <button className="btn btn-primary px-4 fw-bold rounded-pill" onClick={handleRun}>Run Query</button>
+              <div className="p-4 d-flex justify-content-end gap-3 bg-dark border-top border-secondary border-opacity-10">
+                <button className="btn btn-link text-white-50 text-decoration-none d-flex align-items-center gap-2" onClick={resetState}>
+                  <RotateCcw size={16} /> Reset
+                </button>
+                <button className="btn btn-primary px-5 py-2 fw-black rounded-pill d-flex align-items-center gap-2 shadow-primary" onClick={handleRun}>
+                  <Play size={16} fill="white" /> Run Query
+                </button>
               </div>
             </div>
 
             <div className="card border-0 shadow-sm rounded-4 bg-white p-4">
-              {!result && <p className="text-center text-muted m-0">Hasil query akan muncul di sini.</p>}
+              {!result && (
+                <div className="text-center py-5">
+                  <Database size={48} className="text-light mb-3" />
+                  <p className="text-muted m-0">Silakan jalankan query untuk melihat hasil.</p>
+                </div>
+              )}
               
               {status === "salah" && (
-                <div>
-                  <div className="alert alert-danger border-0 rounded-3 small">{result}</div>
-                  <div className="alert alert-warning border-0 rounded-3 small">
-                    <strong>Hint:</strong> {selectedSoal.hint}
+                <div className="animate-in fade-in slide-in-from-top-2">
+                  <div className="alert alert-danger border-0 rounded-4 p-3 d-flex align-items-center gap-3">
+                    <span className="fs-4">⚠️</span>
+                    <div>
+                      <div className="fw-bold">Gagal!</div>
+                      <div className="small">{result}</div>
+                    </div>
+                  </div>
+                  <div className="bg-warning bg-opacity-10 p-4 rounded-4 border border-warning border-opacity-20 mt-3">
+                    <strong className="text-warning-emphasis d-block mb-1 small uppercase font-black">Petunjuk Pembantu:</strong>
+                    <p className="m-0 small text-dark italic">"{selectedSoal.hint}"</p>
                   </div>
                 </div>
               )}
 
               {status === "benar" && (
-                <div>
-                  <div className="alert alert-success border-0 rounded-3 fw-bold mb-3">✨ Query Berhasil!</div>
-                  <RenderTable data={result} label="Query Output" color="dark" />
+                <div className="animate-in zoom-in duration-300">
+                  <div className="alert alert-success border-0 rounded-4 p-4 mb-4 d-flex justify-content-between align-items-center">
+                    <div className="d-flex align-items-center gap-3">
+                      <CheckCircle size={32} />
+                      <div>
+                        <div className="fw-black fs-5">Luar Biasa!</div>
+                        <div className="small opacity-75">Query kamu berhasil mengeksekusi data dengan tepat.</div>
+                      </div>
+                    </div>
+                    
+                    <button 
+                      onClick={() => navigate(`/quiz/${currentModulId}`)}
+                      className="btn btn-success rounded-pill px-4 py-2 fw-bold d-flex align-items-center gap-2"
+                    >
+                      Lanjut ke Quiz <ArrowRight size={18} />
+                    </button>
+                  </div>
+                  <RenderTable data={result} label="Hasil Eksekusi" color="dark" />
                 </div>
               )}
             </div>
