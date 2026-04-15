@@ -8,14 +8,15 @@ import MateriListPage from "./pages/MateriListPage";
 import MateriPage from "./pages/MateriPage";
 import PraktikumPage from "./pages/PraktikumPage";
 import ChallengePage from "./pages/ChallengePage";
-// 1. IMPORT halaman baru di sini
 import SolutionPage from "./pages/SolutionPage"; 
+
+// 1. IMPORT komponen AI yang tadi kita buat
+import QueryLabAI from "./components/QueryLabAI"; 
 
 function App() {
   return (
     <Router>
       <div className="flex flex-col min-h-screen bg-[#f8fafc]">
-
         <Navbar />
 
         <main className="flex-grow pt-24 lg:pt-28">
@@ -26,12 +27,12 @@ function App() {
             <Route path="/modul/:id" element={<PraktikumPage />} />
             <Route path="/materi/:id" element={<MateriPage />} />
             <Route path="/challenge" element={<ChallengePage />} />
-            
-            {/* 2. DAFTARKAN route untuk halaman solusi */}
             <Route path="/solusi" element={<SolutionPage />} />
-
           </Routes>
         </main>
+
+        {/* 2. PASANG di sini agar tombol AI melayang di semua halaman */}
+        <QueryLabAI />
 
         <Footer />
       </div>
