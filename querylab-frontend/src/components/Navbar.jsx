@@ -39,7 +39,7 @@ export default function Navbar() {
           <NavLink to="/materi" active={location.pathname === "/materi"}>
             <BookOpen size={16} /> Materi
           </NavLink>
-          <NavLink to="/modul" active={location.pathname === "/modul"}>
+          <NavLink to="/praktikum" active={location.pathname === "/modul"}>
             <Code2 size={16} /> Praktikum
           </NavLink>
           <NavLink to="/challenge" active={location.pathname === "/challenge"}>

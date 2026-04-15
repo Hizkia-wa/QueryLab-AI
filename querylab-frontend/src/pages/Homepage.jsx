@@ -51,17 +51,11 @@ export default function Homepage() {
 
             <motion.div variants={itemVariants} className="flex flex-wrap gap-5">
               <Link 
-                to="/modul"
+                to="/praktikum"
                 className="px-8 py-4 bg-indigo-600 text-white rounded-2xl font-bold shadow-xl shadow-indigo-200 hover:bg-indigo-700 hover:-translate-y-1 transition-all flex items-center gap-2"
               >
                 Pilih Modul <ChevronRight size={20} />
               </Link>
-              <div className="flex items-center gap-3 px-2">
-                <div className="flex -space-x-3">
-                  {[1,2,3].map(i => <div key={i} className="w-10 h-10 rounded-full border-4 border-white bg-slate-200" />)}
-                </div>
-                <p className="text-sm font-semibold text-slate-400">+2k Siswa Bergabung</p>
-              </div>
             </motion.div>
           </motion.div>
 
