@@ -1184,6 +1184,206 @@ export const quizData = [
     explanation: "Mesin database modern sangat efisien dalam memproses JOIN dibandingkan mengeksekusi subquery berulang kali untuk setiap baris."
   },
   {
+    id: 1,
+    modulId: 7,
+    question: "Apa fungsi utama dari Fungsi Agregat dalam SQL?",
+    options: ["Mengubah tipe data kolom", "Melakukan perhitungan pada sekumpulan nilai dan mengembalikan nilai tunggal", "Menghapus data yang duplikat", "Menghubungkan dua tabel yang berbeda"],
+    answer: "Melakukan perhitungan pada sekumpulan nilai dan mengembalikan nilai tunggal",
+    explanation: "Fungsi agregat bekerja pada sekelompok baris data untuk menghasilkan ringkasan seperti total, rata-rata, atau jumlah baris."
+  },
+  {
+    id: 2,
+    modulId: 7,
+    question: "Fungsi agregat mana yang digunakan untuk menghitung total nilai numerik dalam suatu kolom?",
+    options: ["COUNT()", "TOTAL()", "SUM()", "ADD()"],
+    answer: "SUM()",
+    explanation: "SUM() digunakan untuk menjumlahkan semua nilai angka dalam kolom tertentu."
+  },
+  {
+    id: 3,
+    modulId: 7,
+    question: "Untuk menghitung jumlah baris atau record dalam sebuah tabel, kita menggunakan fungsi...",
+    options: ["SUM()", "COUNT()", "AVG()", "NUMBER()"],
+    answer: "COUNT()",
+    explanation: "COUNT() berfungsi untuk menghitung banyaknya baris data yang memenuhi kriteria."
+  },
+  {
+    id: 4,
+    modulId: 7,
+    question: "Fungsi yang digunakan untuk mencari nilai rata-rata dari sebuah kolom numerik adalah...",
+    options: ["MEAN()", "AVG()", "MEDIUM()", "SUM()"],
+    answer: "AVG()",
+    explanation: "AVG() (Average) menghitung nilai rata-rata aritmatika dari sekumpulan data angka."
+  },
+  {
+    id: 5,
+    modulId: 7,
+    question: "Untuk mendapatkan nilai tertinggi dari suatu kolom, fungsi yang tepat adalah...",
+    options: ["TOP()", "HIGH()", "MAX()", "UP()"],
+    answer: "MAX()",
+    explanation: "MAX() mencari dan mengembalikan nilai terbesar atau tertinggi dalam suatu kolom."
+  },
+  {
+    id: 6,
+    modulId: 7,
+    question: "Kebalikan dari MAX(), fungsi untuk mencari nilai terkecil adalah...",
+    options: ["MIN()", "LOW()", "BOTTOM()", "SMALL()"],
+    answer: "MIN()",
+    explanation: "MIN() digunakan untuk mengambil nilai minimum atau terkecil dari sekumpulan data."
+  },
+  {
+    id: 7,
+    modulId: 7,
+    question: "Fungsi agregat secara default akan mengabaikan nilai...",
+    options: ["0 (Nol)", "Angka negatif", "NULL", "Data duplikat"],
+    answer: "NULL",
+    explanation: "Sebagian besar fungsi agregat (kecuali COUNT(*)) tidak menyertakan nilai NULL dalam perhitungannya."
+  },
+  {
+    id: 8,
+    modulId: 7,
+    question: "Bagaimana cara menghitung jumlah nilai yang unik saja pada suatu kolom?",
+    options: ["COUNT(DISTINCT nama_kolom)", "DISTINCT COUNT(nama_kolom)", "COUNT(UNIQUE nama_kolom)", "SUM(DISTINCT nama_kolom)"],
+    answer: "COUNT(DISTINCT nama_kolom)",
+    explanation: "Kombinasi COUNT dan DISTINCT akan menghitung berapa banyak nilai yang berbeda tanpa menyertakan duplikat."
+  },
+  {
+    id: 9,
+    modulId: 7,
+    question: "Klausa mana yang hampir selalu digunakan jika kita ingin menggunakan fungsi agregat bersama kolom non-agregat?",
+    options: ["ORDER BY", "WHERE", "GROUP BY", "HAVING"],
+    answer: "GROUP BY",
+    explanation: "GROUP BY diperlukan untuk menentukan bagaimana data dikelompokkan sebelum fungsi agregat diterapkan."
+  },
+  {
+    id: 10,
+    modulId: 7,
+    question: "Manakah dari fungsi berikut yang bisa digunakan pada tipe data string (teks)?",
+    options: ["SUM()", "AVG()", "MAX()", "Semua salah"],
+    answer: "MAX()",
+    explanation: "MAX() dan MIN() bisa digunakan pada teks untuk mencari nilai berdasarkan urutan alfabet (Z tertinggi, A terendah)."
+  },
+  {
+    id: 11,
+    modulId: 7,
+    question: "Apa perbedaan antara COUNT(*) dan COUNT(nama_kolom)?",
+    options: ["Tidak ada perbedaan", "COUNT(*) menghitung semua baris termasuk NULL, COUNT(kolom) mengabaikan NULL", "COUNT(*) lebih lambat", "COUNT(kolom) menghitung semua baris"],
+    answer: "COUNT(*) menghitung semua baris termasuk NULL, COUNT(kolom) mengabaikan NULL",
+    explanation: "COUNT(*) menghitung total baris fisik, sedangkan COUNT(kolom) hanya menghitung baris yang memiliki nilai di kolom tersebut."
+  },
+  {
+    id: 12,
+    modulId: 7,
+    question: "Bisa kah kita menggunakan fungsi agregat di dalam klausa WHERE?",
+    options: ["Bisa", "Tidak bisa", "Hanya jika tabel kecil", "Hanya fungsi COUNT"],
+    answer: "Tidak bisa",
+    explanation: "SQL tidak mengizinkan fungsi agregat di WHERE karena WHERE menyaring baris sebelum agregasi dilakukan. Gunakan HAVING."
+  },
+  {
+    id: 13,
+    modulId: 7,
+    question: "Hasil dari fungsi agregat adalah...",
+    options: ["Tabel baru", "Satu nilai tunggal per kelompok", "Data acak", "Array"],
+    answer: "Satu nilai tunggal per kelompok",
+    explanation: "Fungsi agregat merangkum banyak data menjadi satu representasi nilai saja."
+  },
+  {
+    id: 14,
+    modulId: 7,
+    question: "Apa yang dihasilkan oleh SUM() jika diterapkan pada kolom teks?",
+    options: ["Jumlah karakter", "Error", "Hasil penggabungan teks", "Angka 0"],
+    answer: "Error",
+    explanation: "SUM() memerlukan tipe data numerik. Melakukannya pada teks akan menyebabkan kesalahan tipe data."
+  },
+  {
+    id: 15,
+    modulId: 7,
+    question: "Jika tabel kosong, apa hasil dari fungsi COUNT(*)?",
+    options: ["NULL", "0", "Error", "Kosong"],
+    answer: "0",
+    explanation: "Berbeda dengan AVG atau SUM yang mungkin mengembalikan NULL pada tabel kosong, COUNT akan mengembalikan angka 0."
+  },
+  {
+    id: 16,
+    modulId: 7,
+    question: "[HOTS] Apa hasil dari query: SELECT COUNT(DISTINCT kota) FROM pelanggan?",
+    options: ["Jumlah total pelanggan", "Jumlah total baris di tabel", "Jumlah kota unik yang ada di data pelanggan", "Nama-nama kota"],
+    answer: "Jumlah kota unik yang ada di data pelanggan",
+    explanation: "Query ini menghitung berapa banyak variasi kota tanpa menghitung kota yang sama berulang kali."
+  },
+  {
+    id: 17,
+    modulId: 7,
+    question: "[HOTS] Skenario: Kolom 'nilai' berisi data (10, 20, NULL). Berapa hasil dari AVG(nilai)?",
+    options: ["10", "15", "NULL", "Error"],
+    answer: "15",
+    explanation: "AVG mengabaikan NULL, jadi perhitungannya adalah (10 + 20) / 2 = 15. NULL tidak dianggap sebagai pembagi."
+  },
+  {
+    id: 18,
+    modulId: 7,
+    question: "[HOTS] Mengapa query 'SELECT nama, MAX(gaji) FROM karyawan' dianggap salah pada banyak DBMS?",
+    options: ["Karena gaji tidak boleh besar", "Karena nama tidak masuk dalam GROUP BY atau fungsi agregat", "Karena MAX() hanya untuk angka", "Karena nama adalah data rahasia"],
+    answer: "Karena nama tidak masuk dalam GROUP BY atau fungsi agregat",
+    explanation: "Setiap kolom yang tidak diagregasi dalam perintah SELECT yang mengandung fungsi agregat wajib masuk ke dalam klausa GROUP BY."
+  },
+  {
+    id: 19,
+    modulId: 7,
+    question: "[HOTS] Anda ingin menampilkan kategori produk yang rata-rata harganya di atas 100.000. Manakah potongan query yang benar?",
+    options: ["WHERE AVG(harga) > 100000", "GROUP BY kategori HAVING AVG(harga) > 100000", "ORDER BY AVG(harga) > 100000", "WHERE harga > 100000"],
+    answer: "GROUP BY kategori HAVING AVG(harga) > 100000",
+    explanation: "Filter terhadap hasil perhitungan agregat wajib menggunakan klausa HAVING setelah GROUP BY."
+  },
+  {
+    id: 20,
+    modulId: 7,
+    question: "[HOTS] Apa kegunaan utama dari fungsi MIN(tanggal_pesan)?",
+    options: ["Mengetahui tanggal pemesanan paling baru", "Mengetahui tanggal pemesanan paling lama/awal", "Menghitung jumlah hari", "Menghapus pesanan lama"],
+    answer: "Mengetahui tanggal pemesanan paling lama/awal",
+    explanation: "Pada tipe data tanggal, MIN() mengembalikan nilai tanggal yang paling lampau (terkecil)."
+  },
+  {
+    id: 21,
+    modulId: 7,
+    question: "[HOTS] Manakah yang lebih akurat untuk menghitung total baris tabel yang sangat besar: COUNT(id) atau COUNT(*)?",
+    options: ["COUNT(id) karena lebih spesifik", "COUNT(*) karena menghitung keberadaan baris secara utuh tanpa mengecek nilai kolom", "Keduanya sama saja kecepatannya", "Tidak ada yang benar"],
+    answer: "COUNT(*) karena menghitung keberadaan baris secara utuh tanpa mengecek nilai kolom",
+    explanation: "COUNT(*) dioptimalkan oleh banyak DBMS untuk melihat metadata tabel, sedangkan COUNT(id) harus memastikan id tersebut tidak NULL."
+  },
+  {
+    id: 22,
+    modulId: 7,
+    question: "[HOTS] Jika Anda ingin menghitung total pendapatan (harga * jumlah) dari seluruh pesanan, bagaimana penulisan fungsinya?",
+    options: ["SUM(harga * jumlah)", "SUM(harga) * SUM(jumlah)", "COUNT(harga * jumlah)", "SUM(harga) + SUM(jumlah)"],
+    answer: "SUM(harga * jumlah)",
+    explanation: "Fungsi agregat dapat melakukan operasi aritmatika di dalam argumennya sebelum menjumlahkan totalnya."
+  },
+  {
+    id: 23,
+    modulId: 7,
+    question: "[HOTS] Apa hasil dari query: SELECT MAX(nama) FROM user? (Data nama: 'Andi', 'Budi', 'Caca')",
+    options: ["Andi", "Caca", "3", "Error"],
+    answer: "Caca",
+    explanation: "MAX pada string mengambil nilai berdasarkan urutan abjad terakhir (Z adalah terbesar)."
+  },
+  {
+    id: 24,
+    modulId: 7,
+    question: "[HOTS] Kapan SUM() akan mengembalikan nilai NULL?",
+    options: ["Jika semua baris yang dijumlahkan bernilai 0", "Jika tabel tersebut kosong atau semua baris bernilai NULL", "Jika ada satu saja nilai NULL", "SUM() tidak pernah mengembalikan NULL"],
+    answer: "Jika tabel tersebut kosong atau semua baris bernilai NULL",
+    explanation: "Jika tidak ada data angka yang bisa dijumlahkan, hasil akhirnya adalah ketiadaan nilai (NULL), bukan 0."
+  },
+  {
+    id: 25,
+    modulId: 7,
+    question: "[HOTS] Anda ingin memberikan bonus 10% pada total gaji departemen IT. Manakah query yang benar?",
+    options: ["SELECT SUM(gaji) * 1.1 FROM k WHERE dept = 'IT'", "SELECT SUM(gaji * 1.1) FROM k WHERE dept = 'IT'", "Semua benar", "Semua salah"],
+    answer: "Semua benar",
+    explanation: "Mengalikan total gaji dengan 1.1 secara matematis sama dengan mengalikan setiap gaji dengan 1.1 baru kemudian dijumlahkan."
+  },
+  {
     id: 24,
     modulId: 6,
     question: "[HOTS] Anda melakukan JOIN pada tabel 'Karyawan' untuk mendapatkan nama atasan (yang juga karyawan). Ini adalah contoh kasus...",
