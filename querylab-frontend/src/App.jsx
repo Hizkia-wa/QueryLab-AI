@@ -2,12 +2,14 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import HomePage from "./pages/HomePage";
+import HomePage from "./pages/Homepage";
 import ModulPage from "./pages/ModulPage";
 import MateriListPage from "./pages/MateriListPage";
 import MateriPage from "./pages/MateriPage";
 import PraktikumPage from "./pages/PraktikumPage";
 import ChallengePage from "./pages/ChallengePage";
+// 1. IMPORT halaman baru di sini
+import SolutionPage from "./pages/SolutionPage"; 
 
 function App() {
   return (
@@ -23,8 +25,10 @@ function App() {
             <Route path="/materi" element={<MateriListPage />} />
             <Route path="/modul/:id" element={<PraktikumPage />} />
             <Route path="/materi/:id" element={<MateriPage />} />
-
             <Route path="/challenge" element={<ChallengePage />} />
+            
+            {/* 2. DAFTARKAN route untuk halaman solusi */}
+            <Route path="/solusi" element={<SolutionPage />} />
 
           </Routes>
         </main>

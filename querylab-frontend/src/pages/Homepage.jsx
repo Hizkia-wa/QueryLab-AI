@@ -2,8 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { 
-  Code2, Terminal, Cpu, GraduationCap, ChevronRight, 
-  Star, Database, Zap, BrainCircuit, AlertCircle, CheckCircle2 
+  Code2, Terminal, GraduationCap, ChevronRight, 
+  Database, Zap, BrainCircuit, AlertCircle, CheckCircle2, Trophy 
 } from "lucide-react";
 
 export default function Homepage() {
@@ -18,7 +18,7 @@ export default function Homepage() {
   };
 
   return (
-    <div className="w-full min-h-screen bg-[#f8fafc] overflow-x-hidden">
+    <div className="w-full min-h-screen bg-[#f8fafc] overflow-x-hidden text-left">
       
       {/* --- Floating Icons (Interactive Background) --- */}
       <div className="fixed inset-0 pointer-events-none -z-10">
@@ -31,7 +31,7 @@ export default function Homepage() {
       <main className="w-full">
         
         {/* --- Hero Section --- */}
-        <section className="container-center pt-40 lg:pt-52 px-6 grid lg:grid-cols-2 gap-16 items-center">
+        <section className="container mx-auto pt-40 lg:pt-52 px-6 grid lg:grid-cols-2 gap-16 items-center">
           <motion.div initial="hidden" animate="visible" variants={containerVariants}>
             <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-600 text-xs font-bold mb-8 uppercase tracking-widest">
               <Zap size={14} className="fill-current" />
@@ -108,13 +108,13 @@ export default function Homepage() {
           <div className="max-w-7xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-20 items-center">
               <div>
-                <h2 className="text-4xl lg:text-5xl font-black tracking-tight mb-8">
+                <h2 className="text-4xl lg:text-5xl font-black tracking-tight mb-8 text-slate-900">
                   Kenapa Belajar SQL <br /> Terasa Sangat Sulit?
                 </h2>
                 <div className="space-y-6">
                   {[
                     { icon: <AlertCircle className="text-red-500" />, text: "Error yang membingungkan tanpa penjelasan manusiawi." },
-                    { icon: <AlertCircle className="text-red-500" />, text: "Materi teori yang tidak relevan dengan dunia kerja." },
+                    { icon: <AlertCircle className="text-red-500" />, text: "Materi teori yang tidak relevan dengan kebutuhan praktis." },
                     { icon: <AlertCircle className="text-red-500" />, text: "Setup database yang rumit hanya untuk mulai belajar." },
                   ].map((item, i) => (
                     <div key={i} className="flex gap-4 items-start p-4 rounded-2xl bg-white border border-slate-100">
@@ -132,11 +132,14 @@ export default function Homepage() {
                   <p className="text-indigo-100 text-lg leading-relaxed mb-8">
                     Kami menghancurkan semua hambatan tersebut. Kami membuat belajar SQL jadi semudah chatting, secepat mengeksekusi kode di cloud.
                   </p>
-                  <button className="px-6 py-3 bg-white text-indigo-600 rounded-xl font-bold hover:bg-indigo-50 transition-colors">
+                  
+                  <Link 
+                    to="/solusi"
+                    className="inline-block px-8 py-4 bg-white text-indigo-600 rounded-xl font-bold hover:bg-indigo-50 transition-all hover:scale-105 shadow-lg"
+                  >
                     Pelajari Solusi Kami
-                  </button>
+                  </Link>
                 </div>
-                {/* Decorative Pattern */}
                 <div className="absolute top-0 right-0 opacity-10 transform translate-x-1/4 -translate-y-1/4">
                   <Database size={300} />
                 </div>
@@ -145,40 +148,47 @@ export default function Homepage() {
           </div>
         </section>
 
-        {/* --- Features Section (Value Based) --- */}
-        <section className="w-full bg-slate-900 py-32 px-6">
-          <div className="max-w-7xl mx-auto">
+        {/* --- Features Section (Value Based & Functional) --- */}
+        <section className="w-full bg-[#0B1120] py-32 px-6">
+          <div className="max-w-7xl mx-auto text-left">
             <div className="text-center mb-20">
               <h2 className="text-white text-4xl lg:text-5xl font-black mb-6">Lebih Dari Sekadar Coding.</h2>
-              <p className="text-slate-400 text-xl">Kami memberikan nilai lebih agar kamu siap jadi Profesional Data.</p>
+              <p className="text-slate-400 text-xl font-medium">Kami memberikan fitur yang dirancang khusus untuk kemudahan belajar Anda.</p>
             </div>
 
             <div className="grid md:grid-cols-3 gap-8">
-              {[
-                { 
-                  title: "Instant AI Feedback", 
-                  value: "Jangan buang waktu mencari jawaban di Google. AI kami menjelaskan letak error kamu saat itu juga.",
-                  icon: <BrainCircuit size={32} />
-                },
-                { 
-                  title: "Real Industry Case", 
-                  value: "Bekerja dengan dataset nyata seperti data transaksi e-commerce dan logistik perusahaan top.",
-                  icon: <Database size={32} />
-                },
-                { 
-                  title: "Career-Ready Skills", 
-                  value: "Bukan cuma SELECT, kami ajarkan optimasi query yang dicari oleh perusahaan teknologi besar.",
-                  icon: <GraduationCap size={32} />
-                }
-              ].map((f, i) => (
-                <div key={i} className="group p-10 bg-slate-800/50 border border-slate-700 rounded-[2.5rem] hover:bg-slate-800 transition-all duration-300">
-                  <div className="w-16 h-16 rounded-2xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
-                    {f.icon}
-                  </div>
-                  <h3 className="text-2xl font-bold text-white mb-4">{f.title}</h3>
-                  <p className="text-slate-400 leading-relaxed">{f.value}</p>
+              {/* Kartu 1: Instant AI Feedback */}
+              <div className="group p-10 bg-[#161E31] border border-slate-800 rounded-[2.5rem] hover:border-indigo-500/50 transition-all duration-300">
+                <div className="w-14 h-14 rounded-2xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center mb-8">
+                  <BrainCircuit size={28} />
                 </div>
-              ))}
+                <h3 className="text-2xl font-bold text-white mb-4 leading-tight">Instant AI Feedback</h3>
+                <p className="text-slate-400 leading-relaxed text-sm">
+                  Jangan buang waktu mencari jawaban di Google. AI kami menjelaskan letak error kamu saat itu juga.
+                </p>
+              </div>
+
+              {/* Kartu 2: Praktikum Langsung */}
+              <div className="group p-10 bg-[#161E31] border border-slate-800 rounded-[2.5rem] hover:border-indigo-500/50 transition-all duration-300">
+                <div className="w-14 h-14 rounded-2xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center mb-8">
+                  <Terminal size={28} />
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-4 leading-tight">Praktikum Langsung</h3>
+                <p className="text-slate-400 leading-relaxed text-sm">
+                  Tulis dan eksekusi query SQL kamu di dalam platform secara real-time untuk melihat langsung hasil tabel data yang kamu olah.
+                </p>
+              </div>
+
+              {/* Kartu 3: Challenge Studi Kasus */}
+              <div className="group p-10 bg-[#161E31] border border-slate-800 rounded-[2.5rem] hover:border-indigo-500/50 transition-all duration-300">
+                <div className="w-14 h-14 rounded-2xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center mb-8">
+                  <Trophy size={28} />
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-4 leading-tight">Challenge Studi Kasus</h3>
+                <p className="text-slate-400 leading-relaxed text-sm">
+                  Uji kemampuan kamu dengan berbagai skenario kasus yang dirancang untuk mengasah logika pemecahan masalah menggunakan SQL.
+                </p>
+              </div>
             </div>
           </div>
         </section>
