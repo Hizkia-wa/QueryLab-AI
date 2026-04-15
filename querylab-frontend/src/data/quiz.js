@@ -385,5 +385,396 @@ export const quizData = [
       "Agar query lebih lambat"
     ],
     answer: "Agar tidak terjadi kesalahan analisis data"
-  }
+  },
+   {
+    id: 31,
+    modulId: 8,
+    materiId: 1,
+    question: "Apa yang dimaksud dengan subquery dalam SQL?",
+    options: [
+      "Query yang berdiri sendiri",
+      "Query di dalam query lain",
+      "Query untuk menghapus data",
+      "Query untuk membuat tabel"
+    ],
+    answer: "Query di dalam query lain"
+  },
+  {
+    id: 32,
+    modulId: 8,
+    materiId: 1,
+    question: "Kapan subquery biasanya digunakan?",
+    options: [
+      "Untuk menghapus data",
+      "Untuk menghitung hasil sementara",
+      "Untuk membuat database",
+      "Untuk menambah kolom"
+    ],
+    answer: "Untuk menghitung hasil sementara"
+  },
+  {
+    id: 33,
+    modulId: 8,
+    materiId: 1,
+    question: "Subquery akan dieksekusi kapan?",
+    options: [
+      "Setelah query utama",
+      "Sebelum query utama",
+      "Bersamaan dengan query utama",
+      "Tidak pernah dieksekusi"
+    ],
+    answer: "Sebelum query utama"
+  },
+  {
+    id: 34,
+    modulId: 8,
+    materiId: 1,
+    question: "Di mana subquery dituliskan?",
+    options: [
+      "Di luar query",
+      "Dalam tanda kurung ()",
+      "Dalam tabel",
+      "Dalam komentar"
+    ],
+    answer: "Dalam tanda kurung ()"
+  },
+  {
+    id: 35,
+    modulId: 8,
+    materiId: 1,
+    question: "Query mana yang menggunakan subquery dengan benar?",
+    options: [
+      "SELECT * FROM produk WHERE harga > AVG(harga)",
+      "SELECT * FROM produk WHERE harga > (SELECT AVG(harga) FROM produk)",
+      "SELECT AVG(harga) FROM produk WHERE harga",
+      "SELECT * FROM produk AVG(harga)"
+    ],
+    answer: "SELECT * FROM produk WHERE harga > (SELECT AVG(harga) FROM produk)"
+  },
+  {
+    id: 36,
+    modulId: 8,
+    materiId: 2,
+    question: "Apa yang dimaksud dengan single-row subquery?",
+    options: [
+      "Subquery dengan banyak hasil",
+      "Subquery dengan satu nilai hasil",
+      "Subquery tanpa hasil",
+      "Subquery untuk delete data"
+    ],
+    answer: "Subquery dengan satu nilai hasil"
+  },
+  {
+    id: 37,
+    modulId: 8,
+    materiId: 2,
+    question: "Operator apa yang cocok untuk single-row subquery?",
+    options: [
+      "IN",
+      "=",
+      "EXISTS",
+      "ALL"
+    ],
+    answer: "="
+  },
+  {
+    id: 38,
+    modulId: 8,
+    materiId: 2,
+    question: "Multiple-row subquery menghasilkan?",
+    options: [
+      "Satu nilai",
+      "Banyak nilai",
+      "Tidak ada nilai",
+      "Error"
+    ],
+    answer: "Banyak nilai"
+  },
+  {
+    id: 39,
+    modulId: 8,
+    materiId: 2,
+    question: "Operator apa yang digunakan untuk multiple-row subquery?",
+    options: [
+      "=",
+      "<",
+      "IN",
+      "+"
+    ],
+    answer: "IN"
+  },
+  {
+    id: 40,
+    modulId: 8,
+    materiId: 2,
+    question: "Query mana yang termasuk multiple-row subquery?",
+    options: [
+      "SELECT * FROM karyawan WHERE gaji = (SELECT MAX(gaji) FROM karyawan)",
+      "SELECT * FROM karyawan WHERE departemen IN (SELECT departemen FROM karyawan)",
+      "SELECT * FROM karyawan WHERE gaji > 5000000",
+      "SELECT COUNT(*) FROM karyawan"
+    ],
+    answer: "SELECT * FROM karyawan WHERE departemen IN (SELECT departemen FROM karyawan)"
+  },
+   {
+    id: 41,
+    modulId: 8,
+    materiId: 3,
+    question: "Operator IN digunakan untuk apa dalam subquery?",
+    options: [
+      "Mengecek nilai terbesar",
+      "Mengecek apakah nilai ada dalam hasil subquery",
+      "Menghapus data",
+      "Mengurutkan data"
+    ],
+    answer: "Mengecek apakah nilai ada dalam hasil subquery"
+  },
+  {
+    id: 42,
+    modulId: 8,
+    materiId: 3,
+    question: "Operator EXISTS digunakan untuk?",
+    options: [
+      "Menghitung jumlah data",
+      "Mengecek apakah subquery menghasilkan data",
+      "Menjumlahkan data",
+      "Menghapus tabel"
+    ],
+    answer: "Mengecek apakah subquery menghasilkan data"
+  },
+  {
+    id: 43,
+    modulId: 8,
+    materiId: 3,
+    question: "Operator ANY digunakan untuk?",
+    options: [
+      "Membandingkan dengan semua nilai",
+      "Membandingkan dengan salah satu nilai",
+      "Menghapus data",
+      "Menampilkan semua data"
+    ],
+    answer: "Membandingkan dengan salah satu nilai"
+  },
+  {
+    id: 44,
+    modulId: 8,
+    materiId: 3,
+    question: "Operator ALL digunakan untuk?",
+    options: [
+      "Membandingkan dengan satu nilai",
+      "Membandingkan dengan semua nilai",
+      "Menghapus data",
+      "Mengurutkan data"
+    ],
+    answer: "Membandingkan dengan semua nilai"
+  },
+  {
+    id: 45,
+    modulId: 8,
+    materiId: 3,
+    question: "Query mana yang benar menggunakan operator IN?",
+    options: [
+      "SELECT * FROM produk WHERE kategori = (SELECT kategori FROM produk)",
+      "SELECT * FROM produk WHERE kategori IN (SELECT kategori FROM produk)",
+      "SELECT * FROM produk WHERE IN kategori",
+      "SELECT * FROM produk IN kategori"
+    ],
+    answer: "SELECT * FROM produk WHERE kategori IN (SELECT kategori FROM produk)"
+  },
+  {
+    id: 46,
+    modulId: 8,
+    materiId: 4,
+    question: "Di mana subquery bisa digunakan dalam SQL?",
+    options: [
+      "Hanya di WHERE",
+      "Hanya di SELECT",
+      "WHERE, SELECT, dan FROM",
+      "Hanya di FROM"
+    ],
+    answer: "WHERE, SELECT, dan FROM"
+  },
+  {
+    id: 47,
+    modulId: 8,
+    materiId: 4,
+    question: "Subquery pada WHERE digunakan untuk?",
+    options: [
+      "Menampilkan kolom baru",
+      "Filtering data",
+      "Menghapus data",
+      "Mengubah tabel"
+    ],
+    answer: "Filtering data"
+  },
+  {
+    id: 48,
+    modulId: 8,
+    materiId: 4,
+    question: "Subquery pada SELECT digunakan untuk?",
+    options: [
+      "Menghapus data",
+      "Menampilkan hasil tambahan dalam kolom",
+      "Mengurutkan data",
+      "Menghapus tabel"
+    ],
+    answer: "Menampilkan hasil tambahan dalam kolom"
+  },
+  {
+    id: 49,
+    modulId: 8,
+    materiId: 4,
+    question: "Subquery pada FROM disebut juga?",
+    options: [
+      "Main query",
+      "Derived table",
+      "Primary key",
+      "Index"
+    ],
+    answer: "Derived table"
+  },
+  {
+    id: 50,
+    modulId: 8,
+    materiId: 4,
+    question: "Apa yang wajib digunakan saat subquery berada di FROM?",
+    options: [
+      "WHERE",
+      "GROUP BY",
+      "Alias",
+      "ORDER BY"
+    ],
+    answer: "Alias"
+  },
+  {
+    id: 51,
+    modulId: 8,
+    materiId: 5,
+    question: "Apa yang dimaksud dengan correlated subquery?",
+    options: [
+      "Subquery yang berdiri sendiri",
+      "Subquery yang tidak bergantung pada query utama",
+      "Subquery yang bergantung pada query utama",
+      "Subquery untuk menghapus data"
+    ],
+    answer: "Subquery yang bergantung pada query utama"
+  },
+  {
+    id: 52,
+    modulId: 8,
+    materiId: 5,
+    question: "Kapan correlated subquery dijalankan?",
+    options: [
+      "Satu kali saja",
+      "Sebelum query utama",
+      "Berulang untuk setiap baris",
+      "Tidak pernah dijalankan"
+    ],
+    answer: "Berulang untuk setiap baris"
+  },
+  {
+    id: 53,
+    modulId: 8,
+    materiId: 5,
+    question: "Mengapa correlated subquery bisa lebih lambat?",
+    options: [
+      "Karena tidak menggunakan tabel",
+      "Karena dijalankan berulang untuk setiap baris",
+      "Karena tidak memiliki hasil",
+      "Karena tidak bisa digunakan"
+    ],
+    answer: "Karena dijalankan berulang untuk setiap baris"
+  },
+  {
+    id: 54,
+    modulId: 8,
+    materiId: 5,
+    question: "Query mana yang termasuk correlated subquery?",
+    options: [
+      "SELECT * FROM karyawan WHERE gaji > 5000000",
+      "SELECT * FROM karyawan WHERE gaji > (SELECT AVG(gaji) FROM karyawan)",
+      "SELECT * FROM karyawan k1 WHERE gaji > (SELECT AVG(gaji) FROM karyawan k2 WHERE k1.departemen = k2.departemen)",
+      "SELECT COUNT(*) FROM karyawan"
+    ],
+    answer: "SELECT * FROM karyawan k1 WHERE gaji > (SELECT AVG(gaji) FROM karyawan k2 WHERE k1.departemen = k2.departemen)"
+  },
+  {
+    id: 55,
+    modulId: 8,
+    materiId: 5,
+    question: "Correlated subquery biasanya digunakan untuk?",
+    options: [
+      "Menghapus data",
+      "Perbandingan data per kelompok",
+      "Menambahkan tabel",
+      "Mengurutkan data"
+    ],
+    answer: "Perbandingan data per kelompok"
+  },
+  {
+    id: 56,
+    modulId: 8,
+    materiId: 6,
+    question: "Apa perbedaan utama antara subquery dan JOIN?",
+    options: [
+      "Subquery lebih cepat",
+      "JOIN lebih mudah dipahami",
+      "JOIN lebih efisien, subquery lebih mudah dipahami",
+      "Tidak ada perbedaan"
+    ],
+    answer: "JOIN lebih efisien, subquery lebih mudah dipahami"
+  },
+  {
+    id: 57,
+    modulId: 8,
+    materiId: 6,
+    question: "Kapan sebaiknya menggunakan JOIN?",
+    options: [
+      "Saat ingin performa lebih baik",
+      "Saat ingin query lebih panjang",
+      "Saat menghapus data",
+      "Saat membuat database"
+    ],
+    answer: "Saat ingin performa lebih baik"
+  },
+  {
+    id: 58,
+    modulId: 8,
+    materiId: 6,
+    question: "Kapan subquery lebih cocok digunakan?",
+    options: [
+      "Saat ingin query sederhana dan mudah dipahami",
+      "Saat ingin performa tinggi",
+      "Saat menghapus data",
+      "Saat membuat tabel"
+    ],
+    answer: "Saat ingin query sederhana dan mudah dipahami"
+  },
+  {
+    id: 59,
+    modulId: 8,
+    materiId: 6,
+    question: "JOIN digunakan untuk?",
+    options: [
+      "Menghapus data",
+      "Menggabungkan tabel",
+      "Menghitung rata-rata",
+      "Mengurutkan data"
+    ],
+    answer: "Menggabungkan tabel"
+  },
+  {
+    id: 60,
+    modulId: 8,
+    materiId: 6,
+    question: "Query mana yang menggunakan JOIN dengan benar?",
+    options: [
+      "SELECT * FROM pesanan WHERE pelanggan_id IN (SELECT id FROM pelanggan)",
+      "SELECT * FROM pesanan JOIN pelanggan ON pesanan.pelanggan_id = pelanggan.id",
+      "SELECT * FROM pesanan WHERE JOIN pelanggan",
+      "SELECT JOIN * FROM pelanggan"
+    ],
+    answer: "SELECT * FROM pesanan JOIN pelanggan ON pesanan.pelanggan_id = pelanggan.id"
+  },
+  
 ];
