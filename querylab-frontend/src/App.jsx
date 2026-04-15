@@ -36,6 +36,21 @@ function App() {
         </main>
 
         <QueryLabAI />
+        <footer className="py-6 border-t bg-white mt-auto">
+          <div className="container mx-auto px-4">
+            <div className="flex flex-col md:flex-row justify-between align-middle items-center gap-4">
+              <p className="text-gray-500 text-sm mb-0">
+                &copy; {new Date().getFullYear()} <span className="font-bold text-blue-600">SQL</span>Lab AI. 
+                Created by <span className="font-semibold text-gray-800">Hizkia Cristian Siahaan</span>
+              </p>
+              <div className="flex gap-4">
+                <span className="text-gray-400 text-xs italic">
+                  "Mastering Data, One Query at a Time."
+                </span>
+              </div>
+            </div>
+          </div>
+        </footer>
       </div>
     </Router>
   );
