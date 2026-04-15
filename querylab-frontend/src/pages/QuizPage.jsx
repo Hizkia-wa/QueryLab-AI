@@ -13,17 +13,33 @@ export default function QuizPage() {
   const { id } = useParams();
   const navigate = useNavigate();
 
+  // ✅ FILTER SESUAI MATERI
+  const filteredQuiz = quizData.filter(
+    (q) => Number(q.materiId) === Number(id)
+  );
+
   const [currentStep, setCurrentStep] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
   const [score, setScore] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
 
+  // ❗ JAGA-JAGA KALAU DATA KOSONG
+  if (filteredQuiz.length === 0) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <h2 className="text-xl font-bold text-gray-500">
+          Soal belum tersedia untuk materi ini
+        </h2>
+      </div>
+    );
+  }
+
   const handleNext = () => {
-    if (selectedOption === quizData[currentStep].answer) {
+    if (selectedOption === filteredQuiz[currentStep].answer) {
       setScore(score + 1);
     }
 
-    if (currentStep < quizData.length - 1) {
+    if (currentStep < filteredQuiz.length - 1) {
       setCurrentStep(currentStep + 1);
       setSelectedOption(null);
     } else {
@@ -36,14 +52,14 @@ export default function QuizPage() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#f8fafc]">
         <div className="bg-white p-10 rounded-3xl shadow-xl text-center w-[400px]">
-          
+
           <Trophy size={50} className="mx-auto text-yellow-500 mb-4" />
 
           <h2 className="text-2xl font-bold mb-2">Quiz Selesai</h2>
-          <p className="text-gray-500 mb-6">Modul {id}</p>
+          <p className="text-gray-500 mb-6">Materi {id}</p>
 
           <h1 className="text-5xl font-bold text-indigo-600 mb-6">
-            {Math.round((score / quizData.length) * 100)}
+            {Math.round((score / filteredQuiz.length) * 100)}
           </h1>
 
           <button
@@ -76,12 +92,12 @@ export default function QuizPage() {
             <div
               className="h-2 bg-indigo-600 rounded-full"
               style={{
-                width: `${((currentStep + 1) / quizData.length) * 100}%`
+                width: `${((currentStep + 1) / filteredQuiz.length) * 100}%`
               }}
             />
           </div>
           <p className="text-sm mt-2 text-gray-400">
-            {currentStep + 1} / {quizData.length}
+            {currentStep + 1} / {filteredQuiz.length}
           </p>
         </div>
 
@@ -93,21 +109,20 @@ export default function QuizPage() {
           </div>
 
           <h2 className="text-xl font-bold">
-            {quizData[currentStep].question}
+            {filteredQuiz[currentStep].question}
           </h2>
         </div>
 
         {/* Options */}
         <div className="space-y-3 mb-6">
-          {quizData[currentStep].options.map((option) => (
+          {filteredQuiz[currentStep].options.map((option) => (
             <button
               key={option}
               onClick={() => setSelectedOption(option)}
-              className={`w-full text-left p-4 rounded-xl border ${
-                selectedOption === option
+              className={`w-full text-left p-4 rounded-xl border ${selectedOption === option
                   ? "bg-indigo-100 border-indigo-500"
                   : "hover:bg-gray-50"
-              }`}
+                }`}
             >
               {option}
             </button>
@@ -118,13 +133,12 @@ export default function QuizPage() {
         <button
           disabled={!selectedOption}
           onClick={handleNext}
-          className={`w-full py-3 rounded-xl font-bold flex justify-center items-center gap-2 ${
-            selectedOption
+          className={`w-full py-3 rounded-xl font-bold flex justify-center items-center gap-2 ${selectedOption
               ? "bg-indigo-600 text-white"
               : "bg-gray-200 text-gray-400"
-          }`}
+            }`}
         >
-          {currentStep === quizData.length - 1 ? "Finish" : "Next"}
+          {currentStep === filteredQuiz.length - 1 ? "Finish" : "Next"}
           <ArrowRight size={16} />
         </button>
 
