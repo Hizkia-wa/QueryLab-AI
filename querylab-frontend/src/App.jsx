@@ -41,7 +41,7 @@ function App() {
             <div className="flex flex-col md:flex-row justify-between align-middle items-center gap-4">
               <p className="text-gray-500 text-sm mb-0">
                 &copy; {new Date().getFullYear()} <span className="font-bold text-blue-600">SQL</span>Lab AI. 
-                Created by <span className="font-semibold text-gray-800">Hizkia Cristian Siahaan</span>
+                Created by <span className="font-semibold text-gray-800">Q-Lab Squad</span>
               </p>
               <div className="flex gap-4">
                 <span className="text-gray-400 text-xs italic">
