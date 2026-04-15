@@ -9,7 +9,7 @@ export default function QueryLabAI() {
   const [preview, setPreview] = useState(null);
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState([
-    { role: "bot", text: "Halo Hizkia! Ada kendala dengan tugas SQL atau coding-mu? Kirim soal atau fotonya di sini ya." }
+    { role: "bot", text: "Halo the Q-Selectors! Ada kendala dengan tugas SQL atau coding-mu? Kirim soal atau fotonya di sini ya." }
   ]);
   const fileInputRef = useRef(null);
 
