@@ -55,7 +55,7 @@ export default function Navbar() {
                 : "text-indigo-600 hover:bg-indigo-50"
             }`}
           >
-            <Cpu size={16} className={location.pathname === "/ai-tutor" ? "animate-pulse" : ""} />
+            <Cpu size={16} className={location.pathname === "/ai-mentor" ? "animate-pulse" : ""} />
             AI Tutor
           </Link>
         </div>
