@@ -7,6 +7,7 @@ export default function PraktikumLayout() {
   const { id } = useParams();
   const currentModulId = Number(id);
 
+  // Mengambil soal berdasarkan ID modul
   const filteredSoal = soalData
     .filter((s) => s.modulId === currentModulId)
     .sort((a, b) => a.id - b.id);
@@ -18,6 +19,7 @@ export default function PraktikumLayout() {
 
   useEffect(() => {
     if (filteredSoal.length > 0) {
+      // Pastikan memilih soal pertama dari modul yang aktif saat ID berubah
       setSelectedSoal(filteredSoal[0]);
       resetState();
     }
@@ -48,21 +50,26 @@ export default function PraktikumLayout() {
       if (userQuery.includes("select *")) {
         setResult(dataSource);
       } else {
-        const columns = selectedSoal.expectedQuery
-          .toLowerCase()
-          .replace("select", "")
-          .split("from")[0]
-          .split(",")
-          .map((c) => c.trim().split(".").pop());
+        // Logika ekstraksi kolom yang lebih aman
+        try {
+          const columns = selectedSoal.expectedQuery
+            .toLowerCase()
+            .replace("select", "")
+            .split("from")[0]
+            .split(",")
+            .map((c) => c.trim().split(".").pop());
 
-        const filteredData = dataSource.map((item) => {
-          let row = {};
-          columns.forEach((col) => {
-            if (item[col] !== undefined) row[col] = item[col];
+          const filteredData = dataSource.map((item) => {
+            let row = {};
+            columns.forEach((col) => {
+              if (item[col] !== undefined) row[col] = item[col];
+            });
+            return row;
           });
-          return row;
-        });
-        setResult(filteredData);
+          setResult(filteredData);
+        } catch (e) {
+          setResult(dataSource); // Fallback ke data asli jika parser gagal
+        }
       }
     } else {
       setStatus("salah");
@@ -70,40 +77,54 @@ export default function PraktikumLayout() {
     }
   };
 
-  if (!selectedSoal) return <div className="p-5 text-center">Loading...</div>;
+  // --- PERBAIKAN UTAMA: RENDER TABLE DENGAN GUARD CLAUSE ---
+  const RenderTable = ({ data, label, color }) => {
+    // Cek apakah data valid dan memiliki isi
+    const isValid = data && Array.isArray(data) && data.length > 0;
 
-  // Helper untuk Render Tabel agar terlihat "Mewah"
-  const RenderTable = ({ data, label, color }) => (
-    <div className="mb-4">
-      <h6 className={`small fw-bold text-${color} mb-3 d-flex align-items-center`}>
-        <span className={`badge bg-${color} bg-opacity-10 text-${color} me-2 px-3 py-2 rounded-pill`}>
-          {label}
-        </span>
-      </h6>
-      <div className="card border-0 shadow-sm rounded-4 overflow-hidden bg-white p-2">
-         <div className="table-responsive">
-            <table className="table table-hover mb-0 align-middle" style={{ fontSize: "12px" }}>
-              <thead className="bg-light">
-                <tr className="text-secondary">
-                  {Object.keys(data[0]).map(k => <th key={k} className="border-0 px-3 py-2">{k}</th>)}
-                </tr>
-              </thead>
-              <tbody className="border-top-0">
-                {data.map((r, i) => (
-                  <tr key={i}>
-                    {Object.values(r).map((v, j) => <td key={j} className="px-3 py-2 border-bottom-light">{v}</td>)}
+    return (
+      <div className="mb-4">
+        <h6 className={`small fw-bold text-${color} mb-3 d-flex align-items-center`}>
+          <span className={`badge bg-${color} bg-opacity-10 text-${color} me-2 px-3 py-2 rounded-pill`}>
+            {label}
+          </span>
+        </h6>
+        <div className="card border-0 shadow-sm rounded-4 overflow-hidden bg-white p-2">
+          <div className="table-responsive">
+            {isValid ? (
+              <table className="table table-hover mb-0 align-middle" style={{ fontSize: "12px" }}>
+                <thead className="bg-light">
+                  <tr className="text-secondary">
+                    {/* Object.keys hanya dipanggil jika data[0] dipastikan ada */}
+                    {Object.keys(data[0]).map((k) => (
+                      <th key={k} className="border-0 px-3 py-2">{k}</th>
+                    ))}
                   </tr>
-                ))}
-              </tbody>
-            </table>
-         </div>
+                </thead>
+                <tbody className="border-top-0">
+                  {data.map((r, i) => (
+                    <tr key={i}>
+                      {Object.values(r).map((v, j) => (
+                        <td key={j} className="px-3 py-2 border-bottom-light">{v}</td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <div className="p-3 text-center text-muted italic">Data tidak tersedia</div>
+            )}
+          </div>
+        </div>
       </div>
-    </div>
-  );
+    );
+  };
+
+  if (!selectedSoal) return <div className="p-5 text-center">Loading...</div>;
 
   return (
     <div style={{ backgroundColor: "#F8FAFC", minHeight: "100vh", fontFamily: "'Inter', sans-serif" }}>
-      {/* NAVBAR MODERN */}
+      {/* NAVBAR */}
       <nav className="navbar navbar-expand-lg border-bottom bg-white px-4 sticky-top shadow-sm py-3">
         <div className="container-fluid">
           <Link to="/" className="navbar-brand fw-bold fs-4 text-dark d-flex align-items-center">
@@ -124,17 +145,15 @@ export default function PraktikumLayout() {
           
           {/* PANEL KIRI */}
           <div className="col-lg-4">
-            
-            {/* 1. TANTANGAN (NAVIGASI) */}
             <section className="mb-4">
-               <label className="fw-bold text-muted small text-uppercase mb-3 d-block letter-spacing-1">Tantangan</label>
+               <label className="fw-bold text-muted small text-uppercase mb-3 d-block">Tantangan</label>
                <div className="card border-0 shadow-sm rounded-4 p-3 bg-white">
                   <div className="d-flex flex-wrap gap-2">
                     {filteredSoal.map((s, index) => (
                       <button
                         key={s.id}
                         onClick={() => { setSelectedSoal(s); resetState(); }}
-                        className={`btn transition-all border-0 rounded-3 p-0 d-flex align-items-center justify-content-center ${
+                        className={`btn border-0 rounded-3 p-0 d-flex align-items-center justify-content-center ${
                           selectedSoal.id === s.id ? "btn-primary shadow-lg" : "btn-light text-secondary"
                         }`}
                         style={{ width: "42px", height: "42px", fontWeight: "700" }}
@@ -146,36 +165,25 @@ export default function PraktikumLayout() {
                </div>
             </section>
 
-            {/* 2. DETAIL SOAL */}
             <section className="mb-4">
                <div className="card border-0 shadow-sm rounded-4 overflow-hidden bg-white">
                   <div className="card-body p-4">
                     <h4 className="fw-bold text-dark mb-3">{selectedSoal.judul}</h4>
-                    <p className="text-muted mb-4" style={{ lineHeight: "1.6" }}>{selectedSoal.materi}</p>
-                    
+                    <p className="text-muted mb-4">{selectedSoal.materi}</p>
                     <div className="bg-primary bg-opacity-10 p-4 rounded-4 border-start border-primary border-5">
                       <h6 className="fw-bold text-primary mb-2">Tugas Utama:</h6>
-                      <p className="mb-0 text-dark fw-medium fs-6">{selectedSoal.instruksi}</p>
+                      <p className="mb-0 text-dark fw-medium">{selectedSoal.instruksi}</p>
                     </div>
                   </div>
-                  {selectedSoal.hint && (
-                    <div className="card-footer bg-light border-0 px-4 py-3">
-                      <small className="text-muted d-flex align-items-start">
-                        <span className="me-2 text-warning fs-5">💡</span>
-                        <span><strong>Tip:</strong> {selectedSoal.hint}</span>
-                      </small>
-                    </div>
-                  )}
                </div>
             </section>
 
-            {/* 3. REFERENSI TABEL (DENGAN EFEK CARD DI BELAKANG) */}
             <section>
-               <label className="fw-bold text-muted small text-uppercase mb-3 d-block letter-spacing-1">Database Schema</label>
+               <label className="fw-bold text-muted small text-uppercase mb-3 d-block">Database Schema</label>
                {selectedSoal.tabelSkema.tabelKiri ? (
                  <>
-                   <RenderTable data={selectedSoal.tabelSkema.tabelKiri} label="Table A: Data Master" color="primary" />
-                   <RenderTable data={selectedSoal.tabelSkema.tabelKanan} label="Table B: Data Relasi" color="success" />
+                   <RenderTable data={selectedSoal.tabelSkema.tabelKiri} label="Table A" color="primary" />
+                   <RenderTable data={selectedSoal.tabelSkema.tabelKanan} label="Table B" color="success" />
                  </>
                ) : (
                  <RenderTable data={selectedSoal.tabelSkema} label="Tabel Aktif" color="primary" />
@@ -185,88 +193,43 @@ export default function PraktikumLayout() {
 
           {/* PANEL KANAN */}
           <div className="col-lg-8">
-            {/* EDITOR AREA */}
             <div className="card border-0 shadow-lg rounded-4 overflow-hidden mb-5">
-              <div className="card-header bg-dark d-flex justify-content-between align-items-center px-4 py-3">
-                <div className="d-flex align-items-center">
-                   <div className="bg-secondary bg-opacity-25 p-2 rounded-2 me-2">
-                      <code className="text-info small fw-bold">SQL</code>
-                   </div>
-                   <span className="text-white-50 small fw-medium">Query Console</span>
-                </div>
+              <div className="card-header bg-dark px-4 py-3 d-flex justify-content-between">
+                <span className="text-white-50 small fw-medium">Query Console</span>
                 <div className="d-flex gap-2">
                    <div className="rounded-circle" style={{width: '10px', height: '10px', backgroundColor: '#FF5F56'}}></div>
-                   <div className="rounded-circle" style={{width: '10px', height: '10px', backgroundColor: '#FFBD2E'}}></div>
                    <div className="rounded-circle" style={{width: '10px', height: '10px', backgroundColor: '#27C93F'}}></div>
                 </div>
               </div>
               <textarea
                 className="form-control border-0 bg-dark text-info p-4"
-                style={{ 
-                  height: "320px", 
-                  fontFamily: "'Fira Code', monospace", 
-                  fontSize: "18px", 
-                  lineHeight: "1.5",
-                  outline: "none", 
-                  resize: "none",
-                  letterSpacing: "0.5px"
-                }}
+                style={{ height: "250px", fontFamily: "'Fira Code', monospace", fontSize: "16px", resize: "none" }}
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="-- Tulis perintah SQL di sini..."
+                placeholder="-- Tulis SQL di sini..."
               />
-              <div className="card-footer bg-dark border-top border-white border-opacity-10 d-flex justify-content-between align-items-center p-4">
-                <span className="text-muted small italic">Pastikan akhiran query sudah benar.</span>
-                <div>
-                   <button className="btn btn-link text-white text-decoration-none me-4 fw-medium" onClick={resetState}>Reset</button>
-                   <button className="btn btn-primary rounded-pill px-5 py-2 fw-bold shadow" onClick={handleRun}>Run Query</button>
-                </div>
+              <div className="card-footer bg-dark border-top border-white border-opacity-10 d-flex justify-content-end p-3">
+                <button className="btn btn-link text-white text-decoration-none me-3" onClick={resetState}>Reset</button>
+                <button className="btn btn-primary rounded-pill px-4 fw-bold" onClick={handleRun}>Run Query</button>
               </div>
             </div>
 
-            {/* OUTPUT AREA */}
+            {/* HASIL QUERY */}
             <div className="card border-0 shadow-sm rounded-4 bg-white overflow-hidden">
-              <div className="card-header bg-white border-0 pt-4 px-4">
-                <h6 className="fw-bold text-muted text-uppercase small letter-spacing-1">Query Result</h6>
-              </div>
               <div className="card-body p-4">
-                {!result && (
-                  <div className="text-center py-5">
-                    <div className="opacity-25 mb-3 text-primary">
-                        <svg width="64" height="64" fill="currentColor" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M12.354 4.354a.5.5 0 0 0-.708-.708L8 7.293 4.354 3.646a.5.5 0 1 0-.708.708L7.293 8l-3.647 3.646a.5.5 0 0 0 .708.708L8 8.707l3.646 3.647a.5.5 0 0 0 .708-.708L8.707 8l3.647-3.646z"/></svg>
-                    </div>
-                    <p className="text-muted">Siap untuk eksekusi. Hasil query akan tampil di sini.</p>
-                  </div>
-                )}
+                {!result && <p className="text-center text-muted py-4">Hasil query akan tampil di sini.</p>}
                 
-                {status === "salah" && <div className="alert alert-danger rounded-4 border-0 p-3 shadow-sm animate__animated animate__shakeX">{result}</div>}
-                {status === "error" && <div className="alert alert-warning rounded-4 border-0 p-3 shadow-sm">{result}</div>}
+                {(status === "salah" || status === "error") && (
+                  <div className="alert alert-danger border-0 rounded-4">{result}</div>
+                )}
 
-                {status === "benar" && Array.isArray(result) && result.length > 0 && (
-                  <div className="animate__animated animate__fadeInUp">
-                    <div className="alert alert-success border-0 rounded-4 p-3 shadow-sm mb-4 d-flex align-items-center">
-                      <span className="fs-4 me-3">✨</span>
-                      <div>
-                        <strong className="d-block text-success">Query Berhasil!</strong>
-                        <small>Data berhasil ditarik dari database simulasi.</small>
-                      </div>
+                {status === "benar" && (
+                  <div className="animate__animated animate__fadeIn">
+                    <div className="alert alert-success border-0 rounded-4 mb-4">
+                      <strong>✨ Query Berhasil!</strong>
                     </div>
-                    <div className="card border-0 shadow-sm rounded-4 overflow-hidden">
-                      <div className="table-responsive">
-                        <table className="table table-hover align-middle mb-0">
-                          <thead className="table-dark border-0">
-                            <tr>{Object.keys(result[0]).map(k => <th key={k} className="px-4 py-3">{k}</th>)}</tr>
-                          </thead>
-                          <tbody>
-                            {result.map((row, i) => (
-                              <tr key={i}>
-                                {Object.values(row).map((v, j) => <td key={j} className="px-4 py-3">{v}</td>)}
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
+                    {/* Render hasil query menggunakan RenderTable yang sudah aman */}
+                    <RenderTable data={result} label="Query Output" color="dark" />
                   </div>
                 )}
               </div>
