@@ -1,22 +1,14 @@
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import {
-  Trophy,
-  ArrowRight,
-  HelpCircle,
-  RefreshCcw
-} from "lucide-react";
-
+import { useParams, useNavigate } from "react-router-dom";
 import { quizData } from "../data/quiz";
+import { Trophy, ArrowRight, CheckCircle2, XCircle, RefreshCcw, ChevronLeft } from "lucide-react";
 
 export default function QuizPage() {
-  const { id } = useParams();
+  const { id } = useParams(); // Mengambil ID dari URL (contoh: /quiz/7)
   const navigate = useNavigate();
 
-  // ✅ FILTER SESUAI MATERI
-  const filteredQuiz = quizData.filter(
-    (q) => Number(q.materiId) === Number(id)
-  );
+  // FILTER: Hanya ambil soal yang modulId-nya sama dengan ID di URL
+  const filteredQuiz = quizData.filter((q) => Number(q.modulId) === Number(id));
 
   const [currentStep, setCurrentStep] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
@@ -24,18 +16,24 @@ export default function QuizPage() {
   const [isFinished, setIsFinished] = useState(false);
   const [isAnswered, setIsAnswered] = useState(false);
 
-  // ❗ DATA KOSONG
+  // Jika ID di URL tidak ada soalnya di quizData
   if (filteredQuiz.length === 0) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <h2 className="text-xl font-bold text-gray-500">
-          Soal belum tersedia untuk materi ini
-        </h2>
+      <div className="min-h-screen flex flex-col items-center justify-center bg-[#f8fafc]">
+        <h2 className="text-xl font-bold text-slate-400">Belum ada kuis untuk Modul {id}</h2>
+        <button onClick={() => navigate(-1)} className="mt-4 btn btn-primary rounded-pill px-4">Kembali</button>
       </div>
     );
   }
 
   const currentQuestion = filteredQuiz[currentStep];
+
+  const handleOptionClick = (option) => {
+    if (isAnswered) return;
+    setSelectedOption(option);
+    setIsAnswered(true);
+    if (option === currentQuestion.answer) setScore(score + 1);
+  };
 
   const handleNext = () => {
     if (currentStep < filteredQuiz.length - 1) {
@@ -47,139 +45,77 @@ export default function QuizPage() {
     }
   };
 
-  // ================= RESULT =================
   if (isFinished) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#f8fafc]">
-        <div className="bg-white p-10 rounded-3xl shadow-xl text-center w-[400px]">
-
-          <Trophy size={50} className="mx-auto text-yellow-500 mb-4" />
-
-          <h2 className="text-2xl font-bold mb-2">Quiz Selesai</h2>
-          <p className="text-gray-500 mb-6">Materi {id}</p>
-
-          <h1 className="text-5xl font-bold text-indigo-600 mb-6">
-            {Math.round((score / filteredQuiz.length) * 100)}
-          </h1>
-
-          <button
-            onClick={() => navigate("/materi")}
-            className="w-full bg-black text-white py-3 rounded-xl mb-3"
-          >
-            Kembali
-          </button>
-
-          <button
-            onClick={() => window.location.reload()}
-            className="w-full border py-3 rounded-xl flex items-center justify-center gap-2"
-          >
-            <RefreshCcw size={16} /> Ulangi
-          </button>
+      <div className="min-h-screen bg-[#f8fafc] flex items-center justify-center p-4">
+        <div className="bg-white p-10 rounded-[2.5rem] shadow-xl text-center max-w-sm w-full border border-gray-100">
+          <Trophy size={60} className="text-yellow-500 mx-auto mb-4" />
+          <h2 className="fw-bold mb-1">Kuis Selesai!</h2>
+          <p className="text-muted small mb-4">Modul {id}</p>
+          <div className="bg-primary bg-opacity-10 py-4 rounded-4 mb-4">
+             <h1 className="display-4 fw-black text-primary">
+                {Math.round((score / filteredQuiz.length) * 100)}
+             </h1>
+          </div>
+          <button onClick={() => navigate(-1)} className="btn btn-dark w-100 py-3 rounded-4 fw-bold mb-2">Selesai</button>
+          <button onClick={() => window.location.reload()} className="btn btn-link text-muted w-100 text-decoration-none small">Ulangi Kuis</button>
         </div>
       </div>
     );
   }
 
-  // ================= QUIZ =================
   return (
-    <div className="min-h-screen bg-[#f8fafc] flex items-center justify-center px-4">
-
-      <div className="w-full max-w-2xl bg-white p-8 rounded-3xl shadow-lg">
-
+    <div className="min-h-screen bg-[#f8fafc] flex flex-col items-center justify-center p-4">
+      <div className="w-full max-w-2xl bg-white p-6 md:p-10 rounded-[2.5rem] shadow-sm border border-gray-100">
+        
         {/* Progress */}
-        <div className="mb-6">
-          <div className="h-2 bg-gray-200 rounded-full">
-            <div
-              className="h-2 bg-indigo-600 rounded-full"
-              style={{
-                width: `${((currentStep + 1) / filteredQuiz.length) * 100}%`
-              }}
-            />
-          </div>
-          <p className="text-sm mt-2 text-gray-400">
-            {currentStep + 1} / {filteredQuiz.length}
-          </p>
+        <div className="d-flex justify-content-between align-items-center mb-5">
+            <button onClick={() => navigate(-1)} className="btn btn-light rounded-circle p-2"><ChevronLeft size={20}/></button>
+            <span className="badge bg-light text-dark rounded-pill px-3">Soal {currentStep + 1} / {filteredQuiz.length}</span>
         </div>
 
-        {/* Question */}
-        <div className="mb-6">
-          <div className="flex items-center gap-2 text-indigo-600 mb-2">
-            <HelpCircle size={18} />
-            <span className="text-xs font-bold">QUESTION</span>
-          </div>
-
-          <h2 className="text-xl font-bold">
-            {currentQuestion.question}
-          </h2>
-        </div>
+        <h3 className="fw-bold text-slate-800 mb-5">{currentQuestion.question}</h3>
 
         {/* Options */}
-        <div className="space-y-3 mb-4">
+        <div className="d-grid gap-3 mb-5">
           {currentQuestion.options.map((option) => {
             const isCorrect = option === currentQuestion.answer;
             const isSelected = option === selectedOption;
 
-            return (
-              <button
-                key={option}
-                disabled={isAnswered}
-                onClick={() => {
-                  setSelectedOption(option);
-                  setIsAnswered(true);
+            let btnClass = "btn btn-outline-light text-dark text-start p-4 rounded-4 border-2 fw-bold transition-all";
+            if (isAnswered) {
+              if (isCorrect) btnClass = "btn btn-success text-start p-4 rounded-4 border-2 border-success bg-opacity-10 fw-bold";
+              else if (isSelected) btnClass = "btn btn-danger text-start p-4 rounded-4 border-2 border-danger bg-opacity-10 fw-bold text-danger";
+              else btnClass = "btn btn-light text-start p-4 rounded-4 border-2 opacity-50 fw-bold";
+            }
 
-                  // ✅ hanya dihitung sekali
-                  if (option === currentQuestion.answer) {
-                    setScore(score + 1);
-                  }
-                }}
-                className={`w-full text-left p-4 rounded-xl border transition-all
-                  ${
-                    isAnswered
-                      ? isCorrect
-                        ? "bg-green-100 border-green-500"
-                        : isSelected
-                        ? "bg-red-100 border-red-500"
-                        : "bg-white"
-                      : isSelected
-                      ? "bg-indigo-100 border-indigo-500"
-                      : "hover:bg-gray-50"
-                  }
-                `}
-              >
-                {option}
+            return (
+              <button key={option} disabled={isAnswered} onClick={() => handleOptionClick(option)} className={btnClass}>
+                <div className="d-flex justify-content-between align-items-center">
+                    {option}
+                    {isAnswered && isCorrect && <CheckCircle2 size={20} className="text-success" />}
+                    {isAnswered && isSelected && !isCorrect && <XCircle size={20} className="text-danger" />}
+                </div>
               </button>
             );
           })}
         </div>
 
-        {/* Feedback */}
+        {/* Penjelasan */}
         {isAnswered && (
-          <div className="mb-4 p-4 rounded-xl bg-gray-50 border">
-            <p className="fw-bold mb-1">
-              {selectedOption === currentQuestion.answer
-                ? "✅ Jawaban Benar!"
-                : "❌ Jawaban Salah"}
-            </p>
-            <p className="text-muted mb-0">
-              {currentQuestion.explanation || "Pelajari kembali materi terkait."}
-            </p>
+          <div className="alert alert-primary border-0 rounded-4 p-4 mb-4 animate__animated animate__fadeIn">
+            <h6 className="fw-bold mb-1">💡 Penjelasan:</h6>
+            <p className="small mb-0 opacity-75">{currentQuestion.explanation}</p>
           </div>
         )}
 
-        {/* Button */}
-        <button
-          disabled={!isAnswered}
-          onClick={handleNext}
-          className={`w-full py-3 rounded-xl font-bold flex justify-center items-center gap-2 ${
-            isAnswered
-              ? "bg-indigo-600 text-white"
-              : "bg-gray-200 text-gray-400"
-          }`}
+        <button 
+          disabled={!isAnswered} 
+          onClick={handleNext} 
+          className="btn btn-primary w-100 py-3 rounded-pill fw-bold shadow-sm"
         >
-          {currentStep === filteredQuiz.length - 1 ? "Finish" : "Next"}
-          <ArrowRight size={16} />
+          {currentStep === filteredQuiz.length - 1 ? "Lihat Hasil Akhir" : "Lanjut ke Soal Berikutnya"} <ArrowRight size={18}/>
         </button>
-
       </div>
     </div>
   );

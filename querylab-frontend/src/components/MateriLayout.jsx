@@ -137,7 +137,7 @@ export default function MateriLayout({ materiData }) {
                 </div>
 
                 <Link
-                  to={`/quiz/${selectedMateri.id}`}
+                  to={`/quiz/${selectedMateri.modulId}`}
                   className="btn btn-primary rounded-pill px-5 py-3 fw-bold d-flex align-items-center gap-2"
                 >
                   Mulai Quiz <ArrowRight size={20} />
