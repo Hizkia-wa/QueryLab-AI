@@ -48,6 +48,12 @@ export default function MateriLayout({ materiData }) {
                 </button>
               ))}
             </div>
+            <Link
+  to={`/quiz/${selectedMateri.modulId}`}
+  className="btn btn-primary rounded-pill px-5 py-3 fw-bold d-flex align-items-center gap-2 mt-4"
+>
+  Mulai Quiz <ArrowRight size={20} />
+</Link>
           </div>
 
           {/* CONTENT */}
@@ -130,19 +136,7 @@ export default function MateriLayout({ materiData }) {
               </div>
 
               {/* ACTION FOOTER (FIX) */}
-              <div className="border-top pt-5 mt-5 d-flex justify-content-between align-items-center">
-                <div>
-                  <p className="fw-bold mb-1">Sudah paham materi ini?</p>
-                  <small className="text-muted">Uji pemahaman kamu dengan quiz interaktif</small>
-                </div>
-
-                <Link
-                  to={`/quiz/${selectedMateri.modulId}`}
-                  className="btn btn-primary rounded-pill px-5 py-3 fw-bold d-flex align-items-center gap-2"
-                >
-                  Mulai Quiz <ArrowRight size={20} />
-                </Link>
-              </div>
+      
 
             </div>
           </div>
