@@ -22,8 +22,9 @@ export default function QuizPage() {
   const [selectedOption, setSelectedOption] = useState(null);
   const [score, setScore] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
+  const [isAnswered, setIsAnswered] = useState(false);
 
-  // ❗ JAGA-JAGA KALAU DATA KOSONG
+  // ❗ DATA KOSONG
   if (filteredQuiz.length === 0) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -34,14 +35,13 @@ export default function QuizPage() {
     );
   }
 
-  const handleNext = () => {
-    if (selectedOption === filteredQuiz[currentStep].answer) {
-      setScore(score + 1);
-    }
+  const currentQuestion = filteredQuiz[currentStep];
 
+  const handleNext = () => {
     if (currentStep < filteredQuiz.length - 1) {
       setCurrentStep(currentStep + 1);
       setSelectedOption(null);
+      setIsAnswered(false);
     } else {
       setIsFinished(true);
     }
@@ -109,34 +109,72 @@ export default function QuizPage() {
           </div>
 
           <h2 className="text-xl font-bold">
-            {filteredQuiz[currentStep].question}
+            {currentQuestion.question}
           </h2>
         </div>
 
         {/* Options */}
-        <div className="space-y-3 mb-6">
-          {filteredQuiz[currentStep].options.map((option) => (
-            <button
-              key={option}
-              onClick={() => setSelectedOption(option)}
-              className={`w-full text-left p-4 rounded-xl border ${selectedOption === option
-                  ? "bg-indigo-100 border-indigo-500"
-                  : "hover:bg-gray-50"
-                }`}
-            >
-              {option}
-            </button>
-          ))}
+        <div className="space-y-3 mb-4">
+          {currentQuestion.options.map((option) => {
+            const isCorrect = option === currentQuestion.answer;
+            const isSelected = option === selectedOption;
+
+            return (
+              <button
+                key={option}
+                disabled={isAnswered}
+                onClick={() => {
+                  setSelectedOption(option);
+                  setIsAnswered(true);
+
+                  // ✅ hanya dihitung sekali
+                  if (option === currentQuestion.answer) {
+                    setScore(score + 1);
+                  }
+                }}
+                className={`w-full text-left p-4 rounded-xl border transition-all
+                  ${
+                    isAnswered
+                      ? isCorrect
+                        ? "bg-green-100 border-green-500"
+                        : isSelected
+                        ? "bg-red-100 border-red-500"
+                        : "bg-white"
+                      : isSelected
+                      ? "bg-indigo-100 border-indigo-500"
+                      : "hover:bg-gray-50"
+                  }
+                `}
+              >
+                {option}
+              </button>
+            );
+          })}
         </div>
+
+        {/* Feedback */}
+        {isAnswered && (
+          <div className="mb-4 p-4 rounded-xl bg-gray-50 border">
+            <p className="fw-bold mb-1">
+              {selectedOption === currentQuestion.answer
+                ? "✅ Jawaban Benar!"
+                : "❌ Jawaban Salah"}
+            </p>
+            <p className="text-muted mb-0">
+              {currentQuestion.explanation || "Pelajari kembali materi terkait."}
+            </p>
+          </div>
+        )}
 
         {/* Button */}
         <button
-          disabled={!selectedOption}
+          disabled={!isAnswered}
           onClick={handleNext}
-          className={`w-full py-3 rounded-xl font-bold flex justify-center items-center gap-2 ${selectedOption
+          className={`w-full py-3 rounded-xl font-bold flex justify-center items-center gap-2 ${
+            isAnswered
               ? "bg-indigo-600 text-white"
               : "bg-gray-200 text-gray-400"
-            }`}
+          }`}
         >
           {currentStep === filteredQuiz.length - 1 ? "Finish" : "Next"}
           <ArrowRight size={16} />
