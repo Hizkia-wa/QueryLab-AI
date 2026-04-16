@@ -86,7 +86,8 @@ export default function QuizPage() {
               key={option}
               onClick={() => handleOptionClick(option)}
               style={{
-                padding: "14px",
+                padding: "16px 18px", // ✅ diperbesar sedikit
+                marginBottom: "10px", // ✅ tambah jarak antar option
                 borderRadius: "14px",
                 border: "1.5px solid #e5e7eb",
                 background: isAnswered
@@ -111,8 +112,8 @@ export default function QuizPage() {
             >
               <div className="d-flex justify-content-between align-items-center">
                 {option}
-                {isAnswered && isCorrect && <CheckCircle2 size={18} color="#22c55e" />}
-                {isAnswered && isSelected && !isCorrect && <XCircle size={18} color="#ef4444" />}
+                {isAnswered && isCorrect && <CheckCircle2 size={20} color="#22c55e" />}
+                {isAnswered && isSelected && !isCorrect && <XCircle size={20} color="#ef4444" />}
               </div>
             </div>
           );
@@ -120,7 +121,7 @@ export default function QuizPage() {
 
         {/* Penjelasan */}
         {isAnswered && (
-          <div className="alert alert-primary border-0 rounded-4 p-4 mb-4 animate__animated animate__fadeIn">
+          <div className="alert alert-primary border-0 rounded-4 p-4 mb-5 animate__animated animate__fadeIn">
             <h6 className="fw-bold mb-1">💡 Penjelasan:</h6>
             <p className="small mb-0 opacity-75">{currentQuestion.explanation}</p>
           </div>
@@ -129,9 +130,21 @@ export default function QuizPage() {
         <button
           disabled={!isAnswered}
           onClick={handleNext}
-          className="btn btn-primary w-100 py-3 rounded-pill fw-bold shadow-sm"
+          className="btn w-100 rounded-pill fw-bold shadow-sm d-flex align-items-center justify-content-center gap-2"
+          style={{
+            padding: "15px 20 px",
+            fontSize: "14px",
+            background: isAnswered
+              ? "linear-gradient(135deg, #6366f1, #4f46e5)"
+              : "#c7d2fe",
+            color: "white",
+            border: "none"
+          }}
         >
-          {currentStep === filteredQuiz.length - 1 ? "Lihat Hasil Akhir" : "Lanjut ke Soal Berikutnya"} <ArrowRight size={18} />
+          {currentStep === filteredQuiz.length - 1
+            ? "Lihat Hasil Akhir"
+            : "Lanjut ke Soal Berikutnya"}
+          <ArrowRight size={16} />
         </button>
       </div>
     </div>
