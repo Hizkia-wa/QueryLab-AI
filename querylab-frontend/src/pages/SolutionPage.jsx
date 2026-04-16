@@ -1,7 +1,9 @@
 import React from "react";
 import { BookOpen, FileQuestion, Terminal, Trophy, Sparkles, ChevronRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function SolutionPage() {
+  const navigate = useNavigate();
   const solusiFitur = [
     {
       step: "01",
@@ -107,9 +109,13 @@ export default function SolutionPage() {
               </p>
             </div>
             
-            <button className="group px-10 py-5 bg-indigo-600 text-white rounded-2xl font-black text-lg hover:bg-indigo-500 transition-all flex items-center gap-3 shadow-2xl shadow-indigo-900/40 active:scale-95">
-              Mulai Belajar Sekarang <ChevronRight size={22} className="group-hover:translate-x-1 transition-transform" />
-            </button>
+          <button
+  onClick={() => navigate("/materi")}
+  className="group px-10 py-5 bg-indigo-600 text-white rounded-2xl font-black text-lg hover:bg-indigo-500 transition-all flex items-center gap-3 shadow-2xl shadow-indigo-900/40 active:scale-95"
+>
+  Mulai Belajar Sekarang 
+  <ChevronRight size={22} className="group-hover:translate-x-1 transition-transform" />
+</button>
           </div>
         </div>
       </div>
