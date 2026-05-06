@@ -11,7 +11,7 @@ export default function ModulPage() {
       <h2 className="mb-4 fw-bold">Pilih Modul SQL</h2>
       <div className="row">
         {modulData.map((modul) => (
-          <div key={modul.id} className="col-md-6 mb-4">
+        <div key={modul.modulId} className="col-md-6 mb-4">
             <div className="card shadow-sm h-100 border-0 rounded-4">
               <div className="card-body p-4">
                 <h5 className="fw-bold">{modul.title}</h5>
