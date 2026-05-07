@@ -5,13 +5,13 @@ import Link from "next/link";
 import { ChevronLeft, ArrowRight, BookOpen } from "lucide-react";
 
 export default function MateriLayout({ id, materiData }) {
-  const [selectedMateri, setSelectedMateri] = useState(null);
+const [selectedMateri, setSelectedMateri] = useState(materiData?.[0] || null);
 
-  useEffect(() => {
-    if (materiData.length > 0) {
-      setSelectedMateri(materiData[0]);
-    }
-  }, [id, materiData]);
+useEffect(() => {
+  if (materiData && materiData.length > 0) {
+    setSelectedMateri(materiData[0]);
+  }
+}, [id, materiData]);
 
   if (!selectedMateri) return <div className="p-5 text-center">Memuat Materi...</div>;
 
