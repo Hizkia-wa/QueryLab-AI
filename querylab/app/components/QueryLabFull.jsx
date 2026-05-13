@@ -209,23 +209,35 @@ export default function QueryLabFull() {
         </AnimatePresence>
 
         {/* INPUT CONTROLS */}
-        <div className="flex items-end gap-3 bg-slate-50 p-4 rounded-2xl border border-slate-200 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:border-indigo-300 transition-all duration-200">
-          <motion.button
-            onClick={() => fileInputRef.current.click()}
-            className="p-3 text-slate-400 hover:text-indigo-600 hover:bg-white rounded-xl transition-all duration-200 shadow-sm"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <ImageIcon size={24} />
-          </motion.button>
+        <div className="flex flex-col gap-3 bg-slate-50 p-4 rounded-2xl border border-slate-200 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:border-indigo-300 transition-all duration-200">
+          <div className="flex items-center gap-3 w-full">
+            <motion.button
+              onClick={() => fileInputRef.current.click()}
+              className="p-3 text-slate-400 hover:text-indigo-600 hover:bg-white rounded-xl transition-all duration-200 shadow-sm"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <ImageIcon size={24} />
+            </motion.button>
 
-          <input
-            type="file"
-            ref={fileInputRef}
-            onChange={handleImageChange}
-            className="hidden"
-            accept="image/*"
-          />
+            <input
+              type="file"
+              ref={fileInputRef}
+              onChange={handleImageChange}
+              className="hidden"
+              accept="image/*"
+            />
+
+            <motion.button
+              onClick={handleSend}
+              disabled={loading || (!input.trim() && !image)}
+              className="p-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl hover:from-indigo-700 hover:to-purple-700 disabled:from-slate-300 disabled:to-slate-400 transition-all duration-200 shadow-lg disabled:cursor-not-allowed"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Send size={20} />
+            </motion.button>
+          </div>
 
           <div className="flex-1 relative">
             <textarea
@@ -247,16 +259,6 @@ export default function QueryLabFull() {
               }}
             />
           </div>
-
-          <motion.button
-            onClick={handleSend}
-            disabled={loading || (!input.trim() && !image)}
-            className="p-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl hover:from-indigo-700 hover:to-purple-700 disabled:from-slate-300 disabled:to-slate-400 transition-all duration-200 shadow-lg disabled:cursor-not-allowed"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <Send size={20} />
-          </motion.button>
         </div>
 
         {/* HELP TEXT */}

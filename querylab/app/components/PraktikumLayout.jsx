@@ -169,14 +169,14 @@ export default function PraktikumLayout({ id, soalData }) {
             {/* GRID PENOMORAN YANG LEBIH KECIL & RAPI */}
             <div style={{ 
               display: "grid", 
-              gridTemplateColumns: "repeat(6, 1fr)", // Dibuat 6 kolom agar lebih kompak
-              gap: "8px" 
+              gridTemplateColumns: "repeat(auto-fit, minmax(52px, 1fr))",
+              gap: "10px" 
             }}>
               {soalData.map((s, index) => (
                 <button
                   key={s.id}
                   onClick={() => { setSelectedSoal(s); resetState(); }}
-                  className={`btn p-0 d-flex align-items-center justify-content-center rounded-2 transition-all ${
+                  className={`btn p-0 d-flex align-items-center justify-content-center rounded-3 transition-all ${
                     selectedSoal.id === s.id 
                     ? "btn-primary shadow-sm" 
                     : "btn-light text-secondary border border-light"
@@ -184,9 +184,10 @@ export default function PraktikumLayout({ id, soalData }) {
                   style={{ 
                     aspectRatio: "1/1", 
                     fontWeight: "700",
-                    fontSize: "12px", // Ukuran teks diperkecil
+                    fontSize: "14px", 
                     width: "100%",
-                    maxWidth: "32px", // Batas maksimal lebar kotak
+                    minWidth: "52px",
+                    minHeight: "52px",
                     margin: "0 auto"
                   }}
                 >

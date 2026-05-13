@@ -67,7 +67,7 @@ export default function QueryLabAI() {
       {/* FLOATING BUTTON */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="relative w-14 h-14 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-2xl shadow-2xl flex items-center justify-center hover:scale-110 transition-all duration-300 group"
+        className="relative w-16 h-16 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-2xl shadow-2xl flex items-center justify-center hover:scale-110 transition-all duration-300 group"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
       >
@@ -90,7 +90,7 @@ export default function QueryLabAI() {
               exit={{ rotate: -90, opacity: 0 }}
               transition={{ duration: 0.2 }}
             >
-              <MessageCircle size={24} />
+              <MessageCircle size={28} />
             </motion.div>
           )}
         </AnimatePresence>
@@ -109,7 +109,8 @@ export default function QueryLabAI() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className="absolute bottom-16 right-0 w-[380px] max-w-[calc(100vw-2rem)] max-h-[70vh] bg-white rounded-3xl shadow-2xl border border-slate-200/50 overflow-hidden flex flex-col backdrop-blur-sm"
+            className="absolute bottom-16 right-0 w-[510px] max-w-[calc(100vw-1.5rem)] bg-white rounded-3xl shadow-2xl border border-slate-200/50 overflow-hidden flex flex-col backdrop-blur-sm"
+            style={{ height: 'calc(88vh - 20px)', maxHeight: 'calc(88vh - 20px)' }}
           >
             {/* HEADER */}
             <div className="bg-gradient-to-r from-slate-900 to-slate-800 p-4 text-white flex items-center justify-between shrink-0">
@@ -144,7 +145,7 @@ export default function QueryLabAI() {
                       : "bg-white border border-slate-200 text-slate-800 rounded-tl-md"
                   }`}>
                     {msg.img && (
-                      <img src={msg.img} alt="upload" className="w-full max-h-32 object-contain rounded-lg mb-2 border border-slate-200" />
+                      <img src={msg.img} alt="upload" className="w-full max-h-24 object-contain rounded-lg mb-2 border border-slate-200" />
                     )}
                     <p className="whitespace-pre-wrap break-words">{msg.text}</p>
                   </div>
@@ -185,47 +186,51 @@ export default function QueryLabAI() {
                 </motion.div>
               )}
 
-              <div className="flex gap-2">
-                <motion.button
-                  onClick={() => fileInputRef.current.click()}
-                  className="p-3 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl transition-all duration-200"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <ImageIcon size={20} />
-                </motion.button>
+              <div className="flex flex-col gap-3">
+                <div className="flex items-center gap-3 w-full">
+                  <motion.button
+                    onClick={() => fileInputRef.current.click()}
+                    className="p-3 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl transition-all duration-200"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <ImageIcon size={20} />
+                  </motion.button>
 
-                <input
-                  type="file"
-                  ref={fileInputRef}
-                  onChange={(e) => {
-                    const file = e.target.files[0];
-                    if(file) {
-                      setImage(file);
-                      setPreview(URL.createObjectURL(file));
-                    }
-                  }}
-                  className="hidden"
-                  accept="image/*"
-                />
+                  <input
+                    type="file"
+                    ref={fileInputRef}
+                    onChange={(e) => {
+                      const file = e.target.files[0];
+                      if(file) {
+                        setImage(file);
+                        setPreview(URL.createObjectURL(file));
+                      }
+                    }}
+                    className="hidden"
+                    accept="image/*"
+                  />
 
-                <input
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  onKeyDown={(e) => e.key === "Enter" && !loading && handleSend()}
-                  placeholder="Tanya tentang SQL..."
-                  className="flex-1 bg-slate-100 rounded-xl px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all duration-200"
-                />
+                  <div className="flex-1 relative">
+                    <input
+                      value={input}
+                      onChange={(e) => setInput(e.target.value)}
+                      onKeyDown={(e) => e.key === "Enter" && !loading && handleSend()}
+                      placeholder="Tanya tentang SQL..."
+                      className="w-full min-w-[180px] bg-slate-100 rounded-xl px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all duration-200"
+                    />
+                  </div>
 
-                <motion.button
-                  onClick={handleSend}
-                  disabled={loading || (!input.trim() && !image)}
-                  className="p-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl hover:from-indigo-700 hover:to-purple-700 disabled:from-slate-300 disabled:to-slate-400 transition-all duration-200 shadow-lg"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Send size={20} />
-                </motion.button>
+                  <motion.button
+                    onClick={handleSend}
+                    disabled={loading || (!input.trim() && !image)}
+                    className="p-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl hover:from-indigo-700 hover:to-purple-700 disabled:from-slate-300 disabled:to-purple-400 transition-all duration-200 shadow-lg"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <Send size={20} />
+                  </motion.button>
+                </div>
               </div>
             </div>
           </motion.div>
