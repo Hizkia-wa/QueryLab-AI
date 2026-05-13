@@ -2,11 +2,9 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { CheckCircle, Play, RotateCcw, ArrowRight, Database, Layout } from "lucide-react";
+import { CheckCircle, Play, RotateCcw, Database, Layout } from "lucide-react";
 
 export default function PraktikumLayout({ id, soalData }) {
-  const router = useRouter();
   const currentModulId = Number(id);
 
   const [selectedSoal, setSelectedSoal] = useState(null);
@@ -250,7 +248,7 @@ export default function PraktikumLayout({ id, soalData }) {
                 </button>
                 <button className="btn btn-primary px-5 py-2 fw-black rounded-pill d-flex align-items-center gap-2 shadow-primary" onClick={handleRun}>
                   <Play size={16} fill="white" /> Run Query
-                </button>
+                </button> 
               </div>
             </div>
 
@@ -288,13 +286,6 @@ export default function PraktikumLayout({ id, soalData }) {
                         <div className="small opacity-75">Query kamu berhasil mengeksekusi data dengan tepat.</div>
                       </div>
                     </div>
-                    
-                    <button 
-                      onClick={() => router.push(`/quiz/${currentModulId}`)}
-                      className="btn btn-success rounded-pill px-4 py-2 fw-bold d-flex align-items-center gap-2"
-                    >
-                      Lanjut ke Quiz <ArrowRight size={18} />
-                    </button>
                   </div>
                   <RenderTable data={result} label="Hasil Eksekusi" color="dark" />
                 </div>
