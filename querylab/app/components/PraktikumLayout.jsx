@@ -29,6 +29,27 @@ export default function PraktikumLayout({ id, soalData }) {
 
   const normalize = (text) => text.toLowerCase().trim().replace(/\s+/g, " ");
 
+  const getSchemaTables = (schema) => {
+    if (!schema) return [];
+    if (Array.isArray(schema)) {
+      return [{ label: "Tabel Aktif", color: "primary", data: schema }];
+    }
+
+    const left = Array.isArray(schema.tabelKiri) ? schema.tabelKiri : [];
+    const right = Array.isArray(schema.tabelKanan) ? schema.tabelKanan : [];
+    const tables = [];
+
+    if (left.length > 0) {
+      tables.push({ label: "Tabel Aktif", color: "primary", data: left });
+    }
+    if (right.length > 0) {
+      tables.push({ label: left.length > 0 ? "Tabel Pendukung" : "Tabel Aktif", color: "secondary", data: right });
+    }
+    return tables;
+  };
+
+  const schemaTables = getSchemaTables(selectedSoal?.tabelSkema);
+
   const handleRun = () => {
     if (!query || !selectedSoal) {
       setStatus("error");
@@ -41,7 +62,14 @@ export default function PraktikumLayout({ id, soalData }) {
 
     if (userQuery === correctQuery) {
       setStatus("benar");
-      const dataSource = selectedSoal.tabelSkema.tabelKiri;
+      const schema = selectedSoal.tabelSkema;
+      const dataSource = Array.isArray(schema)
+        ? schema
+        : Array.isArray(schema.tabelKiri) && schema.tabelKiri.length > 0
+        ? schema.tabelKiri
+        : Array.isArray(schema.tabelKanan)
+        ? schema.tabelKanan
+        : [];
 
       if (userQuery.includes("select *")) {
         setResult(dataSource);
@@ -182,7 +210,13 @@ export default function PraktikumLayout({ id, soalData }) {
             </div>
 
             <label className="fw-bold text-muted small text-uppercase mb-2">Skema Database</label>
-            <RenderTable data={selectedSoal.tabelSkema.tabelKiri} label="Tabel Aktif" color="primary" />
+            {schemaTables.length > 0 ? (
+              schemaTables.map((table) => (
+                <RenderTable key={table.label} data={table.data} label={table.label} color={table.color} />
+              ))
+            ) : (
+              <div className="p-4 text-center text-muted small">Data tidak tersedia</div>
+            )}
           </div>
 
           {/* PANEL KANAN */}

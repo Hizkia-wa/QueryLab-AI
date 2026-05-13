@@ -109,17 +109,14 @@ export default function SolutionPage() {
               <p className="max-w-xl text-slate-300 leading-relaxed mb-8">
                 Kirim query kamu. AI akan membalas dengan query yang masih salah dan komentar perbaikan dalam format yang jelas, sehingga kamu belajar dari kesalahan dan tahu apa yang perlu diperbaiki.
               </p>
-              <div className="space-y-4 text-sm text-slate-300">
-                <p>Contoh keluaran:</p>
-                <pre className="bg-slate-800 p-4 rounded-3xl overflow-x-auto text-xs text-slate-200">
-SELECT customer_id, MAX(total_amount) AS total_pembelian -- ❌ diubah: harusnya pakai agregasi untuk TOTAL, bukan nilai terbesar saja
-FROM orders
-WHERE status = 'paid'
-GROUP BY customer_id
-ORDER BY total_amount DESC -- ❌ diubah: kolom ini tidak sesuai dengan alias yang dihitung
-LIMIT 5; -- ❌ diubah: jumlahnya bukan 3
-                </pre>
-              </div>
+              <pre className="bg-slate-800 p-4 rounded-3xl overflow-x-auto text-xs text-slate-200">
+            {`SELECT customer_id, MAX(total_amount) AS total_pembelian -- ❌ diubah: harusnya pakai agregasi untuk TOTAL, bukan nilai terbesar saja
+            FROM orders
+            WHERE status = 'paid'
+            GROUP BY customer_id
+            ORDER BY total_amount DESC -- ❌ diubah: kolom ini tidak sesuai dengan alias yang dihitung
+            LIMIT 5; -- ❌ diubah: jumlahnya bukan 3`}
+            </pre>
             </div>
 
             <div className="w-full min-h-[520px] rounded-[2.5rem] bg-slate-800 p-8 shadow-xl">
